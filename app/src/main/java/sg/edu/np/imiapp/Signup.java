@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class Signup extends AppCompatActivity {
     public EditText newUserEmail;
@@ -60,6 +62,7 @@ public class Signup extends AppCompatActivity {
                             Intent i = new Intent(Signup.this, Signin.class);
                             Signup.this.startActivity(i);
                             FirebaseUser user = mAuth.getCurrentUser();
+                            //TODO:  set username
 
                             updateUI(user);
                         } else {
