@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,25 +20,34 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Signup extends AppCompatActivity {
     public EditText newUserEmail;
     public EditText newUserPassword;
     public EditText newUsername;
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
+    DatabaseReference mDatabase = firebaseDatabase.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        //DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        //rDatabaseReference addData = firebase.child("Users");
+
+
         //find email and password editText in activity_signup.xml
         this.newUserEmail = findViewById(R.id.newUEmail);
         this.newUserPassword = findViewById(R.id.newUPass);
         this.newUsername = findViewById(R.id.userName);
+
+
 
         //find createAccount button in activity_signup.xml
         Button createAccount =(Button) findViewById(R.id.createAccount);
@@ -89,6 +99,24 @@ public class Signup extends AppCompatActivity {
     }
 
     private void saveUsername(String Id, String username){
-        mDatabase.child("users").child(Id).setValue(username);
+        mDatabase.child("Users").child(Id).setValue(username);
+
+
+//        addData.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                addData.child("Users").child(Id).setValue(username);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.d("dataerror", "error");
+//
+//            }
+//        });
+
+
+
+        Log.d("data", "data added");
     }
 }
