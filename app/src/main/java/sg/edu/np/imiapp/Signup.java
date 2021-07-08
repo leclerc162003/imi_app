@@ -19,19 +19,25 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Signup extends AppCompatActivity {
     public EditText newUserEmail;
     public EditText newUserPassword;
+    public EditText newUsername;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         //find email and password editText in activity_signup.xml
         this.newUserEmail = findViewById(R.id.newUEmail);
         this.newUserPassword = findViewById(R.id.newUPass);
+        this.newUsername = findViewById(R.id.userName);
 
         //find createAccount button in activity_signup.xml
         Button createAccount =(Button) findViewById(R.id.createAccount);
@@ -44,13 +50,13 @@ public class Signup extends AppCompatActivity {
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAccount(String.valueOf(newUserEmail.getText()), String.valueOf(newUserPassword.getText()));
+                createAccount(String.valueOf(newUserEmail.getText()), String.valueOf(newUserPassword.getText()),  String.valueOf(newUsername.getText()));
             }
         });
 
     }
 
-    private void createAccount(String email, String password) {
+    private void createAccount(String email, String password, String username) {
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -62,7 +68,8 @@ public class Signup extends AppCompatActivity {
                             Intent i = new Intent(Signup.this, Signin.class);
                             Signup.this.startActivity(i);
                             FirebaseUser user = mAuth.getCurrentUser();
-                            //TODO:  set username
+                            //set username
+                            saveUsername(user.getUid(), username);
 
                             updateUI(user);
                         } else {
@@ -79,5 +86,9 @@ public class Signup extends AppCompatActivity {
 
     private void updateUI(FirebaseUser User){
 
+    }
+
+    private void saveUsername(String Id, String username){
+        mDatabase.child("users").child(Id).setValue(username);
     }
 }

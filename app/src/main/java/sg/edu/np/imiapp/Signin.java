@@ -18,16 +18,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Signin extends AppCompatActivity {
-    public EditText UserEmail;
-    public EditText UserPassword;
+    public EditText userEmail;
+    public EditText userPassword;
     private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         //find email and password editText in activity_signin.xml
-        this.UserEmail = findViewById(R.id.userEmailSignIn);
-        this.UserPassword = findViewById(R.id.userPasswordSignIn);
+        this.userEmail = findViewById(R.id.userEmailSignIn);
+        this.userPassword = findViewById(R.id.userPasswordSignIn);
 
         //find createAccount button in activity_signin.xml
         Button signIn =(Button) findViewById(R.id.userLogin);
@@ -35,10 +35,11 @@ public class Signin extends AppCompatActivity {
         //initialise Firebase auth
         mAuth = FirebaseAuth.getInstance();
 
+
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signInWithEmailAndPassword(String.valueOf(UserEmail.getText()), String.valueOf(UserPassword.getText()));
+                mAuth.signInWithEmailAndPassword(String.valueOf(userEmail.getText()), String.valueOf(userPassword.getText()));
             }
         });
     }
@@ -66,4 +67,5 @@ public class Signin extends AppCompatActivity {
                     }
                 });
     }
+
 }
