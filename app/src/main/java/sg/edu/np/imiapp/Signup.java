@@ -80,12 +80,12 @@ public class Signup extends AppCompatActivity {
                             Intent i = new Intent(Signup.this, Signin.class);
                             Signup.this.startActivity(i);
                             FirebaseUser user = mAuth.getCurrentUser();
-                            //ArrayList<String> interests = new ArrayList<>();
-                            //interests.add("Formula 1");
-                            //interests.add("Basketball");
-                            //interests.add("Football");
-                            //interests.add("Ice Hockey");
-                            //interests.add("Mcdonald's");
+                            ArrayList<String> interests = new ArrayList<>();
+                            interests.add("Formula 1");
+                            interests.add("Basketball");
+                            interests.add("Football");
+                            interests.add("Ice Hockey");
+                            interests.add("Mcdonald's");
 
                             ////set username
                             //saveUsername(user.getUid(), username, interests);
