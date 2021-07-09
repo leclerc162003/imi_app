@@ -61,7 +61,7 @@ public class Homepage extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User username = dataSnapshot.child(mAuth.getUid()).getValue(User.class);
                 usernameHome.setText(username.getUsername());
-//                interestList = username.getInterests();
+                interestList = username.getInterests();
 //                RecyclerView rv = findViewById(R.id.interestsrv);
 //                InterestAdapter adapter = new InterestAdapter(context, interestList);
 //                LinearLayoutManager lm = new LinearLayoutManager(context);
