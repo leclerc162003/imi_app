@@ -39,7 +39,7 @@ public class Signin extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signInWithEmailAndPassword(String.valueOf(userEmail.getText()), String.valueOf(userPassword.getText()));
+                signIn(String.valueOf(userEmail.getText()), String.valueOf(userPassword.getText()));
             }
         });
     }
@@ -55,6 +55,8 @@ public class Signin extends AppCompatActivity {
                             Toast.makeText(Signin.this, "Log in success.",
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
+                            Intent i = new Intent(Signin.this, Homepage.class);
+                            Signin.this.startActivity(i);
 
                             //updateUI(user);
                         } else {

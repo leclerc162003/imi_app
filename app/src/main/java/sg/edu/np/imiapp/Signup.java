@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class Signup extends AppCompatActivity {
     public EditText newUserEmail;
     public EditText newUserPassword;
@@ -78,8 +80,15 @@ public class Signup extends AppCompatActivity {
                             Intent i = new Intent(Signup.this, Signin.class);
                             Signup.this.startActivity(i);
                             FirebaseUser user = mAuth.getCurrentUser();
-                            //set username
-                            saveUsername(user.getUid(), username);
+                            //ArrayList<String> interests = new ArrayList<>();
+                            //interests.add("Formula 1");
+                            //interests.add("Basketball");
+                            //interests.add("Football");
+                            //interests.add("Ice Hockey");
+                            //interests.add("Mcdonald's");
+
+                            ////set username
+                            //saveUsername(user.getUid(), username, interests);
 
                             updateUI(user);
                         } else {
@@ -98,8 +107,11 @@ public class Signup extends AppCompatActivity {
 
     }
 
-    private void saveUsername(String Id, String username){
-        mDatabase.child("Users").child(Id).setValue(username);
+    private void saveUsername(String uid, String username, ArrayList<String> interests){
+
+        User newUser = new User(uid, username, interests);
+        //mDatabase.child("Users").child(Id).setValue(username);
+        mDatabase.child("Users").child(uid).setValue(newUser);
 
 
 //        addData.addValueEventListener(new ValueEventListener() {
