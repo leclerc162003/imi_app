@@ -62,11 +62,11 @@ public class Homepage extends AppCompatActivity {
                 User username = dataSnapshot.child(mAuth.getUid()).getValue(User.class);
                 usernameHome.setText(username.getUsername());
                 interestList = username.getInterests();
-//                RecyclerView rv = findViewById(R.id.interestsrv);
-//                InterestAdapter adapter = new InterestAdapter(context, interestList);
-//                LinearLayoutManager lm = new LinearLayoutManager(context);
-//                rv.setLayoutManager(lm);
-//                rv.setAdapter(adapter);
+                RecyclerView rv = findViewById(R.id.interestsrv);
+                InterestAdapter adapter = new InterestAdapter(context, interestList);
+                LinearLayoutManager lm = new LinearLayoutManager(context);
+                rv.setLayoutManager(lm);
+                rv.setAdapter(adapter);
 
                 Log.d("Scheduled", username.getUsername());
             }
