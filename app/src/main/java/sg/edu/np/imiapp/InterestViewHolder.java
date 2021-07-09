@@ -15,7 +15,7 @@ public class InterestViewHolder extends RecyclerView.ViewHolder {
 
     public InterestViewHolder(@NonNull View itemView) {
         super(itemView);
-//        interest = itemView.findViewById(R.id.interestText);
+        interest = itemView.findViewById(R.id.interestText);
 
 
 
