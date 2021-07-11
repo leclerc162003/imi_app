@@ -1,8 +1,11 @@
 package sg.edu.np.imiapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,11 +29,12 @@ public class Signin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+
         //find email and password editText in activity_signin.xml
         this.userEmail = findViewById(R.id.userEmailSignIn);
         this.userPassword = findViewById(R.id.userPasswordSignIn);
 
-        TextView signup = findViewById((R.id.signUpNow));
+        TextView signUp = findViewById((R.id.signUpNow));
 
         //find createAccount button in activity_signin.xml
         Button signIn =(Button) findViewById(R.id.userLogin);
@@ -38,9 +42,10 @@ public class Signin extends AppCompatActivity {
         //initialise Firebase auth
         mAuth = FirebaseAuth.getInstance();
 
-        signup.setOnClickListener(new View.OnClickListener() {
+        signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //bring user to sign up page
                 Intent i = new Intent(Signin.this, Signup.class);
                 Signin.this.startActivity(i);
             }
@@ -49,7 +54,21 @@ public class Signin extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn(String.valueOf(userEmail.getText()), String.valueOf(userPassword.getText()));
+                //validate user input for email and password
+                String email = String.valueOf(userEmail.getText());
+                String password = userPassword.getText().toString();
+                if(email.equals("")){
+                    userEmail.setError("can't be blank");
+                }
+                else if(password.equals("") || password.length() < 6){
+                    userPassword.setError("must be more than 6 characters");
+                }
+
+                else{
+                    signIn(String.valueOf(userEmail.getText()), String.valueOf(userPassword.getText()));
+                }
+                //bring user to sign in page
+                //signIn(String.valueOf(userEmail.getText()), String.valueOf(userPassword.getText()));
             }
         });
     }
@@ -60,21 +79,20 @@ public class Signin extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            // Sign in success, bring user to homepage with the signed-in user's information
                             Log.d("create", "createUserWithEmail:success");
-                            Toast.makeText(Signin.this, "Log in success.",
-                                    Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            Context context = getApplicationContext();
+                            Toast.makeText(context, "Log in success.", Toast.LENGTH_SHORT).show();
+                            //FirebaseUser user = mAuth.getCurrentUser();
                             Intent i = new Intent(Signin.this, Homepage.class);
                             Signin.this.startActivity(i);
 
-                            //updateUI(user);
-                        } else {
+                        }
+                        else {
+                            Context context = getApplicationContext();
                             // If sign in fails, display a message to the user.
+                            Toast.makeText(context, "Authentication failed.", Toast.LENGTH_SHORT).show();
 
-                            Toast.makeText(Signin.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
                         }
                     }
                 });
