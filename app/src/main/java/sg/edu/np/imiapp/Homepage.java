@@ -48,7 +48,7 @@ public class Homepage extends AppCompatActivity {
                 //create user object with data obtained from database
                 User username = dataSnapshot.child(mAuth.getUid()).getValue(User.class);
                 //display username and interests in UI
-                usernameHome.setText(username.getUsername());
+                usernameHome.setText(username.getUsername() + "'s Profile");
                 interestList = username.getInterests();
                 RecyclerView rv = findViewById(R.id.interestsrv);
                 InterestAdapter adapter = new InterestAdapter(context, interestList);

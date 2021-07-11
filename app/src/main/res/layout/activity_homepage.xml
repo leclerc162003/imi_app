@@ -109,36 +109,48 @@
         app:layout_constraintStart_toStartOf="@+id/settingsButton" />
 
     <ImageView
-        android:id="@+id/kermitDying"
-        android:layout_width="113dp"
-        android:layout_height="115dp"
-        android:layout_marginStart="28dp"
+        android:id="@+id/profilePic"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/screenshot_2021_07_08_144519" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameHome"
+        app:srcCompat="@drawable/profile_pic" />
 
     <TextView
         android:id="@+id/usernameHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
+        android:layout_marginTop="16dp"
         android:text="username"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/kermitDying"
-        app:layout_constraintStart_toEndOf="@+id/kermitDying"
-        app:layout_constraintTop_toTopOf="@+id/kermitDying"
-        app:layout_constraintVertical_bias="0.552" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/interestsrv"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/kermitDying" />
+        app:layout_constraintTop_toBottomOf="@+id/interestTxt" />
+
+    <TextView
+        android:id="@+id/interestTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Interests"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profilePic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
