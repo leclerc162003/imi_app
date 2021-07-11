@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,12 +30,21 @@ public class Signin extends AppCompatActivity {
         this.userEmail = findViewById(R.id.userEmailSignIn);
         this.userPassword = findViewById(R.id.userPasswordSignIn);
 
+        TextView signup = findViewById((R.id.signUpNow));
+
         //find createAccount button in activity_signin.xml
         Button signIn =(Button) findViewById(R.id.userLogin);
 
         //initialise Firebase auth
         mAuth = FirebaseAuth.getInstance();
 
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Signin.this, Signup.class);
+                Signin.this.startActivity(i);
+            }
+        });
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
