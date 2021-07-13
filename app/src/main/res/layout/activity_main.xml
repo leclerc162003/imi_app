@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ab"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/signUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="83dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="64dp"
         android:background="@drawable/edittext_background"
         android:text="sign Up"
@@ -23,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="83dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/edittext_background"
         android:text="Sign IN"
         app:backgroundTint="#00BCD4"
@@ -43,11 +44,12 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/archivo_narrow"
         android:text="Say Hello To The World"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#00BCD4"
-        android:textSize="30sp"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
