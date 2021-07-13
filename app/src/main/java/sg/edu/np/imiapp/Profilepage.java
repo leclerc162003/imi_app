@@ -14,12 +14,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Homepage extends AppCompatActivity {
+public class Profilepage extends AppCompatActivity {
     public TextView usernameHome;
     //initialise firebase authentication
     private FirebaseAuth mAuth;
@@ -33,7 +32,7 @@ public class Homepage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homepage);
+        setContentView(R.layout.activity_profilepage);
         //get username textview in activity_homepage.xml
         this.usernameHome = findViewById(R.id.usernameHome);
 

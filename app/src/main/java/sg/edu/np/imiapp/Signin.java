@@ -1,11 +1,9 @@
 package sg.edu.np.imiapp;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +18,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class Signin extends AppCompatActivity {
     public EditText userEmail;
@@ -90,7 +87,7 @@ public class Signin extends AppCompatActivity {
                             Context context = getApplicationContext();
                             Toast.makeText(context, "Log in success.", Toast.LENGTH_SHORT).show();
                             //FirebaseUser user = mAuth.getCurrentUser();
-                            Intent i = new Intent(Signin.this, Homepage.class);
+                            Intent i = new Intent(Signin.this, Profilepage.class);
                             Signin.this.startActivity(i);
 
                         }
