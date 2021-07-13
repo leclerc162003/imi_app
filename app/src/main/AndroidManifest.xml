@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Imiapp">
-        <activity android:name=".Message"></activity>
+        <activity android:name=".profilePictureChoose"></activity>
+        <activity android:name=".Message" />
         <activity android:name=".Profilepage" />
         <activity android:name=".Signin" />
         <activity android:name=".Signup" />

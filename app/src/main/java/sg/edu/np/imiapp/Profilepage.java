@@ -7,19 +7,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideModule;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 public class Profilepage extends AppCompatActivity {
     public TextView usernameHome;
+    public ImageView profilePic;
     //initialise firebase authentication
     private FirebaseAuth mAuth;
     //initialise firebase database
@@ -28,13 +34,21 @@ public class Profilepage extends AppCompatActivity {
     //public String username;
     ArrayList<String> interestList;
     Context context;
+    StorageReference storageReference;
+    StorageReference pathReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profilepage);
+        storageReference = FirebaseStorage.getInstance().getReference();
+        pathReference = storageReference.child("Default Images/dpfp1.png");
         //get username textview in activity_homepage.xml
         this.usernameHome = findViewById(R.id.usernameHome);
+        this.profilePic = findViewById(R.id.profilePic);
+        GlideApp.with(this)
+                .load(pathReference)
+                .into(profilePic);
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.getCurrentUser();
