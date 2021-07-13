@@ -18,11 +18,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 public class Profilepage extends AppCompatActivity {
     public TextView usernameHome;
+    public ImageView profilePic;
     //initialise firebase authentication
     private FirebaseAuth mAuth;
     //initialise firebase database
@@ -31,6 +34,8 @@ public class Profilepage extends AppCompatActivity {
     //public String username;
     ArrayList<String> interestList;
     Context context;
+    public StorageReference storageReference;
+    public StorageReference pathReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +47,16 @@ public class Profilepage extends AppCompatActivity {
         setContentView(R.layout.activity_profilepage);
         //get username textview in activity_homepage.xml
         this.usernameHome = findViewById(R.id.usernameHome);
+        storageReference = FirebaseStorage.getInstance().getReference();
+        pathReference = storageReference.child("Default Images/dpfp3.png");
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.getCurrentUser();
+        this.usernameHome = findViewById(R.id.usernameHome);
+        this.profilePic = findViewById(R.id.profilePic);
+        GlideApp.with(this)
+                .load(pathReference)
+                .into(profilePic);
 
 
         // read from firebase database table "Users"
