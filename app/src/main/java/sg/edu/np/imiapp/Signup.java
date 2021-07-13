@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +34,6 @@ public class Signup extends AppCompatActivity {
     public EditText newUserEmail;
     public EditText newUserPassword;
     public EditText newUsername;
-    public ProgressBar loadingBar;
     //initialise firebase authentication
     private FirebaseAuth mAuth;
     //initialise firebase database
@@ -51,10 +49,6 @@ public class Signup extends AppCompatActivity {
         this.newUserPassword = findViewById(R.id.newUPass);
         this.newUsername = findViewById(R.id.userName);
 
-        //loading bar for sign up
-        loadingBar = findViewById(R.id.loadingBar2);
-        loadingBar.setVisibility(View.GONE);
-
         //find createAccount button in activity_signup.xml
         Button createAccount = findViewById(R.id.createAccount);
 
@@ -69,19 +63,14 @@ public class Signup extends AppCompatActivity {
                 String email = String.valueOf(newUserEmail.getText());
                 String password = newUserPassword.getText().toString();
                 String username = newUsername.getText().toString();
-                //set loading bar to visible and set to gone once condition is executed
-                loadingBar.setVisibility(View.VISIBLE);
                 if(username.equals("")){
                     newUsername.setError("can't be blank");
-                    loadingBar.setVisibility(View.GONE);
                 }
                 else if(email.equals("")){
                     newUserEmail.setError("can't be blank");
-                    loadingBar.setVisibility(View.GONE);
                 }
                 else if(password.equals("") || password.length() < 6){
                     newUserPassword.setError("must be more than 6 characters");
-                    loadingBar.setVisibility(View.GONE);
                 }
 
                 else{
@@ -120,12 +109,10 @@ public class Signup extends AppCompatActivity {
 
                             //set username and save it to firebase
                             saveUsername(user.getUid(), username, interests);
-                            loadingBar.setVisibility(View.GONE);
 
                         } else {
                             // If sign up fails, display a message to the user.
                             Toast.makeText(Signup.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                            loadingBar.setVisibility(View.GONE);
 
 
                         }
