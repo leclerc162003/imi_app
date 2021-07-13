@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Imiapp">
         <activity android:name=".Message"></activity>
-        <activity android:name=".Homepage" />
+        <activity android:name=".Profilepage" />
         <activity android:name=".Signin" />
         <activity android:name=".Signup" />
         <activity android:name=".MainActivity">

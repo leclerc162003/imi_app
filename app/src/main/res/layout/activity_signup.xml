@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".Signup">
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="97dp"
+        android:layout_height="89dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/lgog_mad__3_" />
+
     <EditText
         android:id="@+id/newUEmail"
         android:layout_width="wrap_content"
@@ -52,6 +62,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logo"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText

@@ -1,8 +1,10 @@
 package sg.edu.np.imiapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +35,10 @@ public class Signup extends AppCompatActivity {
     public EditText newUserEmail;
     public EditText newUserPassword;
     public EditText newUsername;
+    public ProgressBar loadingBar;
+    //initialise firebase authentication
     private FirebaseAuth mAuth;
+    //initialise firebase database
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference mDatabase = firebaseDatabase.getReference();
 
@@ -40,20 +46,17 @@ public class Signup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        //DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        //rDatabaseReference addData = firebase.child("Users");
-
-
         //find email and password editText in activity_signup.xml
         this.newUserEmail = findViewById(R.id.newUEmail);
         this.newUserPassword = findViewById(R.id.newUPass);
         this.newUsername = findViewById(R.id.userName);
 
-
+        //loading bar for sign up
+        loadingBar = findViewById(R.id.loadingBar2);
+        loadingBar.setVisibility(View.GONE);
 
         //find createAccount button in activity_signup.xml
-        Button createAccount =(Button) findViewById(R.id.createAccount);
-
+        Button createAccount = findViewById(R.id.createAccount);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -62,11 +65,36 @@ public class Signup extends AppCompatActivity {
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAccount(String.valueOf(newUserEmail.getText()), String.valueOf(newUserPassword.getText()),  String.valueOf(newUsername.getText()));
+                //validate user input for email, password and email
+                String email = String.valueOf(newUserEmail.getText());
+                String password = newUserPassword.getText().toString();
+                String username = newUsername.getText().toString();
+                //set loading bar to visible and set to gone once condition is executed
+                loadingBar.setVisibility(View.VISIBLE);
+                if(username.equals("")){
+                    newUsername.setError("can't be blank");
+                    loadingBar.setVisibility(View.GONE);
+                }
+                else if(email.equals("")){
+                    newUserEmail.setError("can't be blank");
+                    loadingBar.setVisibility(View.GONE);
+                }
+                else if(password.equals("") || password.length() < 6){
+                    newUserPassword.setError("must be more than 6 characters");
+                    loadingBar.setVisibility(View.GONE);
+                }
+
+                else{
+                    createAccount(String.valueOf(newUserEmail.getText()), String.valueOf(newUserPassword.getText()),  String.valueOf(newUsername.getText()));
+                }
+                //create account method with the values obtained from the editText inputted by the user
+                //createAccount(String.valueOf(newUserEmail.getText()), String.valueOf(newUserPassword.getText()),  String.valueOf(newUsername.getText()));
             }
         });
 
     }
+
+
 
     private void createAccount(String email, String password, String username) {
         // [START create_user_with_email]
@@ -75,11 +103,14 @@ public class Signup extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            // Sign up success, bring user to log in page
                             Log.d("create", "createUserWithEmail:success");
                             Intent i = new Intent(Signup.this, Signin.class);
                             Signup.this.startActivity(i);
+                            //get current user
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            //get interests
                             ArrayList<String> interests = new ArrayList<>();
                             interests.add("Formula 1");
                             interests.add("Basketball");
@@ -87,48 +118,28 @@ public class Signup extends AppCompatActivity {
                             interests.add("Ice Hockey");
                             interests.add("Mcdonald's");
 
-                            ////set username
-                            //saveUsername(user.getUid(), username, interests);
+                            //set username and save it to firebase
+                            saveUsername(user.getUid(), username, interests);
+                            loadingBar.setVisibility(View.GONE);
 
-                            updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // If sign up fails, display a message to the user.
+                            Toast.makeText(Signup.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            loadingBar.setVisibility(View.GONE);
 
-                            Toast.makeText(Signup.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+
                         }
                     }
                 });
         // [END create_user_with_email]
     }
 
-    private void updateUI(FirebaseUser User){
-
-    }
 
     private void saveUsername(String uid, String username, ArrayList<String> interests){
-
+        //add User object with user inputs
         User newUser = new User(uid, username, interests);
-        //mDatabase.child("Users").child(Id).setValue(username);
+        //add newUser object under user uid in Users table
         mDatabase.child("Users").child(uid).setValue(newUser);
-
-
-//        addData.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                addData.child("Users").child(Id).setValue(username);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.d("dataerror", "error");
-//
-//            }
-//        });
-
-
-
         Log.d("data", "data added");
     }
 }

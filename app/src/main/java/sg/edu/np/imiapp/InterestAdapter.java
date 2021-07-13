@@ -29,7 +29,7 @@ public class InterestAdapter extends RecyclerView.Adapter<InterestViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull InterestViewHolder holder, int position) {
-
+        //get string from interest list and set to TextView
         String d = interestList.get(position);
         holder.interest.setText(d);
 
