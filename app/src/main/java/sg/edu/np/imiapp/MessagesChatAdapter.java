@@ -42,7 +42,7 @@ public class MessagesChatAdapter extends RecyclerView.Adapter<MessagesChatViewHo
         holder.messageTo.setText(message.Message);
 
     }
-/////
+
 
     @Override
     public int getItemViewType(int position) {
