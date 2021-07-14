@@ -94,6 +94,7 @@ public class Profilepage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Profilepage.this, Chats_Page.class);
+                i.putExtra("userInterests", interestList);
                 Profilepage.this.startActivity(i);
             }
         });

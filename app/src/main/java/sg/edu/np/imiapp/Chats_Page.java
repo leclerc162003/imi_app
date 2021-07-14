@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -57,6 +58,16 @@ public class Chats_Page extends AppCompatActivity {
                         Log.d("username from database", user.getUID());
                         Log.d("username from mAuth", mAuth.getUid());
                         userList.add(user);
+                    }
+
+                }
+
+                for(int i=0; i < userList.size(); i++){
+                    Intent receive = getIntent();
+                    ArrayList<String> userInterests = receive.getStringArrayListExtra("userInterests");
+                    userList.get(i).getInterests().retainAll(userInterests);
+                    if(userList.get(i).getInterests().size() == 0){
+                        userList.remove(userList.get(i));
                     }
 
                 }

@@ -29,6 +29,7 @@ public class ChatsPageAdapter extends RecyclerView.Adapter<ChatsPageViewHolder> 
     public void onBindViewHolder(@NonNull ChatsPageViewHolder holder, int position) {
         User chatUser = userList.get(position);
         holder.chatUsername.setText(chatUser.getUsername());
+        holder.chatLM.setText("Similar Interests: " + chatUser.getInterests().get(0));
 
     }
 

@@ -117,10 +117,10 @@ public class Signup extends AppCompatActivity {
 
                             //get interests
                             ArrayList<String> interests = new ArrayList<>();
-                            interests.add("Formula 1");
-                            interests.add("Basketball");
-                            interests.add("Football");
-                            interests.add("Ice Hockey");
+                            interests.add("TWICE");
+                            interests.add("BTS");
+                            interests.add("Anime");
+                            interests.add("NCT");
                             interests.add("Mcdonald's");
 
                             //set username and save it to firebase
