@@ -7,7 +7,7 @@ public class SentMessages {
 
     public SentMessages() {
     }
-/////
+
     public SentMessages(String toUIDUser, String UIDcurrentuser, String message) {
         this.UIDcurrentuser = UIDcurrentuser;
         this.toUIDUser = toUIDUser;
