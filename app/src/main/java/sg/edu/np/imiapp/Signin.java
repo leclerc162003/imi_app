@@ -37,8 +37,8 @@ public class Signin extends AppCompatActivity {
         //find email and password editText in activity_signin.xml
         this.userEmail = findViewById(R.id.userEmailSignIn);
         this.userPassword = findViewById(R.id.userPasswordSignIn);
-        loadingBar = findViewById(R.id.loadingBar2);
-        loadingBar.setVisibility(View.GONE);
+//        loadingBar = findViewById(R.id.loadingBar2);
+//        loadingBar.setVisibility(View.GONE);
 
         TextView signUp = findViewById((R.id.signUpNow));
 
@@ -75,7 +75,7 @@ public class Signin extends AppCompatActivity {
                 }
                 //bring user to sign in page
                 //signIn(String.valueOf(userEmail.getText()), String.valueOf(userPassword.getText()));
-                loadingBar.setVisibility(View.VISIBLE);
+                //loadingBar.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -86,7 +86,7 @@ public class Signin extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            loadingBar.setVisibility(View.GONE);
+                            //loadingBar.setVisibility(View.GONE);
                             // Sign in success, bring user to homepage with the signed-in user's information
                             Log.d("create", "createUserWithEmail:success");
                             Context context = getApplicationContext();
@@ -97,7 +97,7 @@ public class Signin extends AppCompatActivity {
 
                         }
                         else {
-                            loadingBar.setVisibility(View.GONE);
+                            //loadingBar.setVisibility(View.GONE);
                             Context context = getApplicationContext();
                             // If sign in fails, display a message to the user.
                             Toast.makeText(context, "Authentication failed.", Toast.LENGTH_SHORT).show();

@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class Signup extends AppCompatActivity {
     public EditText newUserPassword;
     public EditText newUsername;
     //initialise firebase authentication
+    public ProgressBar loadingBar;
     private FirebaseAuth mAuth;
     //initialise firebase database
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -54,6 +56,8 @@ public class Signup extends AppCompatActivity {
         this.newUserEmail = findViewById(R.id.newUEmail);
         this.newUserPassword = findViewById(R.id.newUPass);
         this.newUsername = findViewById(R.id.userName);
+        loadingBar = findViewById(R.id.progressBar);
+        loadingBar.setVisibility(View.GONE);
 
         //find createAccount button in activity_signup.xml
         Button createAccount = findViewById(R.id.createAccount);
@@ -69,18 +73,23 @@ public class Signup extends AppCompatActivity {
                 String email = String.valueOf(newUserEmail.getText());
                 String password = newUserPassword.getText().toString();
                 String username = newUsername.getText().toString();
+                loadingBar.setVisibility(View.VISIBLE);
                 if(username.equals("")){
                     newUsername.setError("can't be blank");
+                    //loadingBar.setVisibility(View.GONE);
                 }
                 else if(email.equals("")){
                     newUserEmail.setError("can't be blank");
+                    //loadingBar.setVisibility(View.GONE);
                 }
                 else if(password.equals("") || password.length() < 6){
                     newUserPassword.setError("must be more than 6 characters");
+                    //loadingBar.setVisibility(View.GONE);
                 }
 
                 else{
                     createAccount(String.valueOf(newUserEmail.getText()), String.valueOf(newUserPassword.getText()),  String.valueOf(newUsername.getText()));
+                    //loadingBar.setVisibility(View.GONE);
                 }
                 //create account method with the values obtained from the editText inputted by the user
                 //createAccount(String.valueOf(newUserEmail.getText()), String.valueOf(newUserPassword.getText()),  String.valueOf(newUsername.getText()));
@@ -104,6 +113,7 @@ public class Signup extends AppCompatActivity {
                             Signup.this.startActivity(i);
                             //get current user
                             FirebaseUser user = mAuth.getCurrentUser();
+                            loadingBar.setVisibility(View.GONE);
 
                             //get interests
                             ArrayList<String> interests = new ArrayList<>();
@@ -119,6 +129,7 @@ public class Signup extends AppCompatActivity {
                         } else {
                             // If sign up fails, display a message to the user.
                             Toast.makeText(Signup.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            loadingBar.setVisibility(View.GONE);
 
 
                         }
