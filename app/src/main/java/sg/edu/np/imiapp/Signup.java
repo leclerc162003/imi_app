@@ -121,7 +121,7 @@ public class Signup extends AppCompatActivity {
                             interests.add("BTS");
                             interests.add("Anime");
                             interests.add("NCT");
-                            interests.add("Mcdonald's");
+                            interests.add("Ed Sheeran");
 
                             //set username and save it to firebase
                             saveUsername(user.getUid(), username, interests);

@@ -11,7 +11,6 @@ public class ChatsPageViewHolder extends RecyclerView.ViewHolder {
     public TextView chatLM;
     public ChatsPageViewHolder(@NonNull View itemView) {
         super(itemView);
-
         chatUsername = itemView.findViewById(R.id.chatUsername);
         chatLM = itemView.findViewById(R.id.chatLM);
 

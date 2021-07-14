@@ -1,6 +1,8 @@
 package sg.edu.np.imiapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,19 @@ public class ChatsPageAdapter extends RecyclerView.Adapter<ChatsPageViewHolder> 
         User chatUser = userList.get(position);
         holder.chatUsername.setText(chatUser.getUsername());
         holder.chatLM.setText("Similar Interests: " + chatUser.getInterests().get(0));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle extras = new Bundle();
+                extras.putString("Username", chatUser.getUsername());
+                extras.putString("UID", chatUser.getUID());
+                Intent i = new Intent(context, MessagePart.class);
+                i.putExtras(extras);
+                context.startActivity(i);
+            }
+        });
+
 
     }
 
