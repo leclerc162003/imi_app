@@ -5,8 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.view.Window;
 import android.view.WindowManager;
@@ -85,6 +87,23 @@ public class Profilepage extends AppCompatActivity {
 
 
 
+        ///Can remove CAN REMOVE AH JUST CODED TO TEST THE APP CAN REMOVE!! NOT RELEVANT CODE
+        ImageView chatButton = findViewById(R.id.chatButton);
+
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Profilepage.this, Chats_Page.class);
+                Profilepage.this.startActivity(i);
+            }
+        });
+
+
+
 
     }
+
+
+
+
 }
