@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Signin extends AppCompatActivity {
     public TextInputEditText userEmail;
     public TextInputEditText userPassword;
+    public CheckBox checkBox;
     public ProgressBar loadingBar;
     private FirebaseAuth mAuth;
     @Override
@@ -37,6 +40,7 @@ public class Signin extends AppCompatActivity {
         //find email and password editText in activity_signin.xml
         this.userEmail = findViewById(R.id.userEmailSignIn);
         this.userPassword = findViewById(R.id.userPasswordSignIn);
+        this.checkBox = findViewById(R.id.rememberMe);
 //        loadingBar = findViewById(R.id.loadingBar2);
 //        loadingBar.setVisibility(View.GONE);
 
@@ -47,6 +51,18 @@ public class Signin extends AppCompatActivity {
 
         //initialise Firebase auth
         mAuth = FirebaseAuth.getInstance();
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE).edit();
+                loginInfo.putString("email", String.valueOf(userEmail.getText()));
+                loginInfo.putString("password", String.valueOf(userPassword.getText()));
+                loginInfo.apply();
+
+            }
+        });
+
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,4 +123,12 @@ public class Signin extends AppCompatActivity {
                 });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE);
+        String email = loginInfo.getString("email", "default value");
+        String password = loginInfo.getString("password", "default value");
+        signIn(email,password);
+    }
 }

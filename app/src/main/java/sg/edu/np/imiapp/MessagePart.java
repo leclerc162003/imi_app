@@ -55,12 +55,8 @@ public class MessagePart extends AppCompatActivity {
         this.sendButton = findViewById(R.id.sendButton);
         this.messageText = findViewById(R.id.messageText);
         this.sendToUsername = findViewById(R.id.sendToUsername);
-//        this.linearLayout = findViewById(R.id.lLayout);
-//        this.scrollView = findViewById(R.id.scrollView);
         mAuth = FirebaseAuth.getInstance();
         mAuth.getCurrentUser();
-
-
 
         Intent receive = getIntent();
         sendToUsername.setText(receive.getStringExtra("Username"));
@@ -69,17 +65,10 @@ public class MessagePart extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                DatabaseReference postsRef = ref.child("posts");
                 DatabaseReference sentmRef = mDatabase.child("SentMessages");
-//
-//                DatabaseReference newPostRef = postsRef.push();
                 DatabaseReference newMessageRef = sentmRef.push();
-//                newPostRef.setValueAsync(new Post("gracehop", "Announcing COBOL, a New Programming Language"));
                 SentMessages sentMessage = new SentMessages(sendToUserID, mAuth.getUid(), messageText.getText().toString());
                 newMessageRef.setValue(sentMessage);
-
-                //SentMessages sentMessage = new SentMessages(sendToUserID, mAuth.getUid(), messageText.getText().toString());
-                //mDatabase.child("SentMessages").child(sentMessage.toUIDUser).setValue(sentMessage);
 
                 messageText.setText("");
             }
@@ -127,21 +116,12 @@ public class MessagePart extends AppCompatActivity {
             }
         });
 
-//        RecyclerView rv = findViewById(R.id.rvMessage);
-//        MessagesChatAdapter adapter = new MessagesChatAdapter(this, messagesList);
-//        LinearLayoutManager lm = new LinearLayoutManager(this);
-//        //for horizontal
-//        //LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-//        rv.setLayoutManager(lm);
-//        rv.setAdapter(adapter);
-
-
-
-
-
-        //mDatabase.child("Messages").child("ReceivedMessages").setValue();
-
 
     }
+
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//    }
 
 }
