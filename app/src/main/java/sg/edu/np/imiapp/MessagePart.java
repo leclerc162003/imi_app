@@ -1,11 +1,13 @@
 package sg.edu.np.imiapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
@@ -36,8 +38,6 @@ public class MessagePart extends AppCompatActivity {
     public EditText messageText;
     public TextView sendToUsername;
     public ImageView sendButton;
-    public ScrollView scrollView;
-    public LinearLayout linearLayout;
     private FirebaseAuth mAuth;
     //private DatabaseReference mDatabase;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -61,6 +61,7 @@ public class MessagePart extends AppCompatActivity {
         Intent receive = getIntent();
         sendToUsername.setText(receive.getStringExtra("Username"));
         String sendToUserID = receive.getStringExtra("UID");
+        inputLastKeyedText(sendToUserID);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,9 +120,72 @@ public class MessagePart extends AppCompatActivity {
 
     }
 
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveLastKeyedText();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent receive = getIntent();
+        sendToUsername.setText(receive.getStringExtra("Username"));
+        String sendToUserID = receive.getStringExtra("UID");
+
+        inputLastKeyedText(sendToUserID);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        SharedPreferences.Editor last_key = getSharedPreferences("lastkey", MODE_PRIVATE).edit();
+//        Intent receive = getIntent();
+//        last_key.putString("toID", receive.getStringExtra("UID"));
+//        last_key.putString("lastmessage", messageText.getText().toString());
+//        last_key.apply();
+        saveLastKeyedText();
+        Log.d("paused", "i got paused");
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("destroyed", "i got destroyed");
+
+        saveLastKeyedText();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        Intent receive = getIntent();
+        super.onSaveInstanceState(savedInstanceState);
+        //TODO: ON DESTORY RETURN TO CHAT ACTIVITY
+        // on destroy do sharedpreferences
+        //in mainactivity check for that specific sharedpreferences
+        //intent to this particular activity and clear shared preferences
+
+        //TODO: tell user that no internet connection is there
+        //if can download from firebase to local DB and load from localDB
+    }
+
+    public void saveLastKeyedText(){
+        SharedPreferences.Editor last_key = getSharedPreferences("lastkey", MODE_PRIVATE).edit();
+        Intent receive = getIntent();
+        last_key.putString("toID", receive.getStringExtra("UID"));
+        last_key.putString("lastmessage", messageText.getText().toString());
+        last_key.apply();
+    }
+
+    public void inputLastKeyedText(String uidToUser){
+        SharedPreferences lastkey = getSharedPreferences("lastkey", MODE_PRIVATE);
+        String UID = lastkey.getString("toID", "default value");
+        if(UID.contentEquals(uidToUser)){
+            messageText.setText(lastkey.getString("lastmessage", "default value"));
+            lastkey.edit().clear().commit();
+        }
+
+    }
 }

@@ -3,6 +3,7 @@ package sg.edu.np.imiapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -22,9 +23,20 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-        Button signUp =(Button) findViewById(R.id.signUp);
+        Button signUp = findViewById(R.id.signUp);
 
-        Button signIn =(Button) findViewById(R.id.signIn);
+        Button signIn = findViewById(R.id.signIn);
+
+        SharedPreferences loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE);
+        String email = loginInfo.getString("email", "default value");
+        String password = loginInfo.getString("password", "default value");
+        if (email != null || password != null){
+            Intent i = new Intent(MainActivity.this, Signin.class);
+            MainActivity.this.startActivity(i);
+            signIn.setVisibility(View.GONE);
+            signUp.setVisibility(View.GONE);
+
+        }
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
