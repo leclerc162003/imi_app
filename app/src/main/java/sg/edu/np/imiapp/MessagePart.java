@@ -4,15 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.firebase.FirebaseApp;
@@ -31,6 +36,8 @@ public class MessagePart extends AppCompatActivity {
     public EditText messageText;
     public TextView sendToUsername;
     public ImageView sendButton;
+    public ScrollView scrollView;
+    public LinearLayout linearLayout;
     private FirebaseAuth mAuth;
     //private DatabaseReference mDatabase;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -48,6 +55,8 @@ public class MessagePart extends AppCompatActivity {
         this.sendButton = findViewById(R.id.sendButton);
         this.messageText = findViewById(R.id.messageText);
         this.sendToUsername = findViewById(R.id.sendToUsername);
+//        this.linearLayout = findViewById(R.id.lLayout);
+//        this.scrollView = findViewById(R.id.scrollView);
         mAuth = FirebaseAuth.getInstance();
         mAuth.getCurrentUser();
 
@@ -76,8 +85,17 @@ public class MessagePart extends AppCompatActivity {
             }
         });
 
-
         ArrayList<SentMessages> messagesList = new ArrayList<>();
+
+        RecyclerView rv = findViewById(R.id.rvMessage);
+        MessagesChatAdapter adapter = new MessagesChatAdapter(this, messagesList);
+        LinearLayoutManager lm = new LinearLayoutManager(this);
+        //for horizontal
+        rv.setLayoutManager(lm);
+        rv.setAdapter(adapter);
+
+
+
         mDatabase.child("SentMessages").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,16 +108,16 @@ public class MessagePart extends AppCompatActivity {
                         Log.d("sent by from database", message.UIDcurrentuser);
                         Log.d("sent to from database", message.toUIDUser);
 
+                        //add message to list for the recyclerview
                         messagesList.add(message);
+                        //notify adapter that message has been added to list
+                        adapter.notifyDataSetChanged();
+                        //make sure recyclerview is scrolled to latest message when message is sent
+                        rv.smoothScrollToPosition(rv.getAdapter().getItemCount());
                     }
 
                 }
 
-                //create user object with data obtained from database
-                //User username = dataSnapshot.getValue(User.class);
-                //display username and interests in UI
-
-                //Log.d("Scheduled", username.getUsername());
             }
 
             @Override
@@ -109,24 +127,21 @@ public class MessagePart extends AppCompatActivity {
             }
         });
 
-        RecyclerView rv = findViewById(R.id.rvMessage);
-        MessagesChatAdapter adapter = new MessagesChatAdapter(this, messagesList);
-        LinearLayoutManager lm = new LinearLayoutManager(this);
-        //for horizontal
-        //LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        rv.setLayoutManager(lm);
-        rv.setAdapter(adapter);
+//        RecyclerView rv = findViewById(R.id.rvMessage);
+//        MessagesChatAdapter adapter = new MessagesChatAdapter(this, messagesList);
+//        LinearLayoutManager lm = new LinearLayoutManager(this);
+//        //for horizontal
+//        //LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+//        rv.setLayoutManager(lm);
+//        rv.setAdapter(adapter);
+
+
 
 
 
         //mDatabase.child("Messages").child("ReceivedMessages").setValue();
 
 
-
-
-
-
-
-
     }
+
 }
