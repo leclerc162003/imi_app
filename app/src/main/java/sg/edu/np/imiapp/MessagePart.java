@@ -189,7 +189,7 @@ public class MessagePart extends AppCompatActivity {
         Intent receive = getIntent();
         SharedPreferences.Editor last_key = getSharedPreferences(receive.getStringExtra("UID"), MODE_PRIVATE).edit();
         last_key.putString(receive.getStringExtra("UID"), messageText.getText().toString());
-        //last_key.apply();
+        last_key.apply();
     }
 
     public void inputLastKeyedText(String uidToUser){
