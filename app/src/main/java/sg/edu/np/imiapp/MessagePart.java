@@ -38,6 +38,7 @@ public class MessagePart extends AppCompatActivity {
     public EditText messageText;
     public TextView sendToUsername;
     public ImageView sendButton;
+    public String sendToUserID;
     private FirebaseAuth mAuth;
     //private DatabaseReference mDatabase;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -59,9 +60,20 @@ public class MessagePart extends AppCompatActivity {
         mAuth.getCurrentUser();
 
         Intent receive = getIntent();
-        sendToUsername.setText(receive.getStringExtra("Username"));
-        String sendToUserID = receive.getStringExtra("UID");
-        inputLastKeyedText(sendToUserID);
+//        if (receive.getStringExtra("toUID") != "nouser"){
+//            sendToUsername.setText(receive.getStringExtra("toUsername"));
+//            sendToUserID = receive.getStringExtra("toUID");
+//            //inputLastKeyedText(sendToUserID);
+//        }
+//        else{
+            sendToUsername.setText(receive.getStringExtra("Username"));
+            sendToUserID = receive.getStringExtra("UID");
+            inputLastKeyedText(sendToUserID);
+
+       // }
+//        sendToUsername.setText(receive.getStringExtra("Username"));
+//        String sendToUserID = receive.getStringExtra("UID");
+//        inputLastKeyedText(sendToUserID);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +157,7 @@ public class MessagePart extends AppCompatActivity {
 //        last_key.putString("lastmessage", messageText.getText().toString());
 //        last_key.apply();
         saveLastKeyedText();
+        saveLastUserChatted();
         Log.d("paused", "i got paused");
 
 
@@ -156,6 +169,7 @@ public class MessagePart extends AppCompatActivity {
         Log.d("destroyed", "i got destroyed");
 
         saveLastKeyedText();
+        saveLastUserChatted();
     }
 
     @Override
@@ -172,20 +186,31 @@ public class MessagePart extends AppCompatActivity {
     }
 
     public void saveLastKeyedText(){
-        SharedPreferences.Editor last_key = getSharedPreferences("lastkey", MODE_PRIVATE).edit();
         Intent receive = getIntent();
-        last_key.putString("toID", receive.getStringExtra("UID"));
-        last_key.putString("lastmessage", messageText.getText().toString());
-        last_key.apply();
+        SharedPreferences.Editor last_key = getSharedPreferences(receive.getStringExtra("UID"), MODE_PRIVATE).edit();
+        last_key.putString(receive.getStringExtra("UID"), messageText.getText().toString());
+        //last_key.apply();
     }
 
     public void inputLastKeyedText(String uidToUser){
-        SharedPreferences lastkey = getSharedPreferences("lastkey", MODE_PRIVATE);
-        String UID = lastkey.getString("toID", "default value");
-        if(UID.contentEquals(uidToUser)){
-            messageText.setText(lastkey.getString("lastmessage", "default value"));
+        SharedPreferences lastkey = getSharedPreferences(uidToUser, MODE_PRIVATE);
+        String UID = lastkey.getString(uidToUser, "defaultvalue");
+        if(!UID.contentEquals("defaultvalue")){
+            messageText.setText(UID);
+            Log.d("UID", UID);
+            Log.d("uidtouser", uidToUser);
             lastkey.edit().clear().commit();
+            //clears whole file
         }
 
+
+    }
+
+    public void saveLastUserChatted(){
+        SharedPreferences.Editor lastUserChatted = getSharedPreferences("lastUserChatted", MODE_PRIVATE).edit();
+        Intent receive = getIntent();
+        lastUserChatted.putString("toID", receive.getStringExtra("UID"));
+        lastUserChatted.putString("toNAME", receive.getStringExtra("Username"));
+        lastUserChatted.apply();
     }
 }

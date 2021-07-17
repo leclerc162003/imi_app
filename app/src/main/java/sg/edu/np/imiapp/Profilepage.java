@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -105,6 +106,19 @@ public class Profilepage extends AppCompatActivity {
     }
 
 
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        SharedPreferences lastUserChatted = getSharedPreferences("lastUserChatted", MODE_PRIVATE);
+//                String UID = lastUserChatted.getString("toID", "nouser");
+//                String Name = lastUserChatted.getString("toNAME", "nouser");
+//                if (UID != "nouser"){
+//                    // Context in current activity and the class the data to be transferred to
+//                    Intent i = new Intent(Profilepage.this, MessagePart.class);
+//                    i.putExtra("toUID", UID);
+//                    i.putExtra("toUsername", Name);
+//                    Profilepage.this.startActivity(i);
+//                    lastUserChatted.edit().clear().commit();
+//                }
+    }
 }

@@ -130,5 +130,6 @@ public class Signin extends AppCompatActivity {
         String email = loginInfo.getString("email", "default value");
         String password = loginInfo.getString("password", "default value");
         signIn(email,password);
+
     }
 }
