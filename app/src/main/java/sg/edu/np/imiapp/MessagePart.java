@@ -66,18 +66,26 @@ public class MessagePart extends AppCompatActivity {
 //            //inputLastKeyedText(sendToUserID);
 //        }
 //        else{
-            sendToUsername.setText(receive.getStringExtra("Username"));
-            sendToUserID = receive.getStringExtra("UID");
-            inputLastKeyedText(sendToUserID);
+        //set username to username received from intent in Chats Page Adapter
+        sendToUsername.setText(receive.getStringExtra("Username"));
+        //Get UID of the receiver (the person the user is messaging)
+        sendToUserID = receive.getStringExtra("UID");
+        //input the last unsent keyed message by user *if any
+        inputLastKeyedText(sendToUserID);
 
        // }
 //        sendToUsername.setText(receive.getStringExtra("Username"));
 //        String sendToUserID = receive.getStringExtra("UID");
 //        inputLastKeyedText(sendToUserID);
-
+        ArrayList<String> BadWords = new ArrayList<>();
+        //send message
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(messageText.equals("")){
+                    messageText.setHint("no message sent");
+                }
+
                 DatabaseReference sentmRef = mDatabase.child("SentMessages");
                 DatabaseReference newMessageRef = sentmRef.push();
                 SentMessages sentMessage = new SentMessages(sendToUserID, mAuth.getUid(), messageText.getText().toString());
@@ -213,4 +221,6 @@ public class MessagePart extends AppCompatActivity {
         lastUserChatted.putString("toNAME", receive.getStringExtra("Username"));
         lastUserChatted.apply();
     }
+
+
 }

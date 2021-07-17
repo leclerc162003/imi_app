@@ -1,12 +1,18 @@
 package sg.edu.np.imiapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -28,6 +34,7 @@ public class Signin extends AppCompatActivity {
     public CheckBox checkBox;
     public ProgressBar loadingBar;
     private FirebaseAuth mAuth;
+    public Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +59,7 @@ public class Signin extends AppCompatActivity {
         //initialise Firebase auth
         mAuth = FirebaseAuth.getInstance();
 
+        // if user click on "remember me", saves user login info into shared preferences
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,13 +80,17 @@ public class Signin extends AppCompatActivity {
                 Signin.this.startActivity(i);
             }
         });
-
+        //signs user in when click on login
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //validate user input for email and password
                 String email = String.valueOf(userEmail.getText());
                 String password = userPassword.getText().toString();
+                //check if phone is connected to internet
+                if (isOnline() == true){
+                    displayMobileDataSettingsDialog( Signin.this);
+                }
                 if(email.equals("")){
                     userEmail.setError("can't be blank");
                 }
@@ -89,9 +101,7 @@ public class Signin extends AppCompatActivity {
                 else{
                     signIn(String.valueOf(userEmail.getText()), String.valueOf(userPassword.getText()));
                 }
-                //bring user to sign in page
-                //signIn(String.valueOf(userEmail.getText()), String.valueOf(userPassword.getText()));
-                //loadingBar.setVisibility(View.VISIBLE);
+
             }
         });
     }
@@ -102,7 +112,6 @@ public class Signin extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            //loadingBar.setVisibility(View.GONE);
                             // Sign in success, bring user to homepage with the signed-in user's information
                             Log.d("create", "createUserWithEmail:success");
                             Context context = getApplicationContext();
@@ -113,7 +122,6 @@ public class Signin extends AppCompatActivity {
 
                         }
                         else {
-                            //loadingBar.setVisibility(View.GONE);
                             Context context = getApplicationContext();
                             // If sign in fails, display a message to the user.
                             Toast.makeText(context, "Authentication failed.", Toast.LENGTH_SHORT).show();
@@ -126,10 +134,41 @@ public class Signin extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //on resume, auto login user with info stored in shared preferences
         SharedPreferences loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE);
         String email = loginInfo.getString("email", "default value");
         String password = loginInfo.getString("password", "default value");
         signIn(email,password);
 
+    }
+
+    public boolean isOnline() {
+        //check if internet is available, return true if user not connected to internet
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    public AlertDialog displayMobileDataSettingsDialog(final Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("No Internet");
+        builder.setMessage("Please connect to your internet");
+
+        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //redirects user to WIFI in settings when click close
+                Intent intent = new Intent();
+                //intent.setComponent(new ComponentName("com.android.settings","com.android.settings.Settings$DataUsageSummaryActivity"));
+                context.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+                dialog.cancel();
+                startActivity(intent);
+
+            }
+        });
+        builder.show();
+
+        return builder.create();
     }
 }

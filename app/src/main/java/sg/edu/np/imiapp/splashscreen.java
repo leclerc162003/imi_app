@@ -1,11 +1,19 @@
 package sg.edu.np.imiapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.Settings;
 import android.util.Log;
 
 public class splashscreen extends AppCompatActivity {
@@ -16,6 +24,9 @@ public class splashscreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
         startTimer(3);
+//        if (isOnline() == true){
+//            displayMobileDataSettingsDialog( this);
+//        }
 
 
     }
@@ -41,6 +52,7 @@ public class splashscreen extends AppCompatActivity {
 //                    splashscreen.this.startActivity(i);
 //                    lastUserChatted.edit().clear().commit();
 //                }
+
                     Intent i = new Intent(splashscreen.this, Signin.class);
                     splashscreen.this.startActivity(i);
 
@@ -53,4 +65,31 @@ public class splashscreen extends AppCompatActivity {
         };
         myCountDown.start();
     }
+
+//    public boolean isOnline() {
+//        ConnectivityManager cm =
+//                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+//        return netInfo != null && netInfo.isConnectedOrConnecting();
+//    }
+//
+//    public AlertDialog displayMobileDataSettingsDialog(final Context context){
+//        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//        builder.setTitle("No Internet");
+//        builder.setMessage("Please connect to your internet");
+//
+//        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Intent intent = new Intent();
+//                intent.setComponent(new ComponentName("com.android.settings","com.android.settings.Settings$DataUsageSummaryActivity"));
+//                dialog.cancel();
+//                startActivity(intent);
+//
+//            }
+//        });
+//        builder.show();
+//
+//        return builder.create();
+//    }
 }
