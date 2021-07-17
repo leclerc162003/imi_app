@@ -77,26 +77,42 @@ public class MessagePart extends AppCompatActivity {
 //        sendToUsername.setText(receive.getStringExtra("Username"));
 //        String sendToUserID = receive.getStringExtra("UID");
 //        inputLastKeyedText(sendToUserID);
-        ArrayList<String> BadWords = new ArrayList<>();
+
         //send message
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(messageText.equals("")){
-                    messageText.setHint("no message sent");
+                //if message is empty cannot send
+                if(messageText.getText().toString().equals("")) {
+                    messageText.setError("no message sent");
+                }
+                //check for unfriendly messages
+                if (checkUnfriendlyMessages(messageText.getText().toString()) == true){
+                    messageText.setError("unfriendly messages not allowed.");
                 }
 
-                DatabaseReference sentmRef = mDatabase.child("SentMessages");
-                DatabaseReference newMessageRef = sentmRef.push();
-                SentMessages sentMessage = new SentMessages(sendToUserID, mAuth.getUid(), messageText.getText().toString());
-                newMessageRef.setValue(sentMessage);
-
-                messageText.setText("");
+                else{
+                    //reference to database "sentmessages"
+                    DatabaseReference sentmRef = mDatabase.child("SentMessages");
+                    DatabaseReference newMessageRef = sentmRef.push();
+                    //create message object with sendToUserID (the person receiving the message), mAuth.getUid() (Current User) and the message
+                    SentMessages sentMessage = new SentMessages(sendToUserID, mAuth.getUid(), messageText.getText().toString());
+                    //post message object to database
+                    newMessageRef.setValue(sentMessage);
+                    //set edittext back to empty
+                    messageText.setText("");
+                }
+//                DatabaseReference sentmRef = mDatabase.child("SentMessages");
+//                DatabaseReference newMessageRef = sentmRef.push();
+//                SentMessages sentMessage = new SentMessages(sendToUserID, mAuth.getUid(), messageText.getText().toString());
+//                newMessageRef.setValue(sentMessage);
+//
+//                messageText.setText("");
             }
         });
-
+        //create array list to store messages from database for the recycler view
         ArrayList<SentMessages> messagesList = new ArrayList<>();
-
+        //find recyclerview and give messagesList to adapter to display
         RecyclerView rv = findViewById(R.id.rvMessage);
         MessagesChatAdapter adapter = new MessagesChatAdapter(this, messagesList);
         LinearLayoutManager lm = new LinearLayoutManager(this);
@@ -105,13 +121,16 @@ public class MessagePart extends AppCompatActivity {
         rv.setAdapter(adapter);
 
 
-
+        //if, or when a message is send, a message will be collected from the database to add to the list
         mDatabase.child("SentMessages").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 messagesList.clear();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren() ) {
+                    //convert data got from database to a message object
                     SentMessages message = postSnapshot.getValue(SentMessages.class);
+                    //if the toUIDUser (person receiving the message) and the current userID matches OR
+                    //toUIDuser matches the current user and currentuserID matches the person receiving the message add message to list
                     if(message.toUIDUser.contentEquals(sendToUserID) == true && message.UIDcurrentuser.contentEquals(mAuth.getUid()) == true || message.toUIDUser.contentEquals(mAuth.getUid()) == true && message.UIDcurrentuser.contentEquals(sendToUserID) == true ){
                         //userList.add(user);
                         Log.d("message from database", message.Message);
@@ -189,11 +208,12 @@ public class MessagePart extends AppCompatActivity {
         //in mainactivity check for that specific sharedpreferences
         //intent to this particular activity and clear shared preferences
 
-        //TODO: tell user that no internet connection is there
+
         //if can download from firebase to local DB and load from localDB
     }
 
     public void saveLastKeyedText(){
+        //save the last keyed message to a sharedpreferences file named after the UID and put the message in the file
         Intent receive = getIntent();
         SharedPreferences.Editor last_key = getSharedPreferences(receive.getStringExtra("UID"), MODE_PRIVATE).edit();
         last_key.putString(receive.getStringExtra("UID"), messageText.getText().toString());
@@ -201,6 +221,7 @@ public class MessagePart extends AppCompatActivity {
     }
 
     public void inputLastKeyedText(String uidToUser){
+        //get the message from the shared preferences file, if the UID does not contain defaultvalue, set message to string and clear file.
         SharedPreferences lastkey = getSharedPreferences(uidToUser, MODE_PRIVATE);
         String UID = lastkey.getString(uidToUser, "defaultvalue");
         if(!UID.contentEquals("defaultvalue")){
@@ -208,7 +229,6 @@ public class MessagePart extends AppCompatActivity {
             Log.d("UID", UID);
             Log.d("uidtouser", uidToUser);
             lastkey.edit().clear().commit();
-            //clears whole file
         }
 
 
@@ -222,5 +242,25 @@ public class MessagePart extends AppCompatActivity {
         lastUserChatted.apply();
     }
 
+    public boolean checkUnfriendlyMessages(String message){
+        ArrayList<String> BadWords = new ArrayList<>();
+        BadWords.add("fuck");
+        BadWords.add("sex");
+        BadWords.add("horny");
+        BadWords.add("69");
+        BadWords.add("die");
+        BadWords.add("faggot");
+        BadWords.add("pussy");
+        BadWords.add("dick");
+        message.toLowerCase();
+        for (int i = 0; i < BadWords.size() ; i++){
+            if (message.contains(BadWords.get(i))){
+                Log.d(message, BadWords.get(i));
+                return true;
+            }
 
+        }
+        return false;
+
+    }
 }
