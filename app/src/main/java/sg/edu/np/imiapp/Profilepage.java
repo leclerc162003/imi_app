@@ -52,6 +52,21 @@ public class Profilepage extends AppCompatActivity {
         this.usernameHome = findViewById(R.id.usernameHome);
         storageReference = FirebaseStorage.getInstance().getReference();
         pathReference = storageReference.child("Default Images/dpfp3.png");
+//        SharedPreferences lastUserChatted = getSharedPreferences("lastUserChatted", MODE_PRIVATE);
+//        String UID = lastUserChatted.getString("toID", "nouser");
+//        String Name = lastUserChatted.getString("toNAME", "nouser");
+//        Log.d("ID of last user chatted", UID);
+//        if (!UID.contentEquals("nouser")){
+//            Log.d("IS IT SENDING IT", "SEND ITT");
+//            Bundle extras = new Bundle();
+//            // Context in current activity and the class the data to be transferred to
+//            Intent i = new Intent(Profilepage.this, MessagePart.class);
+//            extras.putString("toUID", UID);
+//            extras.putString("toUsername", Name);
+//            i.putExtras(extras);
+//            Profilepage.this.startActivity(i);
+//            lastUserChatted.edit().clear().commit();
+//        }
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.getCurrentUser();

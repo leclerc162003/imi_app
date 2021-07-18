@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -88,5 +89,12 @@ public class Chats_Page extends AppCompatActivity {
         return userList;
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferences lastUserChatted = getSharedPreferences("lastUserChatted", MODE_PRIVATE);
+        String UID = lastUserChatted.getString("toID", "nouser");
+        String Name = lastUserChatted.getString("toNAME", "nouser");
+        lastUserChatted.edit().clear().commit();
+    }
 }

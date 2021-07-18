@@ -60,20 +60,23 @@ public class MessagePart extends AppCompatActivity {
         mAuth.getCurrentUser();
 
         Intent receive = getIntent();
-//        if (receive.getStringExtra("toUID") != "nouser"){
-//            sendToUsername.setText(receive.getStringExtra("toUsername"));
-//            sendToUserID = receive.getStringExtra("toUID");
-//            //inputLastKeyedText(sendToUserID);
-//        }
-//        else{
+        String UsernameReceiver;
+        if (receive.getStringExtra("toUID")!= null){
+            Log.d("username NNOWNNWONW", receive.getStringExtra("toUsername"));
+            UsernameReceiver = receive.getStringExtra("toUsername");
+            sendToUserID = receive.getStringExtra("toUID");
+        }
+        else{
         //set username to username received from intent in Chats Page Adapter
-        sendToUsername.setText(receive.getStringExtra("Username"));
+        //sendToUsername.setText(receive.getStringExtra("Username"));
+            UsernameReceiver = receive.getStringExtra("Username");
         //Get UID of the receiver (the person the user is messaging)
         sendToUserID = receive.getStringExtra("UID");
         //input the last unsent keyed message by user *if any
-        inputLastKeyedText(sendToUserID);
 
-       // }
+        }
+        sendToUsername.setText(UsernameReceiver);
+        inputLastKeyedText(sendToUserID);
 //        sendToUsername.setText(receive.getStringExtra("Username"));
 //        String sendToUserID = receive.getStringExtra("UID");
 //        inputLastKeyedText(sendToUserID);
@@ -87,7 +90,7 @@ public class MessagePart extends AppCompatActivity {
                     messageText.setError("no message sent");
                 }
                 //check for unfriendly messages
-                if (checkUnfriendlyMessages(messageText.getText().toString()) == true){
+                else if (checkUnfriendlyMessages(messageText.getText().toString()) == true){
                     messageText.setError("unfriendly messages not allowed.");
                 }
 
@@ -129,6 +132,8 @@ public class MessagePart extends AppCompatActivity {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren() ) {
                     //convert data got from database to a message object
                     SentMessages message = postSnapshot.getValue(SentMessages.class);
+                    Log.d("AM I NULL", sendToUserID);
+                    Log.d("AM I NULL", message.UIDcurrentuser);
                     //if the toUIDUser (person receiving the message) and the current userID matches OR
                     //toUIDuser matches the current user and currentuserID matches the person receiving the message add message to list
                     if(message.toUIDUser.contentEquals(sendToUserID) == true && message.UIDcurrentuser.contentEquals(mAuth.getUid()) == true || message.toUIDUser.contentEquals(mAuth.getUid()) == true && message.UIDcurrentuser.contentEquals(sendToUserID) == true ){
@@ -169,10 +174,10 @@ public class MessagePart extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Intent receive = getIntent();
-        sendToUsername.setText(receive.getStringExtra("Username"));
+        //sendToUsername.setText(receive.getStringExtra("Username"));
         String sendToUserID = receive.getStringExtra("UID");
 
-        inputLastKeyedText(sendToUserID);
+        //inputLastKeyedText(sendToUserID);
     }
 
     @Override
