@@ -11,23 +11,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Imiapp">
-<!--        <activity android:name=".splashscreen"></activity>-->
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".chooseInterests"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".Chats_Page" />
-        <activity android:name=".profilePictureChoose" />
+        <activity android:name=".choosePFP_Username" />
         <activity android:name=".MessagePart" />
         <activity android:name=".Profilepage" />
         <activity android:name=".Signin" />
         <activity android:name=".Signup" />
-<!--        <activity android:name=".MainActivity">-->
         <activity android:name=".splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
+        </activity> <!-- <activity android:name=".choosePFP_Username"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

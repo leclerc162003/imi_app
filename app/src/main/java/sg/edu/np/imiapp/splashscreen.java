@@ -64,7 +64,10 @@ public class splashscreen extends AppCompatActivity {
                 String UID = lastUserChatted.getString("toID", "nouser");
                 String Name = lastUserChatted.getString("toNAME", "nouser");
                 Log.d("ID of last user chatted", UID);
-                if (!UID.contentEquals("nouser")){
+                if (isOnline() != true){
+                    displayMobileDataSettingsDialog( splashscreen.this);
+                }
+                else if (!UID.contentEquals("nouser")){
                     Log.d("IS IT SENDING IT", "SEND ITT");
                     Bundle extras = new Bundle();
                     // Context in current activity and the class the data to be transferred to
@@ -94,5 +97,35 @@ public class splashscreen extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         startTimer(3);
+    }
+
+    public boolean isOnline() {
+        //check if internet is available, return true if user not connected to internet
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    public AlertDialog displayMobileDataSettingsDialog(final Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("No Internet");
+        builder.setMessage("Please connect to your internet");
+
+        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //redirects user to WIFI in settings when click close
+                Intent intent = new Intent();
+                //intent.setComponent(new ComponentName("com.android.settings","com.android.settings.Settings$DataUsageSummaryActivity"));
+                context.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+                dialog.cancel();
+                startActivity(intent);
+
+            }
+        });
+        builder.show();
+
+        return builder.create();
     }
 }

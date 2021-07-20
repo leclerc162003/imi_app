@@ -1,13 +1,10 @@
 package sg.edu.np.imiapp;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -15,7 +12,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,13 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -55,12 +46,12 @@ public class Signup extends AppCompatActivity {
         //find email and password editText in activity_signup.xml
         this.newUserEmail = findViewById(R.id.newUEmail);
         this.newUserPassword = findViewById(R.id.newUPass);
-        this.newUsername = findViewById(R.id.userName);
+        //this.newUsername = findViewById(R.id.userName);
         loadingBar = findViewById(R.id.progressBar);
         loadingBar.setVisibility(View.GONE);
 
         //find createAccount button in activity_signup.xml
-        Button createAccount = findViewById(R.id.createAccount);
+        Button createAccount = findViewById(R.id.continueCreate);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -72,13 +63,10 @@ public class Signup extends AppCompatActivity {
                 //validate user input for email, password and email
                 String email = String.valueOf(newUserEmail.getText());
                 String password = newUserPassword.getText().toString();
-                String username = newUsername.getText().toString();
+                //String username = newUsername.getText().toString();
                 loadingBar.setVisibility(View.VISIBLE);
-                if(username.equals("")){
-                    newUsername.setError("can't be blank");
-                    //loadingBar.setVisibility(View.GONE);
-                }
-                else if(email.equals("")){
+
+                if(email.equals("")){
                     newUserEmail.setError("can't be blank");
                     //loadingBar.setVisibility(View.GONE);
                 }
@@ -88,8 +76,16 @@ public class Signup extends AppCompatActivity {
                 }
 
                 else{
-                    createAccount(String.valueOf(newUserEmail.getText()), String.valueOf(newUserPassword.getText()),  String.valueOf(newUsername.getText()));
+                    //createAccount(String.valueOf(newUserEmail.getText()), String.valueOf(newUserPassword.getText()),  String.valueOf(newUsername.getText()));
                     //loadingBar.setVisibility(View.GONE);
+                    Bundle extras = new Bundle();
+                    extras.putString("newEmail", email);
+                    extras.putString("newPassword", password);
+                    Log.d("email", email);
+
+                    Intent i = new Intent(Signup.this, choosePFP_Username.class);
+                    i.putExtras(extras);
+                    Signup.this.startActivity(i);
                 }
                 //create account method with the values obtained from the editText inputted by the user
                 //createAccount(String.valueOf(newUserEmail.getText()), String.valueOf(newUserPassword.getText()),  String.valueOf(newUsername.getText()));
@@ -109,7 +105,8 @@ public class Signup extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign up success, bring user to log in page
                             Log.d("create", "createUserWithEmail:success");
-                            Intent i = new Intent(Signup.this, Signin.class);
+                            //Intent i = new Intent(Signup.this, Signin.class);
+                            Intent i = new Intent(Signup.this, choosePFP_Username.class);
                             Signup.this.startActivity(i);
                             //get current user
                             FirebaseUser user = mAuth.getCurrentUser();
@@ -141,9 +138,9 @@ public class Signup extends AppCompatActivity {
 
     private void saveUsername(String uid, String username, ArrayList<String> interests){
         //add User object with user inputs
-        User newUser = new User(uid, username, interests);
+        //User newUser = new User(uid, username, interests);
         //add newUser object under user uid in Users table
-        mDatabase.child("Users").child(uid).setValue(newUser);
+        //mDatabase.child("Users").child(uid).setValue(newUser);
         Log.d("data", "data added");
     }
 }

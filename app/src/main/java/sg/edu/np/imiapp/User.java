@@ -5,15 +5,17 @@ import java.util.ArrayList;
 public class User {
     private String uid;
     private String username;
-    private ArrayList<String> interests;
+    private String profilePic;
+    private ArrayList<interests> interests;
 
     public User() {
     }
 
-    public User(String uid, String username, ArrayList<String> interests) {
+    public User(String uid, String username, String profilePic, ArrayList<interests> interests) {
 
         this.uid = uid;
         this.username = username;
+        this.profilePic = profilePic;
         this.interests = interests;
 
     }
@@ -26,7 +28,9 @@ public class User {
         return username;
     }
 
-    public ArrayList<String> getInterests() {
+    public String getProfilePic() { return profilePic; }
+
+    public ArrayList<interests> getInterests() {
         return interests;
     }
 }

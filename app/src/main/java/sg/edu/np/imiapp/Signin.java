@@ -88,9 +88,7 @@ public class Signin extends AppCompatActivity {
                 String email = String.valueOf(userEmail.getText());
                 String password = userPassword.getText().toString();
                 //check if phone is connected to internet
-                if (isOnline() == true){
-                    displayMobileDataSettingsDialog( Signin.this);
-                }
+
                 if(email.equals("")){
                     userEmail.setError("can't be blank");
                 }
@@ -142,33 +140,5 @@ public class Signin extends AppCompatActivity {
 
     }
 
-    public boolean isOnline() {
-        //check if internet is available, return true if user not connected to internet
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
 
-    public AlertDialog displayMobileDataSettingsDialog(final Context context){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("No Internet");
-        builder.setMessage("Please connect to your internet");
-
-        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //redirects user to WIFI in settings when click close
-                Intent intent = new Intent();
-                //intent.setComponent(new ComponentName("com.android.settings","com.android.settings.Settings$DataUsageSummaryActivity"));
-                context.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
-                dialog.cancel();
-                startActivity(intent);
-
-            }
-        });
-        builder.show();
-
-        return builder.create();
-    }
 }

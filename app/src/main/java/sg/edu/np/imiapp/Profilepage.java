@@ -85,7 +85,7 @@ public class Profilepage extends AppCompatActivity {
                 User username = dataSnapshot.child(mAuth.getUid()).getValue(User.class);
                 //display username and interests in UI
                 usernameHome.setText(username.getUsername() + "'s Profile");
-                interestList = username.getInterests();
+                //interestList = username.getInterests();
                 RecyclerView rv = findViewById(R.id.interestsrv);
                 InterestAdapter adapter = new InterestAdapter(context, interestList);
                 LinearLayoutManager lm = new LinearLayoutManager(context);
