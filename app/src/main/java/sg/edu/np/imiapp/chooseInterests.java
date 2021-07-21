@@ -56,7 +56,7 @@ public class chooseInterests extends AppCompatActivity {
                 Log.d("password", password);
                 Log.d("username", username);
                 String pfp = receive.getStringExtra("newpfp");
-                createAccount(email, password, username, pfp, selectedInterests(adapter.getSelectedList()));
+                createAccount(email, password, username, pfp, selectedInterests(getInterests(), adapter.getSelectedList()));
 
             }
         });
@@ -83,13 +83,12 @@ public class chooseInterests extends AppCompatActivity {
 
         return interests;
     }
-    public ArrayList<interests> selectedInterests(ArrayList<interests> interests){
-        for (interests model : interests) {
-            if (model.isSelected()) {
-                interests.add(model);
-            }
+    public ArrayList<interests> selectedInterests(ArrayList<interests> interests, ArrayList<Integer> selectedList){
+        ArrayList<interests> selectedInterests = new ArrayList<>();
+        for (int i = 0; i < selectedList.size() ; i++){
+            selectedInterests.add(interests.get(selectedList.get(i)));
         }
-        return  interests;
+        return  selectedInterests;
 
     }
 
