@@ -108,16 +108,6 @@
         app:layout_constraintEnd_toEndOf="@+id/settingsButton"
         app:layout_constraintStart_toStartOf="@+id/settingsButton" />
 
-    <ImageView
-        android:id="@+id/profilePic"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameHome"
-        app:srcCompat="@drawable/profile_pic" />
-
     <TextView
         android:id="@+id/usernameHome"
         android:layout_width="wrap_content"
@@ -145,12 +135,21 @@
         android:id="@+id/interestTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Interests"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilePic" />
+
+    <ImageView
+        android:id="@+id/profilePic"
+        android:layout_width="299dp"
+        android:layout_height="276dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameHome"
+        app:srcCompat="@drawable/black_pfp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

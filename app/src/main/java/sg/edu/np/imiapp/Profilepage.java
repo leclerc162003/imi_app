@@ -39,7 +39,8 @@ public class Profilepage extends AppCompatActivity {
     Context context;
     public StorageReference storageReference;
     public StorageReference pathReference;
-
+    public String profilePicURL;
+    public User username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,31 +51,11 @@ public class Profilepage extends AppCompatActivity {
         setContentView(R.layout.activity_profilepage);
         //get username textview in activity_homepage.xml
         this.usernameHome = findViewById(R.id.usernameHome);
-        storageReference = FirebaseStorage.getInstance().getReference();
-        pathReference = storageReference.child("Default Images/dpfp3.png");
-//        SharedPreferences lastUserChatted = getSharedPreferences("lastUserChatted", MODE_PRIVATE);
-//        String UID = lastUserChatted.getString("toID", "nouser");
-//        String Name = lastUserChatted.getString("toNAME", "nouser");
-//        Log.d("ID of last user chatted", UID);
-//        if (!UID.contentEquals("nouser")){
-//            Log.d("IS IT SENDING IT", "SEND ITT");
-//            Bundle extras = new Bundle();
-//            // Context in current activity and the class the data to be transferred to
-//            Intent i = new Intent(Profilepage.this, MessagePart.class);
-//            extras.putString("toUID", UID);
-//            extras.putString("toUsername", Name);
-//            i.putExtras(extras);
-//            Profilepage.this.startActivity(i);
-//            lastUserChatted.edit().clear().commit();
-//        }
-
         mAuth = FirebaseAuth.getInstance();
         mAuth.getCurrentUser();
         this.usernameHome = findViewById(R.id.usernameHome);
         this.profilePic = findViewById(R.id.profilePic);
-        GlideApp.with(this)
-                .load(pathReference)
-                .into(profilePic);
+
 
 
         // read from firebase database table "Users"
@@ -82,10 +63,18 @@ public class Profilepage extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //create user object with data obtained from database
-                User username = dataSnapshot.child(mAuth.getUid()).getValue(User.class);
+                username = dataSnapshot.child(mAuth.getUid()).getValue(User.class);
+                profilePicURL = username.getProfilePic();
+                Log.d("profile", profilePicURL);
+                storageReference = FirebaseStorage.getInstance().getReference();
+                pathReference = storageReference.child("Default Images/" + profilePicURL);
+                GlideApp.with(Profilepage.this)
+                        .load(pathReference)
+                        .into(profilePic);
+
                 //display username and interests in UI
                 usernameHome.setText(username.getUsername() + "'s Profile");
-                //interestList = username.getInterests();
+                interestList = username.getInterests();
                 RecyclerView rv = findViewById(R.id.interestsrv);
                 InterestAdapter adapter = new InterestAdapter(context, interestList);
                 LinearLayoutManager lm = new LinearLayoutManager(context);
@@ -100,7 +89,18 @@ public class Profilepage extends AppCompatActivity {
                 // Failed to read value
             }
         });
+        //Log.d("user", username.getProfilePic() + username.getUsername());
 
+//        mAuth = FirebaseAuth.getInstance();
+//        mAuth.getCurrentUser();
+//        usernameHome = findViewById(R.id.usernameHome);
+//        profilePic = findViewById(R.id.profilePic);
+//        GlideApp.with(Profilepage.this)
+//                .load(pathReference)
+//                .into(profilePic);
+
+//        storageReference = FirebaseStorage.getInstance().getReference();
+//        pathReference = storageReference.child("Default Images/" + profilePicURL);
 
 
         ///Can remove CAN REMOVE AH JUST CODED TO TEST THE APP CAN REMOVE!! NOT RELEVANT CODE
@@ -110,7 +110,7 @@ public class Profilepage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Profilepage.this, Chats_Page.class);
-                i.putExtra("userInterests", interestList);
+                i.putExtra("userInterests", username.getInterests());
                 Profilepage.this.startActivity(i);
             }
         });

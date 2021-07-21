@@ -6,12 +6,12 @@ public class User {
     private String uid;
     private String username;
     private String profilePic;
-    private ArrayList<interests> interests;
+    private ArrayList<String> interests;
 
     public User() {
     }
 
-    public User(String uid, String username, String profilePic, ArrayList<interests> interests) {
+    public User(String uid, String username, String profilePic, ArrayList<String> interests) {
 
         this.uid = uid;
         this.username = username;
@@ -30,7 +30,7 @@ public class User {
 
     public String getProfilePic() { return profilePic; }
 
-    public ArrayList<interests> getInterests() {
+    public ArrayList<String> getInterests() {
         return interests;
     }
 }

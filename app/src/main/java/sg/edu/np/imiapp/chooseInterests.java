@@ -83,17 +83,17 @@ public class chooseInterests extends AppCompatActivity {
 
         return interests;
     }
-    public ArrayList<interests> selectedInterests(ArrayList<interests> interests, ArrayList<Integer> selectedList){
-        ArrayList<interests> selectedInterests = new ArrayList<>();
+    public ArrayList<String> selectedInterests(ArrayList<interests> interests, ArrayList<Integer> selectedList){
+        ArrayList<String> selectedInterests = new ArrayList<>();
         for (int i = 0; i < selectedList.size() ; i++){
-            selectedInterests.add(interests.get(selectedList.get(i)));
+            selectedInterests.add(interests.get(selectedList.get(i)).getText());
         }
         return  selectedInterests;
 
     }
 
 
-    private void createAccount(String email, String password, String username, String pfp, ArrayList<interests> interests) {
+    private void createAccount(String email, String password, String username, String pfp, ArrayList<String> interests) {
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -132,7 +132,7 @@ public class chooseInterests extends AppCompatActivity {
     }
 
 
-    private void saveUsername(String uid, String username, String pfp, ArrayList<interests> interests){
+    private void saveUsername(String uid, String username, String pfp, ArrayList<String> interests){
         //add User object with user inputs
         User newUser = new User(uid, username, pfp ,interests);
         //add newUser object under user uid in Users table

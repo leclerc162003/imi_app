@@ -54,6 +54,7 @@ public class Chats_Page extends AppCompatActivity {
                 userList.clear();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren() ) {
                     User user = postSnapshot.getValue(User.class);
+                    User currentUser = new User();
                     if(user.getUID().contentEquals(mAuth.getUid()) != true){
                         //userList.add(user);
                         Log.d("username from database", user.getUID());
@@ -61,10 +62,11 @@ public class Chats_Page extends AppCompatActivity {
                         userList.add(user);
                     }
 
-                }
 
+                }
                 for(int i=0; i < userList.size(); i++){
                     Intent receive = getIntent();
+                    //ArrayList<String> userInterests = user.getInterests();
                     ArrayList<String> userInterests = receive.getStringArrayListExtra("userInterests");
                     userList.get(i).getInterests().retainAll(userInterests);
                     if(userList.get(i).getInterests().size() == 0){
@@ -72,6 +74,18 @@ public class Chats_Page extends AppCompatActivity {
                     }
 
                 }
+
+//                for(int i=0; i < userList.size(); i++){
+//                    Intent receive = getIntent();
+//                    ArrayList<String> userInterests = receive.getStringArrayListExtra("userInterests");
+//                    Log.d("interests kl", String.valueOf(userInterests.size()));
+//                    userList.get(i).getInterests().retainAll(userInterests);
+//                    if(userList.get(i).getInterests().size() == 0){
+//                        userList.remove(userList.get(i));
+//                        Log.d("number of items", String.valueOf(userList.get(i).getInterests().size()));
+//                    }
+//
+//                }
                 //create user object with data obtained from database
                 //User username = dataSnapshot.getValue(User.class);
                 //display username and interests in UI
