@@ -29,6 +29,7 @@ public class chooseInterests extends AppCompatActivity {
     //initialise firebase database
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference mDatabase = firebaseDatabase.getReference();
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class chooseInterests extends AppCompatActivity {
         LinearLayoutManager lm = new LinearLayoutManager(context);
         rv.setLayoutManager(lm);
         rv.setAdapter(adapter);
-        adapter.getSelectedList();
+        Log.d("error", "here");
 
         Button finish = findViewById(R.id.finishButton);
 
@@ -56,7 +57,39 @@ public class chooseInterests extends AppCompatActivity {
                 Log.d("password", password);
                 Log.d("username", username);
                 String pfp = receive.getStringExtra("newpfp");
-                createAccount(email, password, username, pfp, selectedInterests(getInterests(), adapter.getSelectedList()));
+                //createAccount(email, password, username, pfp, selectedInterests(getInterests(), adapter.getSelectedList()));
+                Log.d("pfp", pfp);
+                Log.d("interests", String.valueOf(selectedInterests(getInterests(), adapter.getSelectedList())));
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign up success, bring user to log in page
+                                    Log.d("create", "createUserWithEmail:success");
+                                    //Intent i = new Intent(Signup.this, Signin.class);
+                                    //get current user
+                                    user = mAuth.getCurrentUser();
+                                    //loadingBar.setVisibility(View.GONE);
+                                    //set username and save it to firebase
+                                    ArrayList<interests> iint = getInterests();
+                                    ArrayList<Integer> inttt= adapter.getSelectedList();
+                                    ArrayList<String> ag = selectedInterests(iint, inttt);
+                                    saveUsername(user.getUid(), username, pfp ,ag );
+
+                                    Intent i = new Intent(chooseInterests.this, Signin.class);
+                                    chooseInterests.this.startActivity(i);
+
+                                } else {
+                                    // If sign up fails, display a message to the user.
+                                    Toast.makeText(chooseInterests.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                    Log.d("createAccount", "failed");
+
+
+                                }
+                            }
+                        });
+
 
                 Intent i = new Intent(chooseInterests.this, Signin.class);
                 chooseInterests.this.startActivity(i);
@@ -91,7 +124,7 @@ public class chooseInterests extends AppCompatActivity {
         for (int i = 0; i < selectedList.size() ; i++){
             selectedInterests.add(interests.get(selectedList.get(i)).getText());
         }
-        return  selectedInterests;
+        return selectedInterests;
 
     }
 
@@ -106,26 +139,19 @@ public class chooseInterests extends AppCompatActivity {
                             // Sign up success, bring user to log in page
                             Log.d("create", "createUserWithEmail:success");
                             //Intent i = new Intent(Signup.this, Signin.class);
-                            Intent i = new Intent(chooseInterests.this, Signin.class);
-                            chooseInterests.this.startActivity(i);
                             //get current user
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
                             //loadingBar.setVisibility(View.GONE);
-
-                            //get interests
-//                            ArrayList<String> interests = new ArrayList<>();
-//                            interests.add("TWICE");
-//                            interests.add("BTS");
-//                            interests.add("Anime");
-//                            interests.add("NCT");
-//                            interests.add("Ed Sheeran");
-
                             //set username and save it to firebase
                             saveUsername(user.getUid(), username, pfp ,interests);
+
+                            Intent i = new Intent(chooseInterests.this, Signin.class);
+                            chooseInterests.this.startActivity(i);
 
                         } else {
                             // If sign up fails, display a message to the user.
                             Toast.makeText(chooseInterests.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Log.d("createAccount", "failed");
 
 
                         }
@@ -135,7 +161,7 @@ public class chooseInterests extends AppCompatActivity {
     }
 
 
-    private void saveUsername(String uid, String username, String pfp, ArrayList<String> interests){
+    public void saveUsername(String uid, String username, String pfp, ArrayList<String> interests){
         //add User object with user inputs
         User newUser = new User(uid, username, pfp ,interests);
         //add newUser object under user uid in Users table

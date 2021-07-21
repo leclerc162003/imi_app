@@ -96,51 +96,51 @@ public class Signup extends AppCompatActivity {
 
 
 
-    private void createAccount(String email, String password, String username) {
-        // [START create_user_with_email]
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign up success, bring user to log in page
-                            Log.d("create", "createUserWithEmail:success");
-                            //Intent i = new Intent(Signup.this, Signin.class);
-                            Intent i = new Intent(Signup.this, choosePFP_Username.class);
-                            Signup.this.startActivity(i);
-                            //get current user
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            loadingBar.setVisibility(View.GONE);
-
-                            //get interests
-                            ArrayList<String> interests = new ArrayList<>();
-                            interests.add("TWICE");
-                            interests.add("BTS");
-                            interests.add("Anime");
-                            interests.add("NCT");
-                            interests.add("Ed Sheeran");
-
-                            //set username and save it to firebase
-                            saveUsername(user.getUid(), username, interests);
-
-                        } else {
-                            // If sign up fails, display a message to the user.
-                            Toast.makeText(Signup.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                            loadingBar.setVisibility(View.GONE);
-
-
-                        }
-                    }
-                });
-        // [END create_user_with_email]
-    }
-
-
-    private void saveUsername(String uid, String username, ArrayList<String> interests){
-        //add User object with user inputs
-        //User newUser = new User(uid, username, interests);
-        //add newUser object under user uid in Users table
-        //mDatabase.child("Users").child(uid).setValue(newUser);
-        Log.d("data", "data added");
-    }
+//    private void createAccount(String email, String password, String username) {
+//        // [START create_user_with_email]
+//        mAuth.createUserWithEmailAndPassword(email, password)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            // Sign up success, bring user to log in page
+//                            Log.d("create", "createUserWithEmail:success");
+//                            //Intent i = new Intent(Signup.this, Signin.class);
+//                            Intent i = new Intent(Signup.this, choosePFP_Username.class);
+//                            Signup.this.startActivity(i);
+//                            //get current user
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//                            loadingBar.setVisibility(View.GONE);
+//
+//                            //get interests
+//                            ArrayList<String> interests = new ArrayList<>();
+//                            interests.add("TWICE");
+//                            interests.add("BTS");
+//                            interests.add("Anime");
+//                            interests.add("NCT");
+//                            interests.add("Ed Sheeran");
+//
+//                            //set username and save it to firebase
+//                            saveUsername(user.getUid(), username, interests);
+//
+//                        } else {
+//                            // If sign up fails, display a message to the user.
+//                            Toast.makeText(Signup.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+//                            loadingBar.setVisibility(View.GONE);
+//
+//
+//                        }
+//                    }
+//                });
+//        // [END create_user_with_email]
+//    }
+//
+//
+//    private void saveUsername(String uid, String username, ArrayList<String> interests){
+//        //add User object with user inputs
+//        //User newUser = new User(uid, username, interests);
+//        //add newUser object under user uid in Users table
+//        //mDatabase.child("Users").child(uid).setValue(newUser);
+//        Log.d("data", "data added");
+//    }
 }
