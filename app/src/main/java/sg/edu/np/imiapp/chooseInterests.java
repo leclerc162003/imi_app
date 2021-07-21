@@ -58,6 +58,9 @@ public class chooseInterests extends AppCompatActivity {
                 String pfp = receive.getStringExtra("newpfp");
                 createAccount(email, password, username, pfp, selectedInterests(getInterests(), adapter.getSelectedList()));
 
+                Intent i = new Intent(chooseInterests.this, Signin.class);
+                chooseInterests.this.startActivity(i);
+
             }
         });
 
