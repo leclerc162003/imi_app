@@ -10,14 +10,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 
 public class ChatsPageAdapter extends RecyclerView.Adapter<ChatsPageViewHolder> {
     Context context;
     ArrayList<User> userList;
-    public ChatsPageAdapter(Context c, ArrayList<User> d) {
+    FirebaseAuth auth;
+    ArrayList<String> user;
+    public ChatsPageAdapter(Context c, ArrayList<User> d, ArrayList<String> u) {
         context = c;
         userList = d;
+        user = u;
     }
 
     @NonNull
@@ -29,9 +35,11 @@ public class ChatsPageAdapter extends RecyclerView.Adapter<ChatsPageViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ChatsPageViewHolder holder, int position) {
+        ArrayList<String> interestsUser = new ArrayList<>(user);
         User chatUser = userList.get(position);
+        chatUser.getInterests().retainAll(interestsUser);
         holder.chatUsername.setText(chatUser.getUsername());
-        holder.chatLM.setText("Similar Interests: " + chatUser.getInterests().get(0));
+        holder.chatLM.setText("Interests: " + chatUser.getInterests().get(0));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

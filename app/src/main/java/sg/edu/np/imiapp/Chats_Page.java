@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Chats_Page extends AppCompatActivity {
 
@@ -36,9 +37,10 @@ public class Chats_Page extends AppCompatActivity {
         mAuth.getCurrentUser();
         currentuserID = mAuth.getUid();
         Log.d("Added user to list", mAuth.getUid());
-
+        Intent receive = getIntent();
+        ArrayList<String> userInterests = receive.getStringArrayListExtra("userInterests");
         RecyclerView rv = findViewById(R.id.userRV);
-        ChatsPageAdapter adapter = new ChatsPageAdapter(this, findSimilarInterests());
+        ChatsPageAdapter adapter = new ChatsPageAdapter(this, findSimilarInterests(),userInterests);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
         rv.setAdapter(adapter);
@@ -54,7 +56,6 @@ public class Chats_Page extends AppCompatActivity {
                 userList.clear();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren() ) {
                     User user = postSnapshot.getValue(User.class);
-                    User currentUser = new User();
                     if(user.getUID().contentEquals(mAuth.getUid()) != true){
                         //userList.add(user);
                         Log.d("username from database", user.getUID());
@@ -64,16 +65,42 @@ public class Chats_Page extends AppCompatActivity {
 
 
                 }
+                Log.d("size of list", String.valueOf(userList.size()));
                 for(int i=0; i < userList.size(); i++){
                     Intent receive = getIntent();
                     //ArrayList<String> userInterests = user.getInterests();
-                    ArrayList<String> userInterests = receive.getStringArrayListExtra("userInterests");
-                    userList.get(i).getInterests().retainAll(userInterests);
-                    if(userList.get(i).getInterests().size() == 0){
+                    List<String> userInterests = receive.getStringArrayListExtra("userInterests");
+                    List<String> compareList =  userList.get(i).getInterests();
+                    Log.d("current user list", userInterests.toString());
+                    Log.d("compared user list", userList.get(i).getInterests().toString() + userList.get(i).getUsername());
+                    List<String> similarList = new ArrayList<>(compareList);
+
+                    similarList.retainAll(userInterests);
+                    Log.d("after compared", similarList.toString());
+                    if(similarList.size() == 0){
                         userList.remove(userList.get(i));
                     }
 
                 }
+                for(int i=0; i < userList.size(); i++){
+                    Intent receive = getIntent();
+                    //ArrayList<String> userInterests = user.getInterests();
+                    List<String> userInterests = receive.getStringArrayListExtra("userInterests");
+                    List<String> compareList =  userList.get(i).getInterests();
+                    Log.d("current user list", userInterests.toString());
+                    Log.d("compared user list", userList.get(i).getInterests().toString() + userList.get(i).getUsername());
+                    List<String> similarList = new ArrayList<>(compareList);
+
+                    similarList.retainAll(userInterests);
+                    Log.d("after compared", similarList.toString());
+                    if(similarList.size() == 0){
+                        userList.remove(userList.get(i));
+
+                    }
+
+                }
+                Log.d("size of list", String.valueOf(userList.size()));
+
 
 //                for(int i=0; i < userList.size(); i++){
 //                    Intent receive = getIntent();
