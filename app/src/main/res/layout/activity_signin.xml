@@ -40,7 +40,7 @@
                 android:hint="Email">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/userEmailSignIn"
+                    android:id="@+id/newUEmail1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/username_right"
@@ -55,7 +55,7 @@
                 android:hint="Password">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/userPasswordSignIn"
+                    android:id="@+id/newUPass1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/password_right"
@@ -64,7 +64,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/signUpNow"
+                android:id="@+id/SignIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -105,7 +105,7 @@
             android:background="@drawable/button_back">
 
             <TextView
-                android:id="@+id/userLogin"
+                android:id="@+id/continueCreate1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -123,7 +123,7 @@
         android:id="@+id/imageView5"
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -133,6 +133,7 @@
         android:id="@+id/imageView6"
         android:layout_width="0dp"
         android:layout_height="150dp"
+        android:layout_marginTop="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
