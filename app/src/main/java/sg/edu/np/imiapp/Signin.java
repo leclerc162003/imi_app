@@ -1,18 +1,12 @@
 package sg.edu.np.imiapp;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -45,16 +39,16 @@ public class Signin extends AppCompatActivity {
         setContentView(R.layout.activity_signin);
 
         //find email and password editText in activity_signin.xml
-        this.userEmail = findViewById(R.id.userEmailSignIn);
-        this.userPassword = findViewById(R.id.userPasswordSignIn);
+        this.userEmail = findViewById(R.id.newUEmail1);
+        this.userPassword = findViewById(R.id.newUPass1);
         this.checkBox = findViewById(R.id.rememberMe);
 //        loadingBar = findViewById(R.id.loadingBar2);
 //        loadingBar.setVisibility(View.GONE);
 
-        TextView signUp = findViewById((R.id.signUpNow));
+        TextView signUp = findViewById((R.id.SignIn));
 
         //find createAccount button in activity_signin.xml
-        TextView signIn = findViewById(R.id.userLogin);
+        TextView signIn = findViewById(R.id.continueCreate1);
 
         //initialise Firebase auth
         mAuth = FirebaseAuth.getInstance();

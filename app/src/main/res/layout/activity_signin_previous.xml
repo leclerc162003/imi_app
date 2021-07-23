@@ -7,7 +7,7 @@
     tools:context=".Signin">
 
     <TextView
-        android:id="@+id/signUpNow"
+        android:id="@+id/SignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -15,10 +15,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/continueCreate1" />
 
     <EditText
-        android:id="@+id/userPasswordSignIn"
+        android:id="@+id/newUPass1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -27,10 +27,10 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userEmailSignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/newUEmail1" />
 
     <EditText
-        android:id="@+id/userEmailSignIn"
+        android:id="@+id/newUEmail1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <Button
-        android:id="@+id/userLogin"
+        android:id="@+id/continueCreate1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -51,7 +51,7 @@
         app:backgroundTint="#00BCD4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userPasswordSignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/newUPass1" />
 
     <ImageView
         android:id="@+id/imageView3"
