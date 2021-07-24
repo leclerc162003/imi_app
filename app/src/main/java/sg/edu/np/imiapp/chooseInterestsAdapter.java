@@ -39,7 +39,6 @@ public class chooseInterestsAdapter extends RecyclerView.Adapter<chooseInterests
 //            public void onClick(View view) {
 //                interest.setSelected(!interest.isSelected());
 //                selectedList.add(position);
-//            }
 //        });
         holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
