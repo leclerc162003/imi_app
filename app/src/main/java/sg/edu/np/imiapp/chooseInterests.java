@@ -151,7 +151,7 @@ public class chooseInterests extends AppCompatActivity {
 
                         } else {
                             // If sign up fails, display a message to the user.
-                            Toast.makeText(chooseInterests.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(chooseInterests.this, "Create Account Failed. Please Try Again.", Toast.LENGTH_SHORT).show();
                             Log.d("createAccount", "failed");
 
 
