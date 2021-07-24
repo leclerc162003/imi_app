@@ -40,14 +40,14 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-//        bugReport.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(Settings.this, bugIssue.class);
-//                Settings.this.startActivity(i);
-//            }
-//        });
-//
+        bugReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Settings.this, bugIssue.class);
+                Settings.this.startActivity(i);
+            }
+        });
+
 //        signOut.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
