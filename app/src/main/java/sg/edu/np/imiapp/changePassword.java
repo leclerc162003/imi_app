@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,15 +26,22 @@ public class changePassword extends AppCompatActivity {
         EditText reEnteredPass = findViewById(R.id.reUpdatePass);
         ImageView update = findViewById(R.id.updateButton);
         mAuth = FirebaseAuth.getInstance();
+
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //ask user to reenter aas password does not match
                 if (!reEnteredPass.getText().toString().contentEquals(newPass.getText().toString())){
                     reEnteredPass.setError("Password does not match");
                 }
                 else{
+                    //update password using firebase authentication
                     mAuth.getCurrentUser().updatePassword(reEnteredPass.getText().toString());
                     Toast.makeText(changePassword.this, "You have successfully changed password.", Toast.LENGTH_SHORT).show();
+                    //sign out user and bring user to sign in page
+                    //clear sharedPref login information
+                    SharedPreferences loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE);
+                    loginInfo.edit().clear().commit();
                     Intent i = new Intent(changePassword.this, Signin.class);
                     changePassword.this.startActivity(i);
                     mAuth.signOut();

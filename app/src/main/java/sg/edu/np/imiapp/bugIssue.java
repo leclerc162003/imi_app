@@ -22,6 +22,7 @@ public class bugIssue extends AppCompatActivity {
         EditText reportText = findViewById(R.id.reportText);
         Button reportButton = findViewById(R.id.reportButton);
 
+        //when click on report button, post report to the database and return editText to empty and post Toast message
         reportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
