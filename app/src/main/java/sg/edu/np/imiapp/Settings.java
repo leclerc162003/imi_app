@@ -48,13 +48,13 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-//        signOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mAuth.signOut();
-//                Intent i = new Intent(Settings.this, Signin.class);
-//                Settings.this.startActivity(i);
-//            }
-//        });
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent i = new Intent(Settings.this, Signin.class);
+                Settings.this.startActivity(i);
+            }
+        });
     }
 }
