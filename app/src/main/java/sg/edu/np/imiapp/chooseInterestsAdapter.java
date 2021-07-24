@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class chooseInterestsAdapter extends RecyclerView.Adapter<chooseInterestsViewHolder> {
     Context context;
@@ -44,10 +45,17 @@ public class chooseInterestsAdapter extends RecyclerView.Adapter<chooseInterests
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 interest.setSelected(!interest.isSelected());
+                if (isChecked){
+                    selectedList.add(position);
+                }
+                else {
+                    selectedList.remove(selectedList.size()-1);
 
-                selectedList.add(position);
+                }
+
             }
         });
+
 
 
     }
@@ -58,6 +66,10 @@ public class chooseInterestsAdapter extends RecyclerView.Adapter<chooseInterests
     }
 
     public ArrayList<Integer> getSelectedList(){
+        HashSet<Integer> hashSet = new HashSet<>();
+        hashSet.addAll(selectedList);
+        selectedList.clear();
+        selectedList.addAll(hashSet);
 //        for (interests model : selectedList) {
 //            if (model.isSelected()) {
 //                selectedList.add(model);

@@ -3,6 +3,7 @@ package sg.edu.np.imiapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -52,6 +53,8 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
+                SharedPreferences loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE);
+                loginInfo.edit().clear().commit();
                 Intent i = new Intent(Settings.this, Signin.class);
                 Settings.this.startActivity(i);
             }

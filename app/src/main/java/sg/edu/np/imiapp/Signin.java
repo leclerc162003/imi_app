@@ -50,6 +50,8 @@ public class Signin extends AppCompatActivity {
         //find createAccount button in activity_signin.xml
         TextView signIn = findViewById(R.id.continueCreate1);
 
+        TextView forgetPass = findViewById(R.id.forgetPass);
+
         //initialise Firebase auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -93,6 +95,14 @@ public class Signin extends AppCompatActivity {
                     signIn(String.valueOf(userEmail.getText()), String.valueOf(userPassword.getText()));
                 }
 
+            }
+        });
+
+        forgetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Signin.this, forgetPassword.class);
+                Signin.this.startActivity(i);
             }
         });
     }

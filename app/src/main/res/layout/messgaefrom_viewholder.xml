@@ -17,8 +17,9 @@
 
     <TextView
         android:id="@+id/messageTo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="186dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
         android:text="TextView"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
@@ -26,4 +27,5 @@
         app:layout_constraintEnd_toEndOf="@+id/imageViewb"
         app:layout_constraintStart_toStartOf="@+id/imageViewb"
         app:layout_constraintTop_toTopOf="@+id/imageViewb" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

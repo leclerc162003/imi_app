@@ -257,6 +257,7 @@ public class MessagePart extends AppCompatActivity {
         BadWords.add("faggot");
         BadWords.add("pussy");
         BadWords.add("dick");
+        BadWords.add("send nudes");
         message.toLowerCase();
         for (int i = 0; i < BadWords.size() ; i++){
             if (message.contains(BadWords.get(i))){

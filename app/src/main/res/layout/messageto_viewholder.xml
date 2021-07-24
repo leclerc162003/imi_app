@@ -17,8 +17,8 @@
 
     <TextView
         android:id="@+id/messageTo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="168dp"
+        android:layout_height="33dp"
         android:text="TextView"
         android:textColor="#FFFFFF"
         android:textSize="18sp"

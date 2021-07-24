@@ -12,14 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 public class ChatsPageAdapter extends RecyclerView.Adapter<ChatsPageViewHolder> {
     Context context;
     ArrayList<User> userList;
-    FirebaseAuth auth;
+    //FirebaseAuth auth;
     ArrayList<String> user;
+    public StorageReference storageReference;
+    public StorageReference pathReference;
     public ChatsPageAdapter(Context c, ArrayList<User> d, ArrayList<String> u) {
         context = c;
         userList = d;
@@ -38,6 +42,11 @@ public class ChatsPageAdapter extends RecyclerView.Adapter<ChatsPageViewHolder> 
         ArrayList<String> interestsUser = new ArrayList<>(user);
         User chatUser = userList.get(position);
         chatUser.getInterests().retainAll(interestsUser);
+        storageReference = FirebaseStorage.getInstance().getReference();
+        pathReference = storageReference.child("Default Images/" + chatUser.getProfilePic());
+        GlideApp.with(this.context)
+                .load(pathReference)
+                .into(holder.usersPFP);
         holder.chatUsername.setText(chatUser.getUsername());
         holder.chatLM.setText("Interests: " + chatUser.getInterests().get(0));
 
