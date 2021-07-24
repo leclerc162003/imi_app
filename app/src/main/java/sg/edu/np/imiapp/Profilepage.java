@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -111,6 +112,16 @@ public class Profilepage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(Profilepage.this, Chats_Page.class);
                 i.putExtra("userInterests", username.getInterests());
+                Profilepage.this.startActivity(i);
+            }
+        });
+
+        ImageView settingsButton = findViewById(R.id.settingsButton);
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Profilepage.this, Settings.class);
                 Profilepage.this.startActivity(i);
             }
         });

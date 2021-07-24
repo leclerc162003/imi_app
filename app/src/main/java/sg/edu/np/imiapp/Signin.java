@@ -89,7 +89,6 @@ public class Signin extends AppCompatActivity {
                 else if(password.equals("") || password.length() < 6){
                     userPassword.setError("must be more than 6 characters");
                 }
-
                 else{
                     signIn(String.valueOf(userEmail.getText()), String.valueOf(userPassword.getText()));
                 }
@@ -116,7 +115,9 @@ public class Signin extends AppCompatActivity {
                         else {
                             Context context = getApplicationContext();
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(context, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            if(!password.contentEquals("def")){
+                                Toast.makeText(context, "Email or Password is incorrect.", Toast.LENGTH_SHORT).show();
+                            }
 
                         }
                     }
@@ -128,9 +129,10 @@ public class Signin extends AppCompatActivity {
         super.onResume();
         //on resume, auto login user with info stored in shared preferences
         SharedPreferences loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE);
-        String email = loginInfo.getString("email", "default value");
-        String password = loginInfo.getString("password", "default value");
+        String email = loginInfo.getString("email", "def");
+        String password = loginInfo.getString("password", "def");
         signIn(email,password);
+
 
     }
 
