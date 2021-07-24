@@ -100,27 +100,27 @@ public class chooseInterests extends AppCompatActivity {
 
 
     }
-    public ArrayList<interests> getInterests(){
-        ArrayList<interests> interests = new ArrayList<>();
-        interests.add(new interests("Gaming"));
-        interests.add(new interests("Singing"));
-        interests.add(new interests("Dancing"));
-        interests.add(new interests("Cooking"));
-        interests.add(new interests("K-Pop"));
-        interests.add(new interests("K-Drama"));
-        interests.add(new interests("Netflix"));
-        interests.add(new interests("Sleeping"));
-        interests.add(new interests("Sports"));
-        interests.add(new interests("Anime"));
-        interests.add(new interests("Music"));
-        interests.add(new interests("Studying"));
-        interests.add(new interests("Movies & TV shows"));
+    public ArrayList<Interests> getInterests(){
+        ArrayList<Interests> interests = new ArrayList<>();
+        interests.add(new Interests("Gaming"));
+        interests.add(new Interests("Singing"));
+        interests.add(new Interests("Dancing"));
+        interests.add(new Interests("Cooking"));
+        interests.add(new Interests("K-Pop"));
+        interests.add(new Interests("K-Drama"));
+        interests.add(new Interests("Netflix"));
+        interests.add(new Interests("Sleeping"));
+        interests.add(new Interests("Sports"));
+        interests.add(new Interests("Anime"));
+        interests.add(new Interests("Music"));
+        interests.add(new Interests("Studying"));
+        interests.add(new Interests("Movies & TV shows"));
 
 
 
         return interests;
     }
-    public ArrayList<String> selectedInterests(ArrayList<interests> interests, ArrayList<Integer> selectedList){
+    public ArrayList<String> selectedInterests(ArrayList<Interests> interests, ArrayList<Integer> selectedList){
         ArrayList<String> selectedInterests = new ArrayList<>();
         for (int i = 0; i < selectedList.size() ; i++){
             selectedInterests.add(interests.get(selectedList.get(i)).getText());

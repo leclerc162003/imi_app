@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 public class chooseInterestsAdapter extends RecyclerView.Adapter<chooseInterestsViewHolder> {
     Context context;
-    ArrayList<interests> interestsList = new ArrayList<>();
+    ArrayList<Interests> interestsList = new ArrayList<>();
     ArrayList<Integer> selectedList = new ArrayList<>();
     int mCheckedPostion;
-    public chooseInterestsAdapter(Context c, ArrayList<interests> d) {
+    public chooseInterestsAdapter(Context c, ArrayList<Interests> d) {
         context = c;
         interestsList = d;
 
@@ -31,7 +31,7 @@ public class chooseInterestsAdapter extends RecyclerView.Adapter<chooseInterests
 
     @Override
     public void onBindViewHolder(@NonNull chooseInterestsViewHolder holder, int position) {
-        interests interest = interestsList.get(position);
+        Interests interest = interestsList.get(position);
         holder.check.setText(interest.getText());
 //        holder.check.setOnClickListener(new View.OnClickListener() {
 //            @Override

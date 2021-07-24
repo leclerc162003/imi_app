@@ -31,7 +31,7 @@ public class MessagesChatAdapter extends RecyclerView.Adapter<MessagesChatViewHo
             item = LayoutInflater.from(parent.getContext()).inflate(R.layout.messageto_viewholder, parent, false);
         }
         else{
-            item = LayoutInflater.from(parent.getContext()).inflate(R.layout.messgaefrom_viewholder, parent, false);
+            item = LayoutInflater.from(parent.getContext()).inflate(R.layout.messagefrom_viewholder, parent, false);
         }
         return new MessagesChatViewHolder(item);
     }
