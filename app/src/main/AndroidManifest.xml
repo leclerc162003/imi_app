@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Imiapp">
-        <activity android:name=".changePassword"></activity>
+        <activity android:name=".bugIssue"></activity>
+        <activity android:name=".changePassword" />
         <activity android:name=".forgetPassword" />
         <activity android:name=".Settings" />
         <activity android:name=".chooseInterests" />
