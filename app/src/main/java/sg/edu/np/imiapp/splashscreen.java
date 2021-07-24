@@ -1,5 +1,6 @@
 package sg.edu.np.imiapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,8 +17,17 @@ import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class splashscreen extends AppCompatActivity {
     public CountDownTimer myCountDown;
+
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
+    DatabaseReference mDatabase = firebaseDatabase.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +40,20 @@ public class splashscreen extends AppCompatActivity {
 //        }
 
 
+        DatabaseReference interestRef = mDatabase.child("Interests");
+        interestRef.child("Gaming").setValue("");
+        interestRef.child("Singing").setValue("");
+        interestRef.child("Dancing").setValue("");
+        interestRef.child("Cooking").setValue("");
+        interestRef.child("K-Pop").setValue("");
+        interestRef.child("K-Drama").setValue("");
+        interestRef.child("Netflix").setValue("");
+        interestRef.child("Sleeping").setValue("");
+        interestRef.child("Sports").setValue("");
+        interestRef.child("Anime").setValue("");
+        interestRef.child("Music").setValue("");
+        interestRef.child("Studying").setValue("");
+        interestRef.child("Movies & TV shows").setValue("");
     }
 
     private void startTimer(int time){
