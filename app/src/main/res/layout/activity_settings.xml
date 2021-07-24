@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
+        android:text="Settings"
         android:textColor="#FF03DAC5"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -21,7 +21,7 @@
         tools:text="Settings" />
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/changePassImage"
         android:layout_width="0dp"
         android:layout_height="182dp"
         android:layout_marginStart="16dp"
