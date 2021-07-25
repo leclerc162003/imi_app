@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TrendingChatViewHolder extends RecyclerView.ViewHolder {
     public TextView threadMessageText;
+    public TextView messagerName;
 
     public TrendingChatViewHolder(@NonNull View itemView) {
         super(itemView);
         threadMessageText = itemView.findViewById(R.id.threadMessageText);
+        messagerName = itemView.findViewById(R.id.messagerName);
     }
 }
