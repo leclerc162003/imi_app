@@ -64,7 +64,7 @@ public class chooseInterests extends AppCompatActivity {
                 //createAccount(email, password, username, pfp, selectedInterests(getInterests(), adapter.getSelectedList()));
                 createAccount(email, password, username, pfp,  adapter.getSelectedList());
                 Log.d("pfp", pfp);
-                Log.d("interests", String.valueOf(selectedInterests(getInterests(), adapter.getSelectedList())));
+                Log.d("interests", String.valueOf(selectedInterests(getInterestsNAemoji(), adapter.getSelectedList())));
 //                mAuth.createUserWithEmailAndPassword(email, password)
 //                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 //                            @Override
@@ -121,6 +121,23 @@ public class chooseInterests extends AppCompatActivity {
         interests.add(new Interests("Movies & TV shows"));
         return interests;
     }
+    public ArrayList<Interests> getInterestsNAemoji(){
+        ArrayList<Interests> interests = new ArrayList<>();
+        interests.add(new Interests("Gaming"));
+        interests.add(new Interests("Singing"));
+        interests.add(new Interests("Dancing"));
+        interests.add(new Interests("Cooking"));
+        interests.add(new Interests("K-Pop"));
+        interests.add(new Interests("K-Drama"));
+        interests.add(new Interests("Netflix"));
+        interests.add(new Interests("Sleeping"));
+        interests.add(new Interests("Sports"));
+        interests.add(new Interests("Anime"));
+        interests.add(new Interests("Music"));
+        interests.add(new Interests("Studying"));
+        interests.add(new Interests("Movies & TV shows"));
+        return interests;
+    }
 
     public String getEmoji(int uni){
         return new String(Character.toChars(uni));
@@ -149,7 +166,7 @@ public class chooseInterests extends AppCompatActivity {
                             user = mAuth.getCurrentUser();
                             //loadingBar.setVisibility(View.GONE);
                             //set username and save it to firebase
-                            saveUsername(user.getUid(), username, pfp ,selectedInterests(getInterests(), selected));
+                            saveUsername(user.getUid(), username, pfp ,selectedInterests(getInterestsNAemoji(), selected));
 
                             Intent i = new Intent(chooseInterests.this, Signin.class);
                             chooseInterests.this.startActivity(i);
