@@ -58,7 +58,6 @@ public class Profilepage extends AppCompatActivity {
         this.profilePic = findViewById(R.id.profilePic);
 
 
-
         // read from firebase database table "Users"
         mDatabase.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,6 +81,7 @@ public class Profilepage extends AppCompatActivity {
                 rv.setLayoutManager(lm);
                 rv.setAdapter(adapter);
 
+
                 Log.d("Scheduled", username.getUsername());
             }
 
@@ -90,6 +90,23 @@ public class Profilepage extends AppCompatActivity {
                 // Failed to read value
             }
         });
+        TextView interestText = findViewById(R.id.interestTxt);
+        interestText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle extras = new Bundle();
+                extras.putString("userUIDCurrent", username.getUID());
+                extras.putString("userNameCurrent", username.getUsername());
+                extras.putString("userPFPCurrent", username.getProfilePic());
+                extras.putStringArrayList("userINTCurrent", username.getInterests());
+
+                Intent i = new Intent(Profilepage.this, updateInterests.class);
+                i.putExtras(extras);
+                Profilepage.this.startActivity(i);
+            }
+        });
+
+
         //Log.d("user", username.getProfilePic() + username.getUsername());
 
 //        mAuth = FirebaseAuth.getInstance();

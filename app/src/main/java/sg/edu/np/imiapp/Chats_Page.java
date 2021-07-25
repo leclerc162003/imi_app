@@ -43,14 +43,13 @@ public class Chats_Page extends AppCompatActivity {
         ArrayList<String> userInterests = receive.getStringArrayListExtra("userInterests");
         RecyclerView rv = findViewById(R.id.userRV);
         if (getUsers().size() == 0){
+            //add textview "try adding enw interests!!!"
 
         }
         ChatsPageAdapter adapter = new ChatsPageAdapter(this, getUsers(),userInterests);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
         rv.setAdapter(adapter);
-
-
 
 
     }

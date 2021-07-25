@@ -11,11 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Imiapp">
-        <activity android:name=".TrendingChat"></activity>
+        <activity android:name=".updateInterests" />
+        <activity android:name=".TrendingChat" />
         <activity android:name=".TrendingThreads" />
         <activity android:name=".TrendingInterests" />
         <activity android:name=".chooseInterests" />
-        <activity android:name=".bugIssue"></activity>
+        <activity android:name=".bugIssue" />
         <activity android:name=".changePassword" />
         <activity android:name=".forgetPassword" />
         <activity android:name=".Settings" />

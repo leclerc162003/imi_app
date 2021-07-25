@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class InterestAdapter extends RecyclerView.Adapter<InterestViewHolder>{
@@ -32,6 +35,12 @@ public class InterestAdapter extends RecyclerView.Adapter<InterestViewHolder>{
         //get string from interest list and set to TextView
         String d = interestList.get(position);
         holder.interest.setText(d);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
 
     }
 

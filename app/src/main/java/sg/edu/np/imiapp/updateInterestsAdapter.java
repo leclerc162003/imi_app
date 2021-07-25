@@ -1,6 +1,7 @@
 package sg.edu.np.imiapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,35 +13,37 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class chooseInterestsAdapter extends RecyclerView.Adapter<chooseInterestsViewHolder> {
+public class updateInterestsAdapter extends RecyclerView.Adapter<updateInterestsViewHolder> {
     Context context;
-    ArrayList<Interests> interestsList = new ArrayList<>();
+    ArrayList<Interests> interestsList;
     ArrayList<Integer> selectedList = new ArrayList<>();
-    public chooseInterestsAdapter(Context c, ArrayList<Interests> d) {
+    ArrayList<String> userInterests;
+    public updateInterestsAdapter(Context c, ArrayList<Interests> d, ArrayList<String> e) {
         context = c;
         interestsList = d;
+        userInterests = e;
 
     }
 
     @NonNull
     @Override
-    public chooseInterestsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.interests_choose_viewholder, parent, false);
-        return new chooseInterestsViewHolder(item);
+    public updateInterestsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.updateinterestsviewholder, parent, false);
+        return new updateInterestsViewHolder(item);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull chooseInterestsViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull updateInterestsViewHolder holder, int position) {
         Interests interest = interestsList.get(position);
-        holder.check.setText(interest.getText());
-//        holder.check.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                interest.setSelected(!interest.isSelected());
-//                selectedList.add(position);
-//        });
-        holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.updateIntCheck.setText(interest.getText());
+        for (int i = 0; i < userInterests.size();i++){
+            if (userInterests.get(i).contentEquals(interest.getText())){
+                selectedList.add(position);
+                holder.updateIntCheck.setChecked(true);
+                Log.d("size", String.valueOf(selectedList.size()));
+            }
+        }
+        holder.updateIntCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 interest.setSelected(!interest.isSelected());
@@ -49,13 +52,10 @@ public class chooseInterestsAdapter extends RecyclerView.Adapter<chooseInterests
                 }
                 else {
                     selectedList.remove(selectedList.size()-1);
-
                 }
 
             }
         });
-
-
 
     }
 
@@ -63,7 +63,6 @@ public class chooseInterestsAdapter extends RecyclerView.Adapter<chooseInterests
     public int getItemCount() {
         return interestsList.size();
     }
-
     public ArrayList<Integer> getSelectedList(){
         HashSet<Integer> hashSet = new HashSet<>();
         hashSet.addAll(selectedList);
