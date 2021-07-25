@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Window;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +33,9 @@ public class splashscreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
+        setContentView(R.layout.activity_profile_picture_choose);
         setContentView(R.layout.activity_splashscreen);
         startTimer(3);
 
@@ -54,6 +58,26 @@ public class splashscreen extends AppCompatActivity {
         interestRef.child("Music").setValue("");
         interestRef.child("Studying").setValue("");
         interestRef.child("Movies & TV shows").setValue("");
+
+
+
+//        interestRef.child("Gaming " + getEmoji(0x1F3AE)).setValue("");
+//        interestRef.child("Singing " + getEmoji(0x1F3A4)).setValue("");
+//        interestRef.child("Dancing " + getEmoji(0x1F483)).setValue("");
+//        interestRef.child("Cooking " + getEmoji(0x1F373)).setValue("");
+//        interestRef.child("K-Pop " + getEmoji(0x1F929)).setValue("");
+//        interestRef.child("K-Drama " + getEmoji(0x1F60F)).setValue("");
+//        interestRef.child("Netflix " + getEmoji(0x1F4FA)).setValue("");
+//        interestRef.child("Sleeping " + getEmoji(0x1F62A)).setValue("");
+//        interestRef.child("Sports " + getEmoji(0x1F93E)).setValue("");
+//        interestRef.child("Anime " + getEmoji(0x1F9DD)).setValue("");
+//        interestRef.child("Music " + getEmoji(0x1F3BC)).setValue("");
+//        interestRef.child("Studying " + getEmoji(0x1F4D6)).setValue("");
+//        interestRef.child("Movies & TV shows " + getEmoji(0x1F4FA)).setValue("");
+    }
+
+    public String getEmoji(int uni){
+        return new String(Character.toChars(uni));
     }
 
     private void startTimer(int time){

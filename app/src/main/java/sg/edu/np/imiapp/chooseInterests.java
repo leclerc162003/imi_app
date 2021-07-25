@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +47,7 @@ public class chooseInterests extends AppCompatActivity {
         rv.setAdapter(adapter);
         Log.d("error", "here");
 
-        TextView finish = findViewById(R.id.finishButton);
+        TextView finish = findViewById(R.id.sendEmailButton);
 
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,19 +105,34 @@ public class chooseInterests extends AppCompatActivity {
     }
     public ArrayList<Interests> getInterests(){
         ArrayList<Interests> interests = new ArrayList<>();
-        interests.add(new Interests("Gaming " + getEmoji(0x1F3AE)));
-        interests.add(new Interests("Singing " + getEmoji(0x1F3A4)));
-        interests.add(new Interests("Dancing " + getEmoji(0x1F483)));
-        interests.add(new Interests("Cooking " + getEmoji(0x1F373)));
-        interests.add(new Interests("K-Pop " + getEmoji(0x1F929)));
-        interests.add(new Interests("K-Drama " + getEmoji(0x1F60F)));
-        interests.add(new Interests("Netflix " + getEmoji(0x1F4FA)));
-        interests.add(new Interests("Sleeping " + getEmoji(0x1F62A)));
-        interests.add(new Interests("Sports " + getEmoji(0x1F93E)));
-        interests.add(new Interests("Anime " + getEmoji(0x1F9DD)));
-        interests.add(new Interests("Music " + getEmoji(0x1F3BC)));
-        interests.add(new Interests("Studying " + getEmoji(0x1F4D6)));
+
+        interests.add(new Interests("Gaming"));
+        interests.add(new Interests("Singing"));
+        interests.add(new Interests("Dancing"));
+        interests.add(new Interests("Cooking"));
+        interests.add(new Interests("K-Pop"));
+        interests.add(new Interests("K-Drama"));
+        interests.add(new Interests("Netflix"));
+        interests.add(new Interests("Sleeping"));
+        interests.add(new Interests("Sports"));
+        interests.add(new Interests("Anime"));
+        interests.add(new Interests("Music"));
+        interests.add(new Interests("Studying"));
         interests.add(new Interests("Movies & TV shows"));
+
+//        interests.add(new Interests("Gaming " + getEmoji(0x1F3AE)));
+//        interests.add(new Interests("Singing " + getEmoji(0x1F3A4)));
+//        interests.add(new Interests("Dancing " + getEmoji(0x1F483)));
+//        interests.add(new Interests("Cooking " + getEmoji(0x1F373)));
+//        interests.add(new Interests("K-Pop " + getEmoji(0x1F929)));
+//        interests.add(new Interests("K-Drama " + getEmoji(0x1F60F)));
+//        interests.add(new Interests("Netflix " + getEmoji(0x1F4FA)));
+//        interests.add(new Interests("Sleeping " + getEmoji(0x1F62A)));
+//        interests.add(new Interests("Sports " + getEmoji(0x1F93E)));
+//        interests.add(new Interests("Anime " + getEmoji(0x1F9DD)));
+//        interests.add(new Interests("Music " + getEmoji(0x1F3BC)));
+//        interests.add(new Interests("Studying " + getEmoji(0x1F4D6)));
+//        interests.add(new Interests("Movies & TV shows " + getEmoji(0x1F4FA)));
         return interests;
     }
 
