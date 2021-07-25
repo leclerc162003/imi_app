@@ -48,7 +48,7 @@ public class Signin extends AppCompatActivity {
         TextView signUp = findViewById((R.id.SignIn));
 
         //find createAccount button in activity_signin.xml
-        TextView signIn = findViewById(R.id.continueButton);
+        TextView signIn = findViewById(R.id.finishButton);
 
         TextView forgetPass = findViewById(R.id.forgetPass);
 

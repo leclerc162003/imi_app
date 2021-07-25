@@ -6,24 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".chooseInterests">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chooseIntrv"
-        android:layout_width="404dp"
-        android:layout_height="500dp"
-        android:layout_marginStart="8dp"
+    <TextView
+        android:id="@+id/textChooseInt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-thin"
+        android:text="Choose your interests"
+        android:textSize="36sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/finishButton"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chooseIntrv"
+        android:layout_width="404dp"
+        android:layout_height="570dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textChooseInt" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="finish"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/chooseIntrv"
-        app:layout_constraintStart_toStartOf="@+id/chooseIntrv"
-        app:layout_constraintTop_toBottomOf="@+id/chooseIntrv" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooseIntrv">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_back">
+
+            <TextView
+                android:id="@+id/finishButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/poppinsbold"
+                android:gravity="center"
+                android:text="Finish"
+                android:textColor="#fff"
+                android:textSize="22dp" />
+
+        </RelativeLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
