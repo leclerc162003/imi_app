@@ -53,7 +53,7 @@ public class Signup extends AppCompatActivity {
             }
         });
         //find createAccount button in activity_signup.xml
-        TextView createAccount = findViewById(R.id.continueButton);
+        TextView createAccount = findViewById(R.id.finishButton);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
