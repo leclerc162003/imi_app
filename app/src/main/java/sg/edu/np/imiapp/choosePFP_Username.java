@@ -6,14 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Window;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
@@ -26,11 +25,13 @@ public class choosePFP_Username extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_profile_picture_choose);
 //        storageReference = FirebaseStorage.getInstance().getReference("gs://imi-app-2a3ab.appspot.com/");
 //        pathReference = storageReference.child("Default Images/dpfp1.png");
         EditText userNameEnter = findViewById(R.id.userNameEnter);
-        Button continue1 = findViewById(R.id.continueButton);
+        TextView continue1 = findViewById(R.id.finishButton);
 
         RecyclerView rv = findViewById(R.id.rvPfp);
         ChooseProfilePicAdapter adapter = new ChooseProfilePicAdapter(this, populateList());
