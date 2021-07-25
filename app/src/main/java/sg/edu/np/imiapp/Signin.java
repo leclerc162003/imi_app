@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,18 +57,31 @@ public class Signin extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // if user click on "remember me", saves user login info into shared preferences
-        checkBox.setOnClickListener(new View.OnClickListener() {
+//        checkBox.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                SharedPreferences.Editor loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE).edit();
+//                loginInfo.putString("email", String.valueOf(userEmail.getText()));
+//                loginInfo.putString("password", String.valueOf(userPassword.getText()));
+//                loginInfo.apply();
+//
+//            }
+//        });
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
             @Override
-            public void onClick(View v) {
-                SharedPreferences.Editor loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE).edit();
-                loginInfo.putString("email", String.valueOf(userEmail.getText()));
-                loginInfo.putString("password", String.valueOf(userPassword.getText()));
-                loginInfo.apply();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if ( isChecked )
+                {
+                    SharedPreferences.Editor loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE).edit();
+                    loginInfo.putString("email", String.valueOf(userEmail.getText()));
+                    loginInfo.putString("password", String.valueOf(userPassword.getText()));
+                    loginInfo.apply();
+                }
 
             }
         });
-
-
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

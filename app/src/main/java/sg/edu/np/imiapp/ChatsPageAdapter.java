@@ -48,12 +48,8 @@ public class ChatsPageAdapter extends RecyclerView.Adapter<ChatsPageViewHolder> 
                 .load(pathReference)
                 .into(holder.usersPFP);
         holder.chatUsername.setText(chatUser.getUsername());
-        if (chatUser.getInterests().size() == 0){
-            holder.chatLM.setText("");
-        }
-        else{
-            //holder.chatLM.setText("Interests: " + chatUser.getInterests().get(0));
-        }
+        holder.chatLM.setText("Interests: " + chatUser.getInterests().get(0));
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

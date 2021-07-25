@@ -42,18 +42,10 @@ public class Chats_Page extends AppCompatActivity {
         Intent receive = getIntent();
         ArrayList<String> userInterests = receive.getStringArrayListExtra("userInterests");
         RecyclerView rv = findViewById(R.id.userRV);
-        ArrayList<User> userList = getUsers();
-        ArrayList<User> matchedUsers = new ArrayList<>();
-        for(int i=0; i < userList.size(); i++){
-            List<String> compareList =  userList.get(i).getInterests();
-            compareList.retainAll(userInterests);
-            Log.d("fagaesise",String.valueOf(compareList.size()));
-            if(compareList.isEmpty()){
-                matchedUsers.add(userList.get(i));
-            }
+        if (getUsers().size() == 0){
+
         }
-        Log.d("LOOK AT ME",String.valueOf(matchedUsers.size()));
-        ChatsPageAdapter adapter = new ChatsPageAdapter(this, userList,userInterests);
+        ChatsPageAdapter adapter = new ChatsPageAdapter(this, getUsers(),userInterests);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
         rv.setAdapter(adapter);
@@ -71,82 +63,21 @@ public class Chats_Page extends AppCompatActivity {
                 //userList.clear();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren() ) {
                     User user = postSnapshot.getValue(User.class);
-                    if(user.getUID().contentEquals(mAuth.getUid()) != true){
+                    if (user.getUID().contentEquals(mAuth.getUid()) != true) {
                         //userList.add(user);
                         Log.d("username from database", user.getUID());
                         Log.d("username from mAuth", mAuth.getUid());
-                        userList.add(user);
+                        Intent receive = getIntent();
+                        List<String> userInterests = receive.getStringArrayListExtra("userInterests");
+                        List<String> compareList = user.getInterests();
+                        compareList.retainAll(userInterests);
+                        if (compareList.size() != 0) {
+                            userList.add(user);
+                        }
                     }
 
 
                 }
-//                Log.d("size of list", String.valueOf(userList.size()));
-//                ArrayList<User> userList = getUsers();
-//                Intent receive = getIntent();
-//                List<String> userInterests = receive.getStringArrayListExtra("userInterests");
-//                for(int i=0; i < userList.size(); i++){
-//                    List<String> compareList =  userList.get(i).getInterests();
-//                    compareList.retainAll(userInterests);
-//                    Log.d("fagaesise",String.valueOf(compareList.size()));
-//                    if(!compareList.isEmpty()){
-//                        //userList.remove(userList.get(i));
-//                        matchedUsers.add(userList.get(i));
-//                    }
-//                }
-
-                Log.d("Lize sise",String.valueOf(userList.size()));
-//                for(int i=0; i < userList.size(); i++){
-//                    Intent receive = getIntent();
-//                    //ArrayList<String> userInterests = user.getInterests();
-//                    List<String> userInterests = receive.getStringArrayListExtra("userInterests");
-//                    List<String> compareList =  userList.get(i).getInterests();
-//                    Log.d("current user list", userInterests.toString());
-//                    Log.d("compared user list", userList.get(i).getInterests().toString() + userList.get(i).getUsername());
-//                    List<String> similarList = new ArrayList<>(compareList);
-//
-//                    similarList.retainAll(userInterests);
-//                    Log.d("after compared", similarList.toString());
-//                    if(similarList.size() == 0){
-//                        userList.remove(userList.get(i));
-//                    }
-//
-//                }
-//                for(int i=0; i < userList.size(); i++){
-//                    Intent receive = getIntent();
-//                    //ArrayList<String> userInterests = user.getInterests();
-//                    List<String> userInterests = receive.getStringArrayListExtra("userInterests");
-//                    List<String> compareList =  userList.get(i).getInterests();
-//                    Log.d("current user list", userInterests.toString());
-//                    Log.d("compared user list", userList.get(i).getInterests().toString() + userList.get(i).getUsername());
-//                    List<String> similarList = new ArrayList<>(compareList);
-//
-//                    similarList.retainAll(userInterests);
-//                    Log.d("after compared", similarList.toString());
-//                    if(similarList.size() == 0){
-//                        userList.remove(userList.get(i));
-//
-//                    }
-//
-//                }
-                Log.d("size of list", String.valueOf(userList.size()));
-
-
-//                for(int i=0; i < userList.size(); i++){
-//                    Intent receive = getIntent();
-//                    ArrayList<String> userInterests = receive.getStringArrayListExtra("userInterests");
-//                    Log.d("interests kl", String.valueOf(userInterests.size()));
-//                    userList.get(i).getInterests().retainAll(userInterests);
-//                    if(userList.get(i).getInterests().size() == 0){
-//                        userList.remove(userList.get(i));
-//                        Log.d("number of items", String.valueOf(userList.get(i).getInterests().size()));
-//                    }
-//
-//                }
-                //create user object with data obtained from database
-                //User username = dataSnapshot.getValue(User.class);
-                //display username and interests in UI
-
-                //Log.d("Scheduled", username.getUsername());
             }
 
             @Override
