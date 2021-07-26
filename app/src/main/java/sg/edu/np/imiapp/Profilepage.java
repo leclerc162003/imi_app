@@ -73,7 +73,7 @@ public class Profilepage extends AppCompatActivity {
                         .into(profilePic);
 
                 //display username and interests in UI
-                usernameHome.setText(username.getUsername() + "'s Profile");
+                usernameHome.setText(username.getUsername());
                 interestList = username.getInterests();
                 RecyclerView rv = findViewById(R.id.interestsrv);
                 InterestAdapter adapter = new InterestAdapter(context, interestList);
