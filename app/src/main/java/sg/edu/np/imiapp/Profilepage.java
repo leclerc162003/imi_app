@@ -66,6 +66,7 @@ public class Profilepage extends AppCompatActivity {
                 username = dataSnapshot.child(mAuth.getUid()).getValue(User.class);
                 profilePicURL = username.getProfilePic();
                 Log.d("profile", profilePicURL);
+                //get images to display
                 storageReference = FirebaseStorage.getInstance().getReference();
                 pathReference = storageReference.child("Default Images/" + profilePicURL);
                 GlideApp.with(Profilepage.this)
@@ -91,6 +92,7 @@ public class Profilepage extends AppCompatActivity {
             }
         });
         TextView interestText = findViewById(R.id.interestTxt);
+        //if clicked directs user to update their interests
         interestText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,23 +109,11 @@ public class Profilepage extends AppCompatActivity {
         });
 
 
-        //Log.d("user", username.getProfilePic() + username.getUsername());
-
-//        mAuth = FirebaseAuth.getInstance();
-//        mAuth.getCurrentUser();
-//        usernameHome = findViewById(R.id.usernameHome);
-//        profilePic = findViewById(R.id.profilePic);
-//        GlideApp.with(Profilepage.this)
-//                .load(pathReference)
-//                .into(profilePic);
-
-//        storageReference = FirebaseStorage.getInstance().getReference();
-//        pathReference = storageReference.child("Default Images/" + profilePicURL);
 
 
         ///Can remove CAN REMOVE AH JUST CODED TO TEST THE APP CAN REMOVE!! NOT RELEVANT CODE
         ImageView chatButton = findViewById(R.id.chatButton);
-
+        //directs user to chat page
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +122,7 @@ public class Profilepage extends AppCompatActivity {
                 Profilepage.this.startActivity(i);
             }
         });
-
+       //directs user to settings
         ImageView settingsButton = findViewById(R.id.settingsButton);
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
@@ -148,20 +138,4 @@ public class Profilepage extends AppCompatActivity {
 
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        SharedPreferences lastUserChatted = getSharedPreferences("lastUserChatted", MODE_PRIVATE);
-//                String UID = lastUserChatted.getString("toID", "nouser");
-//                String Name = lastUserChatted.getString("toNAME", "nouser");
-//                if (UID != "nouser"){
-//                    // Context in current activity and the class the data to be transferred to
-//                    Intent i = new Intent(Profilepage.this, MessagePart.class);
-//                    i.putExtra("toUID", UID);
-//                    i.putExtra("toUsername", Name);
-//                    Profilepage.this.startActivity(i);
-//                    lastUserChatted.edit().clear().commit();
-//                }
-    }
 }

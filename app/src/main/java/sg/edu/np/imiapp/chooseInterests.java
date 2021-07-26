@@ -39,7 +39,7 @@ public class chooseInterests extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_choose_interests);
         mAuth = FirebaseAuth.getInstance();
-
+        //display recycler view of interests
         RecyclerView rv = findViewById(R.id.chooseIntrv);
         chooseInterestsAdapter adapter = new chooseInterestsAdapter(context, getInterests());
         LinearLayoutManager lm = new LinearLayoutManager(context);
@@ -60,44 +60,16 @@ public class chooseInterests extends AppCompatActivity {
                 Log.d("password", password);
                 Log.d("username", username);
                 String pfp = receive.getStringExtra("newpfp");
-                //createAccount(email, password, username, pfp, selectedInterests(getInterests(), adapter.getSelectedList()));
-                createAccount(email, password, username, pfp,  adapter.getSelectedList());
-                Log.d("pfp", pfp);
-                Log.d("interests", String.valueOf(selectedInterests(getInterestsNAemoji(), adapter.getSelectedList())));
-//                mAuth.createUserWithEmailAndPassword(email, password)
-//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<AuthResult> task) {
-//                                if (task.isSuccessful()) {
-//                                    // Sign up success, bring user to log in page
-//                                    Log.d("create", "createUserWithEmail:success");
-//                                    //Intent i = new Intent(Signup.this, Signin.class);
-//                                    //get current user
-//                                    user = mAuth.getCurrentUser();
-//                                    //loadingBar.setVisibility(View.GONE);
-//                                    //set username and save it to firebase
-//                                    ArrayList<interests> iint = getInterests();
-//                                    ArrayList<Integer> inttt= adapter.getSelectedList();
-//                                    ArrayList<String> ag = selectedInterests(iint, inttt);
-//                                    saveUsername(user.getUid(), username, pfp ,ag );
-//
-//                                    Intent i = new Intent(chooseInterests.this, Signin.class);
-//                                    chooseInterests.this.startActivity(i);
-//
-//                                } else {
-//                                    // If sign up fails, display a message to the user.
-//                                    Toast.makeText(chooseInterests.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-//                                    Log.d("createAccount", "failed");
-//
-//
-//                                }
-//                            }
-//                        });
-
-
-//                Intent i = new Intent(chooseInterests.this, Signin.class);
-//                chooseInterests.this.startActivity(i);
-
+                //create account and post data to database
+                //if selected list is 0, ask user to pick interests
+                if (adapter.getSelectedList().size() == 0){
+                    finish.setError("please choose an interest");
+                }
+                else{
+                    createAccount(email, password, username, pfp,  adapter.getSelectedList());
+                    Log.d("pfp", pfp);
+                    Log.d("interests", String.valueOf(selectedInterests(getInterestsNAemoji(), adapter.getSelectedList())));
+                }
             }
         });
 
@@ -156,6 +128,7 @@ public class chooseInterests extends AppCompatActivity {
     public String getEmoji(int uni){
         return new String(Character.toChars(uni));
     }
+    //get selected interests
     public ArrayList<String> selectedInterests(ArrayList<Interests> interests, ArrayList<Integer> selectedList){
         ArrayList<String> selectedInterests = new ArrayList<>();
         for (int i = 0; i < selectedList.size() ; i++){
@@ -181,7 +154,7 @@ public class chooseInterests extends AppCompatActivity {
                             //loadingBar.setVisibility(View.GONE);
                             //set username and save it to firebase
                             saveUsername(user.getUid(), username, pfp ,selectedInterests(getInterestsNAemoji(), selected));
-
+                            //directs user to sign in page
                             Intent i = new Intent(chooseInterests.this, Signin.class);
                             chooseInterests.this.startActivity(i);
 

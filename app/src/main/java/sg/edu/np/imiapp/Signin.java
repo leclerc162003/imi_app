@@ -23,6 +23,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Signin extends AppCompatActivity {
     public TextInputEditText userEmail;
     public TextInputEditText userPassword;
@@ -43,45 +46,16 @@ public class Signin extends AppCompatActivity {
         this.userEmail = findViewById(R.id.newUEmail1);
         this.userPassword = findViewById(R.id.newUPass1);
         this.checkBox = findViewById(R.id.rememberMe);
-//        loadingBar = findViewById(R.id.loadingBar2);
-//        loadingBar.setVisibility(View.GONE);
-
-        TextView signUp = findViewById((R.id.SignIn));
 
         //find createAccount button in activity_signin.xml
         TextView signIn = findViewById(R.id.sendEmailButton);
-
         TextView forgetPass = findViewById(R.id.forgetPass);
+        TextView signUp = findViewById((R.id.SignIn));
 
         //initialise Firebase auth
         mAuth = FirebaseAuth.getInstance();
 
-        // if user click on "remember me", saves user login info into shared preferences
-//        checkBox.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                SharedPreferences.Editor loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE).edit();
-//                loginInfo.putString("email", String.valueOf(userEmail.getText()));
-//                loginInfo.putString("password", String.valueOf(userPassword.getText()));
-//                loginInfo.apply();
-//
-//            }
-//        });
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                if ( isChecked )
-                {
-                    SharedPreferences.Editor loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE).edit();
-                    loginInfo.putString("email", String.valueOf(userEmail.getText()));
-                    loginInfo.putString("password", String.valueOf(userPassword.getText()));
-                    loginInfo.apply();
-                }
-
-            }
-        });
+        //directs user to sign up
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +64,7 @@ public class Signin extends AppCompatActivity {
                 Signin.this.startActivity(i);
             }
         });
+
         //signs user in when click on login
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,21 +72,36 @@ public class Signin extends AppCompatActivity {
                 //validate user input for email and password
                 String email = String.valueOf(userEmail.getText());
                 String password = userPassword.getText().toString();
-                //check if phone is connected to internet
-
+                //check if email is empty
                 if(email.equals("")){
-                    userEmail.setError("can't be blank");
+                    userEmail.setError("can't be blank.");
                 }
+                //check if email is a valid email
+                else if (!isEmailValid(email)){
+                    userEmail.setError("invalid email.");
+                }
+                //check if password is empty and characters more than 6
                 else if(password.equals("") || password.length() < 6){
-                    userPassword.setError("must be more than 6 characters");
+                    userPassword.setError("must be more than 6 characters.");
                 }
+                //else sign in user
                 else{
                     signIn(String.valueOf(userEmail.getText()), String.valueOf(userPassword.getText()));
+                    userEmail.setText("");
+                    userPassword.setText("");
+                }
+                //if check box is check save login information to shared preferences
+                if (checkBox.isChecked()){
+                    SharedPreferences.Editor loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE).edit();
+                    loginInfo.putString("email", String.valueOf(userEmail.getText()));
+                    loginInfo.putString("password", String.valueOf(userPassword.getText()));
+                    loginInfo.apply();
                 }
 
             }
         });
 
+        // redirects user to forget password activity
         forgetPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,6 +112,7 @@ public class Signin extends AppCompatActivity {
     }
 
     private void signIn(String email, String password){
+        //use firebase method to sign in user
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -131,7 +122,6 @@ public class Signin extends AppCompatActivity {
                             Log.d("create", "createUserWithEmail:success");
                             Context context = getApplicationContext();
                             Toast.makeText(context, "Log in success.", Toast.LENGTH_SHORT).show();
-                            //FirebaseUser user = mAuth.getCurrentUser();
                             Intent i = new Intent(Signin.this, Profilepage.class);
                             Signin.this.startActivity(i);
 
@@ -147,6 +137,12 @@ public class Signin extends AppCompatActivity {
                     }
                 });
     }
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
     @Override
     protected void onResume() {
@@ -159,6 +155,7 @@ public class Signin extends AppCompatActivity {
 
 
     }
+
 
 
 }

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chats_Page extends AppCompatActivity {
+    public TextView noUsers;
 
     //initialise firebase authentication
     private FirebaseAuth mAuth;
@@ -34,7 +36,6 @@ public class Chats_Page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatpage);
-        LinearLayout linearLayout = new LinearLayout(this);
         mAuth = FirebaseAuth.getInstance();
         mAuth.getCurrentUser();
         currentuserID = mAuth.getUid();
@@ -42,10 +43,16 @@ public class Chats_Page extends AppCompatActivity {
         Intent receive = getIntent();
         ArrayList<String> userInterests = receive.getStringArrayListExtra("userInterests");
         RecyclerView rv = findViewById(R.id.userRV);
+        noUsers = findViewById(R.id.noUSERS);
+        noUsers.setVisibility(View.GONE);
+        //if no users match display message
         if (getUsers().size() == 0){
             //add textview "try adding enw interests!!!"
+            noUsers.setVisibility(View.VISIBLE);
 
         }
+        noUsers.setVisibility(View.GONE);
+        //display chat users using recyclerview
         ChatsPageAdapter adapter = new ChatsPageAdapter(this, getUsers(),userInterests);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
@@ -55,11 +62,11 @@ public class Chats_Page extends AppCompatActivity {
     }
 
     public ArrayList<User> getUsers(){
+        //get users list from database
         ArrayList<User> userList = new ArrayList<>();
         mDatabase.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //userList.clear();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren() ) {
                     User user = postSnapshot.getValue(User.class);
                     if (user.getUID().contentEquals(mAuth.getUid()) != true) {
@@ -67,6 +74,7 @@ public class Chats_Page extends AppCompatActivity {
                         Log.d("username from database", user.getUID());
                         Log.d("username from mAuth", mAuth.getUid());
                         Intent receive = getIntent();
+                        //check if users interests match
                         List<String> userInterests = receive.getStringArrayListExtra("userInterests");
                         List<String> compareList = user.getInterests();
                         compareList.retainAll(userInterests);
@@ -87,21 +95,6 @@ public class Chats_Page extends AppCompatActivity {
             });
 
         return userList;
-    }
-    public ArrayList<User> checkSimilarInterests(){
-        ArrayList<User> userList = getUsers();
-        ArrayList<User> matchedUsers = new ArrayList<>();
-        Intent receive = getIntent();
-        List<String> userInterests = receive.getStringArrayListExtra("userInterests");
-        for(int i=0; i < userList.size(); i++){
-            List<String> compareList =  userList.get(i).getInterests();
-            compareList.retainAll(userInterests);
-            if(compareList.isEmpty()){
-                matchedUsers.add(userList.get(i));
-            }
-        }
-        Log.d("Lize sise",String.valueOf(userList.size()));
-        return  userList;
     }
 
     @Override

@@ -46,11 +46,13 @@ public class choosePFP_Username extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String username = userNameEnter.getText().toString();
+                //check if username is blank
                 if(username.equals("")){
                     userNameEnter.setError("can't be blank");
                     //loadingBar.setVisibility(View.GONE);
                 }
                 else{
+                    //intent user to choose interets and bundle email,password and username
                     Intent receive = getIntent();
                     String email = receive.getStringExtra("newEmail");
                     String password = receive.getStringExtra("newPassword");
@@ -73,14 +75,6 @@ public class choosePFP_Username extends AppCompatActivity {
             }
         });
 
-        // ImageView in your Activity
-        //imageView = findViewById(R.id.setPic);
-
-       // Download directly from StorageReference using Glide
-       // (See MyAppGlideModule for Loader registration)
-//        Glide.with(this /* context */)
-//                .load(pathReference)
-//                .into(imageView);
     }
 
     public ArrayList<String> populateList(){

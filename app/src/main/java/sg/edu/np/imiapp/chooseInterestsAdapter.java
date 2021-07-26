@@ -34,12 +34,7 @@ public class chooseInterestsAdapter extends RecyclerView.Adapter<chooseInterests
 
         Interests interest = interestsList.get(position);
         holder.check.setText(interest.getText());
-//        holder.check.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                interest.setSelected(!interest.isSelected());
-//                selectedList.add(position);
-//        });
+        //if checkbox is check is selected and remove from selected list if unselected
         holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -65,15 +60,11 @@ public class chooseInterestsAdapter extends RecyclerView.Adapter<chooseInterests
     }
 
     public ArrayList<Integer> getSelectedList(){
+        //removes any duplicates in the list (if there is any)
         HashSet<Integer> hashSet = new HashSet<>();
         hashSet.addAll(selectedList);
         selectedList.clear();
         selectedList.addAll(hashSet);
-//        for (interests model : selectedList) {
-//            if (model.isSelected()) {
-//                selectedList.add(model);
-//            }
-//        }
         return selectedList;
     }
 }

@@ -23,10 +23,6 @@ public class updateInterests extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_interests);
-//        extras.putString("userUIDCurrent", username.getUID());
-//        extras.putString("userNameCurrent", username.getUsername());
-//        extras.putString("userPFPCurrent", username.getProfilePic());
-//        extras.putStringArrayList("userINTCurrent", username.getInterests());
         Intent receive = getIntent();
         String userUID = receive.getStringExtra("userUIDCurrent");
         ArrayList<String> userInt = receive.getStringArrayListExtra("userINTCurrent");
@@ -41,9 +37,15 @@ public class updateInterests extends AppCompatActivity {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDatabase.child("Users").child(userUID).child("interests").setValue(selectedInterests(getInterestsNAemoji(), adapter.getSelectedList()));
-                Intent i = new Intent(updateInterests.this, Profilepage.class);
-                updateInterests.this.startActivity(i);
+                //if selected list is 0, ask user to pick interests
+                if (adapter.getSelectedList().size() == 0){
+                    updateButton.setError("please choose an interest");
+                }
+                else{
+                    mDatabase.child("Users").child(userUID).child("interests").setValue(selectedInterests(getInterestsNAemoji(), adapter.getSelectedList()));
+                    Intent i = new Intent(updateInterests.this, Profilepage.class);
+                    updateInterests.this.startActivity(i);
+                }
 
             }
         });

@@ -39,11 +39,6 @@ public class splashscreen extends AppCompatActivity {
         setContentView(R.layout.activity_splashscreen);
         startTimer(3);
 
-//        if (isOnline() == true){
-//            displayMobileDataSettingsDialog( this);
-//        }
-
-
         DatabaseReference interestRef = mDatabase.child("Interests");
         interestRef.child("Gaming").setValue("");
         interestRef.child("Singing").setValue("");
@@ -58,8 +53,6 @@ public class splashscreen extends AppCompatActivity {
         interestRef.child("Music").setValue("");
         interestRef.child("Studying").setValue("");
         interestRef.child("Movies & TV shows").setValue("");
-
-
 
 //        interestRef.child("Gaming " + getEmoji(0x1F3AE)).setValue("");
 //        interestRef.child("Singing " + getEmoji(0x1F3A4)).setValue("");
@@ -90,28 +83,13 @@ public class splashscreen extends AppCompatActivity {
 
             public void onFinish(){
                 myCountDown.cancel();
-                SharedPreferences login = getSharedPreferences("logininfo", MODE_PRIVATE);
-                String password = login.getString("password", "nopass");
-
-//                SharedPreferences lastUserChatted = getSharedPreferences("lastUserChatted", MODE_PRIVATE);
-//                String UID = lastUserChatted.getString("toID", "nouser");
-//                String Name = lastUserChatted.getString("toNAME", "nouser");
-//                Log.d("ID of last user chatted", UID);
-//                if (!UID.contentEquals("nouser")){
-//                    Log.d("IS IT SENDING IT", "SEND ITT");
-//                    Bundle extras = new Bundle();
-//                    // Context in current activity and the class the data to be transferred to
-//                    Intent i = new Intent(splashscreen.this, MessagePart.class);
-//                    extras.putString("toUID", UID);
-//                    extras.putString("toUsername", Name);
-//                    i.putExtras(extras);
-//                    splashscreen.this.startActivity(i);
-//                    lastUserChatted.edit().clear().commit();
-//                }
+                //SharedPreferences login = getSharedPreferences("logininfo", MODE_PRIVATE);
+                //String password = login.getString("password", "nopass");
                 SharedPreferences lastUserChatted = getSharedPreferences("lastUserChatted", MODE_PRIVATE);
                 String UID = lastUserChatted.getString("toID", "nouser");
                 String Name = lastUserChatted.getString("toNAME", "nouser");
                 Log.d("ID of last user chatted", UID);
+
                 if (isOnline() != true){
                     displayMobileDataSettingsDialog( splashscreen.this);
                 }
