@@ -20,11 +20,11 @@ import java.util.ArrayList;
 
 public class TrendingInterestsAdapter extends RecyclerView.Adapter<TrendingInterestViewHolder> {
     Context context;
-    ArrayList<Interests> interestdata;
+    ArrayList<String> interestdata;
     ArrayList<String> threaddata;
     Dialog dialog;
 
-    public TrendingInterestsAdapter(Context c, ArrayList<Interests> d){
+    public TrendingInterestsAdapter(Context c, ArrayList<String> d){
         context = c;
         interestdata = d;
     }
@@ -39,11 +39,10 @@ public class TrendingInterestsAdapter extends RecyclerView.Adapter<TrendingInter
 
     @Override
     public void onBindViewHolder(@NonNull TrendingInterestViewHolder holder, int position) {
-        Interests interest = interestdata.get(position);
-        String interestName = interest.getText();
+        String interest = interestdata.get(position);
         threaddata = getThreaddata();
 
-        holder.interestName.setText(interestName);
+        holder.interestName.setText(interest);
 
         TrendingThreadsAdapter adapter = new TrendingThreadsAdapter(this.context, threaddata);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false);
