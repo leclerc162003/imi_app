@@ -19,7 +19,6 @@
         <activity android:name=".changePassword" />
         <activity android:name=".forgetPassword" />
         <activity android:name=".Settings" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".Chats_Page" />
         <activity android:name=".choosePFP_Username" />
         <activity android:name=".MessagePart" />
