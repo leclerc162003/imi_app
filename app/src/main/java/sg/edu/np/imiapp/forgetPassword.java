@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,10 +24,12 @@ public class forgetPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
         getSupportActionBar().hide();
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_profile_picture_choose);
         setContentView(R.layout.activity_forget_password);
         EditText email = findViewById(R.id.enterEmail);
-        TextView sendButton = findViewById(R.id.sendEmailButton);
+        TextView sendButton = findViewById(R.id.updateButton);
         mAuth = FirebaseAuth.getInstance();
 
         //sends verification email to user's email through firebase

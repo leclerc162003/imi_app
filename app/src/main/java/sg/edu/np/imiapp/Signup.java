@@ -54,7 +54,7 @@ public class Signup extends AppCompatActivity {
             }
         });
         //find createAccount button in activity_signup.xml
-        TextView createAccount = findViewById(R.id.sendEmailButton);
+        TextView createAccount = findViewById(R.id.updateButton);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();

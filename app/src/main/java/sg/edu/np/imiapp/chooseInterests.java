@@ -49,7 +49,7 @@ public class chooseInterests extends AppCompatActivity {
         rv.setAdapter(adapter);
         Log.d("error", "here");
 
-        TextView finish = findViewById(R.id.sendEmailButton);
+        TextView finish = findViewById(R.id.updateButton);
 
         finish.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,7 +47,7 @@ public class Signin extends AppCompatActivity {
         this.checkBox = findViewById(R.id.rememberMe);
 
         //find createAccount button in activity_signin.xml
-        TextView signIn = findViewById(R.id.sendEmailButton);
+        TextView signIn = findViewById(R.id.updateButton);
         TextView forgetPass = findViewById(R.id.forgetPass);
         TextView signUp = findViewById((R.id.SignIn));
 

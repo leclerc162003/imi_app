@@ -34,7 +34,7 @@ public class choosePFP_Username extends AppCompatActivity {
 //        storageReference = FirebaseStorage.getInstance().getReference("gs://imi-app-2a3ab.appspot.com/");
 //        pathReference = storageReference.child("Default Images/dpfp1.png");
         EditText userNameEnter = findViewById(R.id.userNameEnter);
-        TextView continue1 = findViewById(R.id.sendEmailButton);
+        TextView continue1 = findViewById(R.id.updateButton);
 
         RecyclerView rv = findViewById(R.id.rvPfp);
         ChooseProfilePicAdapter adapter = new ChooseProfilePicAdapter(this, populateList());
