@@ -1,16 +1,24 @@
 package sg.edu.np.imiapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -19,6 +27,7 @@ import java.util.ArrayList;
 public class TrendingInterests extends AppCompatActivity {
 
     ArrayList<Interests> interests;
+    FloatingActionButton addThreadBtn;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference mDatabase = firebaseDatabase.getReference();
 
@@ -33,7 +42,8 @@ public class TrendingInterests extends AppCompatActivity {
 
         interests = getInterests();
 
-        RecyclerView rv = findViewById(R.id.TrendingInterests);
+
+        RecyclerView rv = findViewById(R.id.trendingInterestsrv);
         TrendingInterestsAdapter adapter = new TrendingInterestsAdapter(this, interests);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(layoutManager);

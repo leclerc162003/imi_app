@@ -1,6 +1,7 @@
 package sg.edu.np.imiapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,9 @@ public class TrendingThreadsAdapter extends RecyclerView.Adapter<TrendingThreads
         holder.toThreadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //create intent to next activity
+                Intent toMessage = new Intent(holder.toThreadBtn.getContext(), TrendingChat.class);
+                toMessage.putExtra("threadName", threadName);
+                holder.toThreadBtn.getContext().startActivity(toMessage);
             }
         });
     }

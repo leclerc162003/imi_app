@@ -1,10 +1,16 @@
 package sg.edu.np.imiapp;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +22,7 @@ public class TrendingInterestsAdapter extends RecyclerView.Adapter<TrendingInter
     Context context;
     ArrayList<Interests> interestdata;
     ArrayList<String> threaddata;
+    Dialog dialog;
 
     public TrendingInterestsAdapter(Context c, ArrayList<Interests> d){
         context = c;
@@ -42,6 +49,15 @@ public class TrendingInterestsAdapter extends RecyclerView.Adapter<TrendingInter
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false);
         holder.trendingThreadsrv.setLayoutManager(layoutManager);
         holder.trendingThreadsrv.setAdapter(adapter);
+
+        dialog = new Dialog(context);
+
+        holder.createThreadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAddThreadDialog();
+            }
+        });
     }
 
     @Override
@@ -59,5 +75,29 @@ public class TrendingInterestsAdapter extends RecyclerView.Adapter<TrendingInter
         threads.add("5");
 
         return threads;
+    }
+
+    private void openAddThreadDialog() {
+        dialog.setContentView(R.layout.addthreaddialog_layout);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ImageView closeBtn = dialog.findViewById(R.id.closeBtn);
+        EditText threadName = dialog.findViewById(R.id.addThreadEditText);
+        Button addThreadBtn = dialog.findViewById(R.id.confirmBtn);
+
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        addThreadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }
