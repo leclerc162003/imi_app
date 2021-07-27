@@ -60,6 +60,7 @@ public class ChatsPageAdapter extends RecyclerView.Adapter<ChatsPageViewHolder> 
                 Bundle extras = new Bundle();
                 extras.putString("Username", chatUser.getUsername());
                 extras.putString("UID", chatUser.getUID());
+                extras.putString("imagePFP", chatUser.getProfilePic());
                 Intent i = new Intent(context, MessagePart.class);
                 i.putExtras(extras);
                 context.startActivity(i);

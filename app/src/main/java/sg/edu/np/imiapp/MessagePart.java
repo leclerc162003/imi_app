@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,6 +31,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -40,7 +43,8 @@ public class MessagePart extends AppCompatActivity {
     public ImageView sendButton;
     public String sendToUserID;
     private FirebaseAuth mAuth;
-    //private DatabaseReference mDatabase;
+    public StorageReference storageReference;
+    public StorageReference pathReference;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference mDatabase = firebaseDatabase.getReference();
 
@@ -58,23 +62,32 @@ public class MessagePart extends AppCompatActivity {
         this.sendToUsername = findViewById(R.id.sendToUsername);
         mAuth = FirebaseAuth.getInstance();
         mAuth.getCurrentUser();
+        ImageView imagePFP = findViewById(R.id.pfpChat);
+
 
         Intent receive = getIntent();
         String UsernameReceiver;
+        String pfp;
         //get user UID from login if shared pref is not null, if null get string from chatspage adapter
         if (receive.getStringExtra("toUID")!= null){
             Log.d("username NNOWNNWONW", receive.getStringExtra("toUsername"));
             UsernameReceiver = receive.getStringExtra("toUsername");
             sendToUserID = receive.getStringExtra("toUID");
+            pfp = receive.getStringExtra("toPFP");
         }
         else{
             UsernameReceiver = receive.getStringExtra("Username");
             sendToUserID = receive.getStringExtra("UID");
+            pfp = receive.getStringExtra("imagePFP");
         }
         //input reciever UID and input last keyed text (if any**)
         sendToUsername.setText(UsernameReceiver);
         inputLastKeyedText(sendToUserID);
-
+        storageReference = FirebaseStorage.getInstance().getReference();
+        pathReference = storageReference.child("Default Images/" + pfp);
+        GlideApp.with(MessagePart.this)
+                .load(pathReference)
+                .into(imagePFP);
         //send message
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,6 +220,7 @@ public class MessagePart extends AppCompatActivity {
         Intent receive = getIntent();
         lastUserChatted.putString("toID", receive.getStringExtra("UID"));
         lastUserChatted.putString("toNAME", receive.getStringExtra("Username"));
+        lastUserChatted.putString("toPFP", receive.getStringExtra("imagePFP"));
         lastUserChatted.apply();
     }
 

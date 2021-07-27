@@ -49,13 +49,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/pfpChat"
+        app:layout_constraintTop_toTopOf="@+id/pfpChat" />
 
     <ImageView
         android:id="@+id/sendButton"
@@ -66,6 +66,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/messageText"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_send2_24" />
+
+    <ImageView
+        android:id="@+id/pfpChat"
+        android:layout_width="71dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/black_pfp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

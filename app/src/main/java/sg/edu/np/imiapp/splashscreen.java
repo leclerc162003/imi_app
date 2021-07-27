@@ -91,6 +91,7 @@ public class splashscreen extends AppCompatActivity {
                 SharedPreferences lastUserChatted = getSharedPreferences("lastUserChatted", MODE_PRIVATE);
                 String UID = lastUserChatted.getString("toID", "nouser");
                 String Name = lastUserChatted.getString("toNAME", "nouser");
+                String pfp = lastUserChatted.getString("toPFP", "nouser");
                 Log.d("ID of last user chatted", UID);
 
                 if (isOnline() != true){
@@ -103,6 +104,7 @@ public class splashscreen extends AppCompatActivity {
                     Intent i = new Intent(splashscreen.this, MessagePart.class);
                     extras.putString("toUID", UID);
                     extras.putString("toUsername", Name);
+                    extras.putString("toPFP", pfp);
                     i.putExtras(extras);
                     splashscreen.this.startActivity(i);
                     lastUserChatted.edit().clear().commit();

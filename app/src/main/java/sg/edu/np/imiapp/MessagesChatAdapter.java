@@ -10,7 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MessagesChatAdapter extends RecyclerView.Adapter<MessagesChatViewHolder> {
     Context context;
@@ -42,6 +47,9 @@ public class MessagesChatAdapter extends RecyclerView.Adapter<MessagesChatViewHo
         //get messages from list and set the text
         SentMessages message = messagesList.get(position);
         holder.messageTo.setText(message.Message);
+        Calendar cal = Calendar.getInstance();
+
+
 
     }
 
