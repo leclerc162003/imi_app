@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,10 +19,10 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        ImageView changePass = findViewById(R.id.changePassImage);
-        ImageView privacyPolicy = findViewById(R.id.privacyPolicy);
-        ImageView bugReport = findViewById(R.id.bugIssue);
-        ImageView signOut = findViewById(R.id.signOut);
+        TextView changePass = findViewById(R.id.changePass);
+        TextView privacyPolicy = findViewById(R.id.PrivacyPolicy);
+        TextView bugReport = findViewById(R.id.BugIssue);
+        TextView signOut = findViewById(R.id.SignOut);
         mAuth = FirebaseAuth.getInstance();
         changePass.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,8 @@ public class choosePFP_Username extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
         getSupportActionBar().hide();
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_profile_picture_choose);
 //        storageReference = FirebaseStorage.getInstance().getReference("gs://imi-app-2a3ab.appspot.com/");
 //        pathReference = storageReference.child("Default Images/dpfp1.png");
