@@ -39,6 +39,7 @@
         android:background="@drawable/sender_back"
         android:clickable="false"
         android:linksClickable="false"
+        android:textAllCaps="false"
         app:backgroundTint="#00BCD4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

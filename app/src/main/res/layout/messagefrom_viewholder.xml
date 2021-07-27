@@ -37,6 +37,7 @@
         android:background="@drawable/receiver_back"
         android:clickable="false"
         android:linksClickable="false"
+        android:textAllCaps="false"
         app:backgroundTint="#f47a60"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

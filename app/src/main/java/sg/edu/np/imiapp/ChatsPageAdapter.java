@@ -3,6 +3,7 @@ package sg.edu.np.imiapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -20,7 +26,9 @@ import java.util.ArrayList;
 public class ChatsPageAdapter extends RecyclerView.Adapter<ChatsPageViewHolder> {
     Context context;
     ArrayList<User> userList;
-    //FirebaseAuth auth;
+    //initialise firebase database
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
+    DatabaseReference mDatabase = firebaseDatabase.getReference();
     ArrayList<String> user;
     public StorageReference storageReference;
     public StorageReference pathReference;
@@ -53,6 +61,7 @@ public class ChatsPageAdapter extends RecyclerView.Adapter<ChatsPageViewHolder> 
         holder.chatUsername.setText(chatUser.getUsername());
         holder.chatLM.setText("Interests: " + chatUser.getInterests().get(0));
 
+
         //click on this and redirects to chat user page
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,4 +83,6 @@ public class ChatsPageAdapter extends RecyclerView.Adapter<ChatsPageViewHolder> 
     public int getItemCount() {
         return userList.size();
     }
+
+
 }

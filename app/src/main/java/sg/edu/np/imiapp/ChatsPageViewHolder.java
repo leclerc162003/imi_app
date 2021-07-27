@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ChatsPageViewHolder extends RecyclerView.ViewHolder {
     public TextView chatUsername;
     public TextView chatLM;
+    public ImageView lastMessage;
     public ImageView usersPFP;
     public ChatsPageViewHolder(@NonNull View itemView) {
         super(itemView);
