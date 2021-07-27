@@ -13,7 +13,6 @@
         android:theme="@style/Theme.Imiapp">
         <activity android:name=".updateInterests" />
         <activity android:name=".TrendingChat" />
-        <activity android:name=".TrendingThreads" />
         <activity android:name=".TrendingInterests" />
         <activity android:name=".chooseInterests" />
         <activity android:name=".bugIssue" />

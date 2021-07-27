@@ -7,10 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class TrendingThreadsViewHolder extends RecyclerView.ViewHolder {
-    Button threadBtn;
+    Button toThreadBtn;
 
     public TrendingThreadsViewHolder(@NonNull View itemView) {
         super(itemView);
-        threadBtn = itemView.findViewById(R.id.toThreadBtn);
+        toThreadBtn = itemView.findViewById(R.id.toThreadBtn);
     }
 }

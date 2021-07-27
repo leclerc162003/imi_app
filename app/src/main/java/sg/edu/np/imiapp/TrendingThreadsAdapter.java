@@ -30,9 +30,9 @@ public class TrendingThreadsAdapter extends RecyclerView.Adapter<TrendingThreads
     @Override
     public void onBindViewHolder(@NonNull TrendingThreadsViewHolder holder, int position) {
         String threadName = threaddata.get(position);
-        holder.threadBtn.setText(threadName);
+        holder.toThreadBtn.setText(threadName);
 
-        holder.threadBtn.setOnClickListener(new View.OnClickListener() {
+        holder.toThreadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //create intent to next activity
