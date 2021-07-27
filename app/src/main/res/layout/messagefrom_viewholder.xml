@@ -30,11 +30,11 @@
 
     <Button
         android:id="@+id/messageTo"
-        android:layout_width="290dp"
+        android:layout_width="wrap_content"
         android:layout_height="53dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:background="@drawable/edittext_background"
+        android:background="@drawable/receiver_back"
         android:clickable="false"
         android:linksClickable="false"
         app:backgroundTint="#f47a60"
