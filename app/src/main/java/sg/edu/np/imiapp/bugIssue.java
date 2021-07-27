@@ -4,8 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.view.Window;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -18,9 +19,11 @@ public class bugIssue extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_bug_issue);
         EditText reportText = findViewById(R.id.reportText);
-        Button reportButton = findViewById(R.id.reportButton);
+        TextView reportButton = findViewById(R.id.updateButton);
 
         //when click on report button, post report to the database and return editText to empty and post Toast message
         reportButton.setOnClickListener(new View.OnClickListener() {
