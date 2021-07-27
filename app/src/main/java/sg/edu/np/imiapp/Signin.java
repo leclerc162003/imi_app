@@ -65,6 +65,14 @@ public class Signin extends AppCompatActivity {
             }
         });
 
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                checkBox.setChecked(true);
+
+            }
+        });
+
         //signs user in when click on login
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,16 +95,18 @@ public class Signin extends AppCompatActivity {
                 //else sign in user
                 else{
                     signIn(String.valueOf(userEmail.getText()), String.valueOf(userPassword.getText()));
+                    //if check box is check save login information to shared preferences
+                    if (checkBox.isChecked() == true){
+                        SharedPreferences.Editor loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE).edit();
+                        loginInfo.putString("email", String.valueOf(userEmail.getText()));
+                        loginInfo.putString("password", String.valueOf(userPassword.getText()));
+                        loginInfo.apply();
+                    }
                     userEmail.setText("");
                     userPassword.setText("");
                 }
-                //if check box is check save login information to shared preferences
-                if (checkBox.isChecked()){
-                    SharedPreferences.Editor loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE).edit();
-                    loginInfo.putString("email", String.valueOf(userEmail.getText()));
-                    loginInfo.putString("password", String.valueOf(userPassword.getText()));
-                    loginInfo.apply();
-                }
+
+
 
             }
         });
