@@ -6,7 +6,7 @@
 ## Developers
 - Chua Jun Hong (S10203330C)
 - Jarrell Soh (insert ID)
-- Luo Yu Xuan (insert ID)
+- Luo Yu Xuan (S10205205)
 <br>
 
 ## Descrition of app
@@ -35,9 +35,8 @@ imi is an anonymous and friendly messaging app where users can chat about their 
 -
 
 **Luo Yu Xuan**
--
--
--
+- Designing UIs for all pages
+- Checking errors and debuging 
 
 ## Diagrams
 

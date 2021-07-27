@@ -61,25 +61,19 @@ public class MessagePart extends AppCompatActivity {
 
         Intent receive = getIntent();
         String UsernameReceiver;
+        //get user UID from login if shared pref is not null, if null get string from chatspage adapter
         if (receive.getStringExtra("toUID")!= null){
             Log.d("username NNOWNNWONW", receive.getStringExtra("toUsername"));
             UsernameReceiver = receive.getStringExtra("toUsername");
             sendToUserID = receive.getStringExtra("toUID");
         }
         else{
-        //set username to username received from intent in Chats Page Adapter
-        //sendToUsername.setText(receive.getStringExtra("Username"));
             UsernameReceiver = receive.getStringExtra("Username");
-        //Get UID of the receiver (the person the user is messaging)
-        sendToUserID = receive.getStringExtra("UID");
-        //input the last unsent keyed message by user *if any
-
+            sendToUserID = receive.getStringExtra("UID");
         }
+        //input reciever UID and input last keyed text (if any**)
         sendToUsername.setText(UsernameReceiver);
         inputLastKeyedText(sendToUserID);
-//        sendToUsername.setText(receive.getStringExtra("Username"));
-//        String sendToUserID = receive.getStringExtra("UID");
-//        inputLastKeyedText(sendToUserID);
 
         //send message
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -105,12 +99,7 @@ public class MessagePart extends AppCompatActivity {
                     //set edittext back to empty
                     messageText.setText("");
                 }
-//                DatabaseReference sentmRef = mDatabase.child("SentMessages");
-//                DatabaseReference newMessageRef = sentmRef.push();
-//                SentMessages sentMessage = new SentMessages(sendToUserID, mAuth.getUid(), messageText.getText().toString());
-//                newMessageRef.setValue(sentMessage);
-//
-//                messageText.setText("");
+
             }
         });
         //create array list to store messages from database for the recycler view
@@ -170,24 +159,11 @@ public class MessagePart extends AppCompatActivity {
         saveLastKeyedText();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Intent receive = getIntent();
-        //sendToUsername.setText(receive.getStringExtra("Username"));
-        String sendToUserID = receive.getStringExtra("UID");
 
-        //inputLastKeyedText(sendToUserID);
-    }
 
     @Override
     protected void onStop() {
         super.onStop();
-//        SharedPreferences.Editor last_key = getSharedPreferences("lastkey", MODE_PRIVATE).edit();
-//        Intent receive = getIntent();
-//        last_key.putString("toID", receive.getStringExtra("UID"));
-//        last_key.putString("lastmessage", messageText.getText().toString());
-//        last_key.apply();
         saveLastKeyedText();
         saveLastUserChatted();
         Log.d("paused", "i got paused");
@@ -199,23 +175,10 @@ public class MessagePart extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d("destroyed", "i got destroyed");
-
         saveLastKeyedText();
         saveLastUserChatted();
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
-        Intent receive = getIntent();
-        super.onSaveInstanceState(savedInstanceState);
-        //TODO: ON DESTORY RETURN TO CHAT ACTIVITY
-        // on destroy do sharedpreferences
-        //in mainactivity check for that specific sharedpreferences
-        //intent to this particular activity and clear shared preferences
-
-
-        //if can download from firebase to local DB and load from localDB
-    }
 
     public void saveLastKeyedText(){
         //save the last keyed message to a sharedpreferences file named after the UID and put the message in the file

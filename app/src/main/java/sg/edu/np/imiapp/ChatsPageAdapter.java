@@ -39,8 +39,11 @@ public class ChatsPageAdapter extends RecyclerView.Adapter<ChatsPageViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ChatsPageViewHolder holder, int position) {
+        //get interests list
         ArrayList<String> interestsUser = new ArrayList<>(user);
+        //get user object
         User chatUser = userList.get(position);
+        //get matched interests and display with profile pic using glide
         chatUser.getInterests().retainAll(interestsUser);
         storageReference = FirebaseStorage.getInstance().getReference();
         pathReference = storageReference.child("Default Images/" + chatUser.getProfilePic());
@@ -50,7 +53,7 @@ public class ChatsPageAdapter extends RecyclerView.Adapter<ChatsPageViewHolder> 
         holder.chatUsername.setText(chatUser.getUsername());
         holder.chatLM.setText("Interests: " + chatUser.getInterests().get(0));
 
-
+        //click on this and redirects to chat user page
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

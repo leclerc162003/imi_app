@@ -25,6 +25,7 @@ public class MessagesChatAdapter extends RecyclerView.Adapter<MessagesChatViewHo
     @NonNull
     @Override
     public MessagesChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //if return 0 show chat on the right, else on the left
         View item = null;
         if(viewType == 0)
         {
@@ -38,6 +39,7 @@ public class MessagesChatAdapter extends RecyclerView.Adapter<MessagesChatViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MessagesChatViewHolder holder, int position) {
+        //get messages from list and set the text
         SentMessages message = messagesList.get(position);
         holder.messageTo.setText(message.Message);
 
