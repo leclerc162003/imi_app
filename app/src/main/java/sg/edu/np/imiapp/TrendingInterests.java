@@ -2,6 +2,7 @@ package sg.edu.np.imiapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
 public class TrendingInterests extends AppCompatActivity {
 
     ArrayList<Interests> interests;
-    DisplayMetrics displayMetrics;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference mDatabase = firebaseDatabase.getReference();
 
@@ -35,9 +35,7 @@ public class TrendingInterests extends AppCompatActivity {
 
         RecyclerView rv = findViewById(R.id.TrendingInterests);
         TrendingInterestsAdapter adapter = new TrendingInterestsAdapter(this, interests);
-        displayMetrics = this.getResources().getDisplayMetrics();
-        int noOfColumns = displayMetrics.widthPixels / 182;
-        GridLayoutManager layoutManager = new GridLayoutManager(this, noOfColumns);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(layoutManager);
         rv.setAdapter(adapter);
 

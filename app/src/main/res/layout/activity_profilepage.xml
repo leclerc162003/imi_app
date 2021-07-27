@@ -54,7 +54,7 @@
         app:layout_constraintStart_toStartOf="@+id/chatButton" />
 
     <ImageView
-        android:id="@+id/tipTap"
+        android:id="@+id/trendingBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
@@ -68,13 +68,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Tip-Tap"
+        android:text="Trending"
         android:textSize="10sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-        app:layout_constraintEnd_toEndOf="@+id/tipTap"
-        app:layout_constraintStart_toStartOf="@+id/tipTap"
-        app:layout_constraintTop_toBottomOf="@+id/tipTap" />
+        app:layout_constraintEnd_toEndOf="@+id/trendingBtn"
+        app:layout_constraintStart_toStartOf="@+id/trendingBtn"
+        app:layout_constraintTop_toBottomOf="@+id/trendingBtn" />
 
     <ImageView
         android:id="@+id/settingsButton"
@@ -82,7 +82,7 @@
         android:layout_height="33dp"
         android:layout_marginStart="73dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintStart_toEndOf="@+id/tipTap"
+        app:layout_constraintStart_toEndOf="@+id/trendingBtn"
         app:layout_constraintTop_toTopOf="@+id/imageView8"
         app:srcCompat="@android:drawable/ic_menu_manage" />
 

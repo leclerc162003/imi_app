@@ -122,6 +122,18 @@ public class Profilepage extends AppCompatActivity {
                 Profilepage.this.startActivity(i);
             }
         });
+
+        //directs user to trending page
+        ImageView trendingBtn = findViewById(R.id.trendingBtn);
+
+        trendingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toTrending = new Intent(Profilepage.this, TrendingInterests.class);
+                Profilepage.this.startActivity(toTrending);
+            }
+        });
+
        //directs user to settings
         ImageView settingsButton = findViewById(R.id.settingsButton);
 
