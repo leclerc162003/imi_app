@@ -1,5 +1,6 @@
 package sg.edu.np.imiapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,15 +20,17 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class TrendingInterests extends AppCompatActivity {
 
-    ArrayList<Interests> interests;
-    FloatingActionButton addThreadBtn;
+    ArrayList<String> interests;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference mDatabase = firebaseDatabase.getReference();
 
@@ -51,9 +54,9 @@ public class TrendingInterests extends AppCompatActivity {
 
     }
 
-    public ArrayList<Interests> getInterests(){
+    public ArrayList<String> getInterests(){
         //Use database information to get interests
-        ArrayList<Interests> interests = new ArrayList<>();
+        ArrayList<String> interests = new ArrayList<>();
 
 //        interests.add(new Interests("Gaming " + getEmoji(0x1F3AE)));
 //        interests.add(new Interests("Singing " + getEmoji(0x1F3A4)));
@@ -69,19 +72,36 @@ public class TrendingInterests extends AppCompatActivity {
 //        interests.add(new Interests("Studying " + getEmoji(0x1F4D6)));
 //        interests.add(new Interests("Movies & TV shows " + getEmoji(0x1F4FA)));
 
-        interests.add(new Interests("Gaming"));
-        interests.add(new Interests("Singing"));
-        interests.add(new Interests("Dancing"));
-        interests.add(new Interests("Cooking"));
-        interests.add(new Interests("K-Pop"));
-        interests.add(new Interests("K-Drama"));
-        interests.add(new Interests("Netflix"));
-        interests.add(new Interests("Sleeping"));
-        interests.add(new Interests("Sports"));
-        interests.add(new Interests("Anime"));
-        interests.add(new Interests("Music"));
-        interests.add(new Interests("Studying"));
-        interests.add(new Interests("Movies & TV shows"));
+//        interests.add(new Interests("Gaming"));
+//        interests.add(new Interests("Singing"));
+//        interests.add(new Interests("Dancing"));
+//        interests.add(new Interests("Cooking"));
+//        interests.add(new Interests("K-Pop"));
+//        interests.add(new Interests("K-Drama"));
+//        interests.add(new Interests("Netflix"));
+//        interests.add(new Interests("Sleeping"));
+//        interests.add(new Interests("Sports"));
+//        interests.add(new Interests("Anime"));
+//        interests.add(new Interests("Music"));
+//        interests.add(new Interests("Studying"));
+//        interests.add(new Interests("Movies & TV shows"));
+
+        mDatabase.child("Interests").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()){
+                    String interest = postSnapshot.getChildren().toString();
+                    interests.add(interest);
+                    System.out.println("added");
+                    System.out.println(postSnapshot.getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         return interests;
     }
 
