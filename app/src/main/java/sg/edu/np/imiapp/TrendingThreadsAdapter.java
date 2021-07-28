@@ -19,11 +19,13 @@ public class TrendingThreadsAdapter extends RecyclerView.Adapter<TrendingThreads
     Context context;
     ArrayList<firebase_Threads> threaddata;
     String interestName;
+    String username;
 
-    public TrendingThreadsAdapter(Context c, ArrayList<firebase_Threads> d, String i){
+    public TrendingThreadsAdapter(Context c, ArrayList<firebase_Threads> d, String i, String u){
         context = c;
         threaddata = d;
         interestName = i;
+        username = u;
     }
 
     @NonNull
@@ -46,6 +48,7 @@ public class TrendingThreadsAdapter extends RecyclerView.Adapter<TrendingThreads
                 Intent toMessage = new Intent(holder.toThreadBtn.getContext(), TrendingChat.class);
                 toMessage.putExtra("interestName", interestName);
                 toMessage.putExtra("threadName", threadName);
+                toMessage.putExtra("username", username);
                 holder.toThreadBtn.getContext().startActivity(toMessage);
             }
         });

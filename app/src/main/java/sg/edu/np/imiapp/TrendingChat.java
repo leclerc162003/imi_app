@@ -28,6 +28,7 @@ public class TrendingChat extends AppCompatActivity {
     ArrayList<ThreadMessage> messages = new ArrayList<>();
     String threadName;
     String interestName;
+    String username;
     TextView threadNameView;
     EditText messageText;
     ImageView sendMessageBtn;
@@ -48,30 +49,30 @@ public class TrendingChat extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.getCurrentUser();
-        //currentUser = mAuth;.
 
         Intent receiver = getIntent();
         threadName = receiver.getStringExtra("threadName");
         interestName = receiver.getStringExtra("interestName");
+        username = receiver.getStringExtra("username");
         threadNameView = findViewById(R.id.threadName);
         messageText = findViewById(R.id.sendThreadMessage);
         sendMessageBtn = findViewById(R.id.sendThreadMessageBtn);
 
         threadNameView.setText(threadName);
 
-//        sendMessageBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(messageText.getText().toString().equals("")){
-//                    messageText.setError("No Message Sent");
-//                }
-//                else{
-//                    ThreadMessage message = new ThreadMessage(threadName, interestName, ,mAuth.getUid(),messageText.getText().toString())
-//                    mDatabase.child("ThreadMessages").push().setValue(message);
-//                    messageText.setText("");
-//                }
-//            }
-//        });
+        sendMessageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(messageText.getText().toString().equals("")){
+                    messageText.setError("No Message Sent");
+                }
+                else{
+                    ThreadMessage message = new ThreadMessage(threadName, interestName, username,mAuth.getUid(),messageText.getText().toString());
+                    mDatabase.child("ThreadMessages").push().setValue(message);
+                    messageText.setText("");
+                }
+            }
+        });
 
         RecyclerView rv = findViewById(R.id.threadChatrv);
         TrendingChatAdapter adapter = new TrendingChatAdapter(this, messages);

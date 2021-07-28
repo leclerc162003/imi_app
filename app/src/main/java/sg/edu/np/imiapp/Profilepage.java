@@ -130,6 +130,7 @@ public class Profilepage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent toTrending = new Intent(Profilepage.this, TrendingInterests.class);
+                toTrending.putExtra("username", username.getUsername());
                 Profilepage.this.startActivity(toTrending);
             }
         });

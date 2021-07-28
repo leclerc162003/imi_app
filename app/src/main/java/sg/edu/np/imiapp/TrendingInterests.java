@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 
 public class TrendingInterests extends AppCompatActivity {
 
+    String username;
     ArrayList<String> interests;
     ArrayList<firebase_Threads> threaddata = new ArrayList<>();
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -45,10 +47,13 @@ public class TrendingInterests extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_trending_interests);
 
+        Intent receiver = getIntent();
+        username = receiver.getStringExtra("username");
+
         interests = getInterests();
 
         RecyclerView rv = findViewById(R.id.trendingInterestsrv);
-        adapter = new TrendingInterestsAdapter(TrendingInterests.this, interests, threaddata);
+        adapter = new TrendingInterestsAdapter(TrendingInterests.this, interests, threaddata, username);
         LinearLayoutManager layoutManager = new LinearLayoutManager(TrendingInterests.this);
         rv.setLayoutManager(layoutManager);
         rv.setAdapter(adapter);

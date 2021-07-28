@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 public class TrendingInterestsAdapter extends RecyclerView.Adapter<TrendingInterestViewHolder> {
     Context context;
+    String username;
     ArrayList<String> interestdata;
     ArrayList<firebase_Threads> threaddata;
     ArrayList<firebase_Threads> relevantThreads = new ArrayList<>();
@@ -33,10 +34,11 @@ public class TrendingInterestsAdapter extends RecyclerView.Adapter<TrendingInter
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference mDatabase = firebaseDatabase.getReference();
 
-    public TrendingInterestsAdapter(Context c, ArrayList<String> d, ArrayList<firebase_Threads> td){
+    public TrendingInterestsAdapter(Context c, ArrayList<String> d, ArrayList<firebase_Threads> td, String u){
         context = c;
         interestdata = d;
         threaddata = td;
+        username = u;
     }
 
     @NonNull
@@ -60,7 +62,7 @@ public class TrendingInterestsAdapter extends RecyclerView.Adapter<TrendingInter
             }
         }
 
-        TrendingThreadsAdapter adapter = new TrendingThreadsAdapter(this.context, relevantThreads, interest);
+        TrendingThreadsAdapter adapter = new TrendingThreadsAdapter(this.context, relevantThreads, interest, username);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false);
         holder.trendingThreadsrv.setLayoutManager(layoutManager);
         holder.trendingThreadsrv.setAdapter(adapter);
