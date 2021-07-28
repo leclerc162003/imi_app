@@ -42,34 +42,6 @@ public class splashscreen extends AppCompatActivity {
         setContentView(R.layout.activity_splashscreen);
         startTimer(3);
 
-        DatabaseReference interestRef = mDatabase.child("Interests");
-        interestRef.child("Gaming").setValue("");
-        interestRef.child("Singing").setValue("");
-        interestRef.child("Dancing").setValue("");
-        interestRef.child("Cooking").setValue("");
-        interestRef.child("K-Pop").setValue("");
-        interestRef.child("K-Drama").setValue("");
-        interestRef.child("Netflix").setValue("");
-        interestRef.child("Sleeping").setValue("");
-        interestRef.child("Sports").setValue("");
-        interestRef.child("Anime").setValue("");
-        interestRef.child("Music").setValue("");
-        interestRef.child("Studying").setValue("");
-        interestRef.child("Movies & TV shows").setValue("");
-
-//        interestRef.child("Gaming " + getEmoji(0x1F3AE)).setValue("");
-//        interestRef.child("Singing " + getEmoji(0x1F3A4)).setValue("");
-//        interestRef.child("Dancing " + getEmoji(0x1F483)).setValue("");
-//        interestRef.child("Cooking " + getEmoji(0x1F373)).setValue("");
-//        interestRef.child("K-Pop " + getEmoji(0x1F929)).setValue("");
-//        interestRef.child("K-Drama " + getEmoji(0x1F60F)).setValue("");
-//        interestRef.child("Netflix " + getEmoji(0x1F4FA)).setValue("");
-//        interestRef.child("Sleeping " + getEmoji(0x1F62A)).setValue("");
-//        interestRef.child("Sports " + getEmoji(0x1F93E)).setValue("");
-//        interestRef.child("Anime " + getEmoji(0x1F9DD)).setValue("");
-//        interestRef.child("Music " + getEmoji(0x1F3BC)).setValue("");
-//        interestRef.child("Studying " + getEmoji(0x1F4D6)).setValue("");
-//        interestRef.child("Movies & TV shows " + getEmoji(0x1F4FA)).setValue("");
     }
 
     public String getEmoji(int uni){

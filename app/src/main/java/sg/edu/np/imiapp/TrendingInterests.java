@@ -31,8 +31,10 @@ import java.util.ArrayList;
 public class TrendingInterests extends AppCompatActivity {
 
     ArrayList<String> interests;
+    ArrayList<firebase_Threads> threaddata = new ArrayList<>();
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference mDatabase = firebaseDatabase.getReference();
+    TrendingInterestsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +47,28 @@ public class TrendingInterests extends AppCompatActivity {
 
         interests = getInterests();
 
-
         RecyclerView rv = findViewById(R.id.trendingInterestsrv);
-        TrendingInterestsAdapter adapter = new TrendingInterestsAdapter(this, interests);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        adapter = new TrendingInterestsAdapter(TrendingInterests.this, interests, threaddata);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(TrendingInterests.this);
         rv.setLayoutManager(layoutManager);
         rv.setAdapter(adapter);
 
+        mDatabase.child("Threads").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                threaddata.clear();
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()){
+                    firebase_Threads thread = postSnapshot.getValue(firebase_Threads.class);
+                    threaddata.add(thread);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public ArrayList<String> getInterests(){
@@ -72,28 +89,26 @@ public class TrendingInterests extends AppCompatActivity {
 //        interests.add(new Interests("Studying " + getEmoji(0x1F4D6)));
 //        interests.add(new Interests("Movies & TV shows " + getEmoji(0x1F4FA)));
 
-//        interests.add(new Interests("Gaming"));
-//        interests.add(new Interests("Singing"));
-//        interests.add(new Interests("Dancing"));
-//        interests.add(new Interests("Cooking"));
-//        interests.add(new Interests("K-Pop"));
-//        interests.add(new Interests("K-Drama"));
-//        interests.add(new Interests("Netflix"));
-//        interests.add(new Interests("Sleeping"));
-//        interests.add(new Interests("Sports"));
-//        interests.add(new Interests("Anime"));
-//        interests.add(new Interests("Music"));
-//        interests.add(new Interests("Studying"));
-//        interests.add(new Interests("Movies & TV shows"));
+//        interests.add("Gaming");
+//        interests.add("Singing");
+//        interests.add("Dancing");
+//        interests.add("Cooking");
+//        interests.add("K-Pop");
+//        interests.add("K-Drama");
+//        interests.add("Netflix");
+//        interests.add("Sleeping");
+//        interests.add("Sports");
+//        interests.add("Anime");
+//        interests.add("Music");
+//        interests.add("Studying");
+//        interests.add("Movies & TV shows");
 
         mDatabase.child("Interests").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()){
-                    String interest = postSnapshot.getChildren().toString();
+                    String interest = postSnapshot.getValue(String.class);
                     interests.add(interest);
-                    System.out.println("added");
-                    System.out.println(postSnapshot.getValue());
                 }
             }
 

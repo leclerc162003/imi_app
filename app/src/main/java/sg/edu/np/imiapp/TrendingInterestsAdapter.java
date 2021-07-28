@@ -16,17 +16,27 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class TrendingInterestsAdapter extends RecyclerView.Adapter<TrendingInterestViewHolder> {
     Context context;
     ArrayList<String> interestdata;
-    ArrayList<String> threaddata;
+    ArrayList<firebase_Threads> threaddata;
+    ArrayList<firebase_Threads> relevantThreads = new ArrayList<>();
     Dialog dialog;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
+    DatabaseReference mDatabase = firebaseDatabase.getReference();
 
-    public TrendingInterestsAdapter(Context c, ArrayList<String> d){
+    public TrendingInterestsAdapter(Context c, ArrayList<String> d, ArrayList<firebase_Threads> td){
         context = c;
         interestdata = d;
+        threaddata = td;
     }
 
     @NonNull
@@ -40,11 +50,17 @@ public class TrendingInterestsAdapter extends RecyclerView.Adapter<TrendingInter
     @Override
     public void onBindViewHolder(@NonNull TrendingInterestViewHolder holder, int position) {
         String interest = interestdata.get(position);
-        threaddata = getThreaddata();
+        relevantThreads = new ArrayList<>();
 
         holder.interestName.setText(interest);
 
-        TrendingThreadsAdapter adapter = new TrendingThreadsAdapter(this.context, threaddata);
+        for(int i = 0; i < threaddata.size(); i++){
+            if(threaddata.get(i).interestName.equals(interest)){
+                relevantThreads.add(threaddata.get(i));
+            }
+        }
+
+        TrendingThreadsAdapter adapter = new TrendingThreadsAdapter(this.context, relevantThreads, interest);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false);
         holder.trendingThreadsrv.setLayoutManager(layoutManager);
         holder.trendingThreadsrv.setAdapter(adapter);
@@ -54,29 +70,18 @@ public class TrendingInterestsAdapter extends RecyclerView.Adapter<TrendingInter
         holder.createThreadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openAddThreadDialog();
+                openAddThreadDialog(interest);
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
         return interestdata.size();
     }
 
-    public ArrayList<String> getThreaddata(){
-        ArrayList<String> threads = new ArrayList<>();
-        //get information from firebase
-        threads.add("1");
-        threads.add("2");
-        threads.add("3");
-        threads.add("4");
-        threads.add("5");
-
-        return threads;
-    }
-
-    private void openAddThreadDialog() {
+    private void openAddThreadDialog(String interest) {
         dialog.setContentView(R.layout.addthreaddialog_layout);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -95,6 +100,10 @@ public class TrendingInterestsAdapter extends RecyclerView.Adapter<TrendingInter
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                firebase_Threads threadToAdd = new firebase_Threads();
+                threadToAdd.setInterestName(interest);
+                threadToAdd.setThreadName(threadName.getText().toString());
+                mDatabase.child("Threads").push().setValue(threadToAdd);
             }
         });
         dialog.show();

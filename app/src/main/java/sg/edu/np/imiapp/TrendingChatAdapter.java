@@ -53,7 +53,7 @@ public class TrendingChatAdapter extends RecyclerView.Adapter<TrendingChatViewHo
     @Override
     public int getItemViewType(int position){
         ThreadMessage message = messagedata.get(position);
-        if(message.sentUserID.contentEquals(mAuth.getUid())){
+        if(message.sentUserId.contentEquals(mAuth.getUid())){
             return 0;
         }
         return 1;
