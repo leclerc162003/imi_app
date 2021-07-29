@@ -3,6 +3,9 @@ package sg.edu.np.imiapp;
 public class Interests {
     private String text;
     private boolean isSelected = false;
+    
+    public Interests(){
+    }
 
     public Interests(String text) {
         this.text = text;
