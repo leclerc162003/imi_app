@@ -55,6 +55,14 @@ public class Signin extends AppCompatActivity {
         //initialise Firebase auth
         mAuth = FirebaseAuth.getInstance();
 
+        if (mAuth.getCurrentUser() != null)
+        {
+            Intent intent = new Intent(this, Profilepage.class);
+            this.startActivity (intent);
+            this.finishActivity (0);
+        }
+
+
         //directs user to sign up
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,10 +166,16 @@ public class Signin extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         //on resume, auto login user with info stored in shared preferences
-        SharedPreferences loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE);
-        String email = loginInfo.getString("email", "def");
-        String password = loginInfo.getString("password", "def");
-        signIn(email,password);
+//        SharedPreferences loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE);
+//        String email = loginInfo.getString("email", "def");
+//        String password = loginInfo.getString("password", "def");
+//        signIn(email,password);
+        if (mAuth.getCurrentUser() != null)
+        {
+            Intent intent = new Intent(this, Profilepage.class);
+            this.startActivity (intent);
+            this.finishActivity (0);
+        }
 
 
     }

@@ -18,7 +18,12 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class splashscreen extends AppCompatActivity {
     public CountDownTimer myCountDown;
+    private FirebaseAuth mAuth;
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://imi-app-2a3ab-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference mDatabase = firebaseDatabase.getReference();
@@ -40,6 +46,7 @@ public class splashscreen extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_profile_picture_choose);
         setContentView(R.layout.activity_splashscreen);
+        mAuth = FirebaseAuth.getInstance();
         startTimer(3);
 
     }
@@ -58,6 +65,12 @@ public class splashscreen extends AppCompatActivity {
 
             public void onFinish(){
                 myCountDown.cancel();
+
+                SharedPreferences loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE);
+                String email = loginInfo.getString("email", "def");
+                String password = loginInfo.getString("password", "def");
+                signIn(email,password);
+
                 //SharedPreferences login = getSharedPreferences("logininfo", MODE_PRIVATE);
                 //String password = login.getString("password", "nopass");
                 SharedPreferences lastUserChatted = getSharedPreferences("lastUserChatted", MODE_PRIVATE);
@@ -130,5 +143,32 @@ public class splashscreen extends AppCompatActivity {
         builder.show();
 
         return builder.create();
+    }
+
+    private void signIn(String email, String password){
+        //use firebase method to sign in user
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, bring user to homepage with the signed-in user's information
+                            Log.d("create", "createUserWithEmail:success");
+                            Context context = getApplicationContext();
+                            Toast.makeText(context, "Log in success.", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(splashscreen.this, Signin.class);
+                            splashscreen.this.startActivity(i);
+
+                        }
+                        else {
+                            Context context = getApplicationContext();
+                            // If sign in fails, display a message to the user.
+                            if(!password.contentEquals("def")){
+                                Toast.makeText(context, "Email or Password is incorrect.", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }
+                });
     }
 }
