@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".MessagePart">
 
+    <View
+        android:id="@+id/divider14"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginBottom="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="@+id/rvMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <EditText
         android:id="@+id/messageText"
         android:layout_width="0dp"
@@ -17,6 +27,7 @@
         android:drawableStart="@drawable/ic_baseline_message_24"
         android:drawablePadding="12dp"
         android:ems="10"
+        android:hint="Send a message..."
         android:inputType="textPersonName"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
