@@ -9,11 +9,14 @@
 - Luo Yu Xuan (S10205205)
 <br>
 
-## Descrition of app
-imi is an anonymous and friendly messaging app where users can chat about their similar interests with other users and also discuss about trending topics in groups with other users. It's easy to use, friendly and reliable!
+## Description of app
+imi is an anonymous and friendly messaging app where users can chat about their similar interests with other users and also discuss about trending topics in groups with other users. Its a brand new social app. It's easy to use, friendly and reliable! imi has sleek and modern features, embedded with well-thought User Experence and User Interface.
 
 **Anonymous Private Messaging**
 > Have a private chat with users that have similar interests to you! Do not worry about sketchy and creepy users, we have sort that out. Your chats will be fun, fast and reliable.
+
+**Choose Interests**
+> Choose your own Interests and chat with people with the same interests! Fred Not, you will be able to change your interests, if you change your mind.
 
 **Group Threads**
 > Chat about the current topics and trends that is happenning right now! Discuss in groups and make friends with the same interests. You can even create your own thread and start a trend!
@@ -25,9 +28,10 @@ imi is an anonymous and friendly messaging app where users can chat about their 
 
 ## Roles and Contributions
 **Chua Jun Hong**
-- implemented sign in & sign up 
-- implemented profile page
-- implemented private messaging portion
+- Implemented sign in & sign up 
+- Implemented profile page
+- Implemented private messaging portion
+- Implemented Settings
 
 **Jarell Soh** 
 -
@@ -39,6 +43,9 @@ imi is an anonymous and friendly messaging app where users can chat about their 
 - Checking errors and debuging 
 
 ## Diagrams
+![Blank diagram](https://user-images.githubusercontent.com/73069909/127534746-25066c3a-fb13-4ff7-9605-feebd7d72234.png)
+![image](https://user-images.githubusercontent.com/73069909/127535080-3880fc2e-5763-4406-a998-19986ab49a61.png)
+
 
 
 ## Screenshots
