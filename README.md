@@ -43,7 +43,9 @@ imi is an anonymous and friendly messaging app where users can chat about their 
 - Checking errors and debuging 
 
 ## Diagrams
+***Class Diagram***
 ![Blank diagram](https://user-images.githubusercontent.com/73069909/127534746-25066c3a-fb13-4ff7-9605-feebd7d72234.png)
+***Messaging Part between two users, how it works***
 ![image](https://user-images.githubusercontent.com/73069909/127535080-3880fc2e-5763-4406-a998-19986ab49a61.png)
 
 
