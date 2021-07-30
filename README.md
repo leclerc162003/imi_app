@@ -5,7 +5,7 @@
 
 ## Developers
 - Chua Jun Hong (S10203330C)
-- Jarrell Soh (insert ID)
+- Jarrell Soh (S10205047D)
 - Luo Yu Xuan (S10205205)
 <br>
 
@@ -34,9 +34,9 @@ imi is an anonymous and friendly messaging app where users can chat about their 
 - Implemented Settings
 
 **Jarell Soh** 
--
--
--
+-Implemented Trending threads page
+-Implemented Trending group messaging
+-Edited to full screen view for all pages
 
 **Luo Yu Xuan**
 - Designed and updated UIs for all pages
