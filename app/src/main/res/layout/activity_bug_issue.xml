@@ -74,13 +74,13 @@
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:text="Report a bug/issue"
+        android:text="Report a bug"
         android:textColor="@color/black"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Report a bug/issue" />
+        tools:text="Report a bug" />
 
     <TextView
         android:id="@+id/textView13"
