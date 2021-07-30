@@ -44,16 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="417dp"
-        android:layout_height="77dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cyanblockbigger" />
+        app:layout_constraintTop_toBottomOf="@+id/pfpChat" />
 
     <TextView
         android:id="@+id/sendToUsername"
@@ -62,7 +53,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/pfpChat"
@@ -82,11 +73,20 @@
         android:id="@+id/pfpChat"
         android:layout_width="71dp"
         android:layout_height="56dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="@+id/imageView7"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/black_pfp" />
+
+    <View
+        android:id="@+id/divider15"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pfpChat" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
