@@ -41,6 +41,7 @@ imi is an anonymous and friendly messaging app where users can chat about their 
 **Luo Yu Xuan**
 - Designed and updated UIs for all pages
 - Checked errors and debuging 
+- Designed icons and drawables
 
 ## Diagrams
 ***Class Diagram***
