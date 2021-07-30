@@ -34,9 +34,9 @@ imi is an anonymous and friendly messaging app where users can chat about their 
 - Implemented Settings
 
 **Jarell Soh** 
--Implemented Trending threads page
--Implemented Trending group messaging
--Edited to full screen view for all pages
+- Implemented Trending threads page
+- Implemented Trending group messaging
+- Edited to full screen view for all pages
 
 **Luo Yu Xuan**
 - Designed and updated UIs for all pages
@@ -52,6 +52,9 @@ imi is an anonymous and friendly messaging app where users can chat about their 
 
 
 ## Screenshots
+![image](https://user-images.githubusercontent.com/73069909/127678233-83df7c1c-3001-4376-9972-9b912a95e2ad.png)
+![image](https://user-images.githubusercontent.com/73069909/127678263-aed78c76-ddec-4b1a-a329-c614208fbecd.png)
+
 
 ## User Guide
 ![image](https://user-images.githubusercontent.com/73069909/126830431-5ddfc04b-e241-43a6-b977-6542dab5e0ff.png)
