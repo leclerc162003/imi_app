@@ -39,8 +39,8 @@ imi is an anonymous and friendly messaging app where users can chat about their 
 -
 
 **Luo Yu Xuan**
-- Designing UIs for all pages
-- Checking errors and debuging 
+- Designed and updated UIs for all pages
+- Checked errors and debuging 
 
 ## Diagrams
 ***Class Diagram***
