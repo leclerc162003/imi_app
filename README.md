@@ -5,7 +5,7 @@
 
 ## Developers
 - Chua Jun Hong (S10203330C)
-- Jarrell Soh (insert ID)
+- Jarrell Soh (S10205047D)
 - Luo Yu Xuan (S10205205)
 <br>
 
@@ -28,15 +28,18 @@ imi is an anonymous and friendly messaging app where users can chat about their 
 
 ## Roles and Contributions
 **Chua Jun Hong**
-- Implemented sign in & sign up 
+- Implemented Firebase Realtime Database & Firebase Storage
+- Implemented sign in 
+- Implemented sign up
+- Implemented choose interests and update interests
 - Implemented profile page
 - Implemented private messaging portion
 - Implemented Settings
 
 **Jarell Soh** 
--
--
--
+- Implemented Trending threads page
+- Implemented Trending group messaging
+- Edited to full screen view for all pages
 
 **Luo Yu Xuan**
 - Designed and updated UIs for all pages
@@ -52,9 +55,18 @@ imi is an anonymous and friendly messaging app where users can chat about their 
 
 
 ## Screenshots
+![image](https://user-images.githubusercontent.com/73069909/127678233-83df7c1c-3001-4376-9972-9b912a95e2ad.png)
+![image](https://user-images.githubusercontent.com/73069909/127678263-aed78c76-ddec-4b1a-a329-c614208fbecd.png)
+
 
 ## User Guide
 ![image](https://user-images.githubusercontent.com/73069909/126830431-5ddfc04b-e241-43a6-b977-6542dab5e0ff.png)
+![image](https://user-images.githubusercontent.com/73069909/127683464-29d397e5-7a11-4bd2-9199-7df87ec07482.png)
+![image](https://user-images.githubusercontent.com/73069909/127683505-dfcb1feb-d8fd-498d-be36-5da945ddb46d.png)
+![image](https://user-images.githubusercontent.com/73069909/127683541-52e4a9cb-d3e4-4caa-a66d-6826d26a81f3.png)
+![image](https://user-images.githubusercontent.com/73069909/127683564-ba9bf185-0660-4261-8b2e-02f721957f55.png)
+
+
 
 ## Credits
 - Google Firebase (Realtime Database & Storage)
