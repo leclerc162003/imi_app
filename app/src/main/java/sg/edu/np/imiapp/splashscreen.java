@@ -79,7 +79,7 @@ public class splashscreen extends AppCompatActivity {
                 String pfp = lastUserChatted.getString("toPFP", "nouser");
                 Log.d("ID of last user chatted", UID);
 
-                if (isOnline() != true){
+                if (isOnline() == true){
                     displayMobileDataSettingsDialog( splashscreen.this);
                 }
                 else if (!UID.contentEquals("nouser")){
