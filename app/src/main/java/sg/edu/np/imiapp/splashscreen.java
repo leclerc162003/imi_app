@@ -66,6 +66,7 @@ public class splashscreen extends AppCompatActivity {
             public void onFinish(){
                 myCountDown.cancel();
 
+                //get the info of email and password from shared preferences and log in user
                 SharedPreferences loginInfo = getSharedPreferences("loginInfo", MODE_PRIVATE);
                 String email = loginInfo.getString("email", "def");
                 String password = loginInfo.getString("password", "def");
@@ -73,15 +74,20 @@ public class splashscreen extends AppCompatActivity {
 
                 //SharedPreferences login = getSharedPreferences("logininfo", MODE_PRIVATE);
                 //String password = login.getString("password", "nopass");
+
+
+                //get the data of the latest user chatted before the app was destroyed
                 SharedPreferences lastUserChatted = getSharedPreferences("lastUserChatted", MODE_PRIVATE);
                 String UID = lastUserChatted.getString("toID", "nouser");
                 String Name = lastUserChatted.getString("toNAME", "nouser");
                 String pfp = lastUserChatted.getString("toPFP", "nouser");
                 Log.d("ID of last user chatted", UID);
 
+                //check if user is connected to the internet
                 if (isOnline() == false){
                     displayMobileDataSettingsDialog( splashscreen.this);
                 }
+                //bring user to the last chatted user before the app was destroyed
                 else if (!UID.contentEquals("nouser")){
                     Log.d("IS IT SENDING IT", "SEND ITT");
                     Bundle extras = new Bundle();
@@ -94,6 +100,7 @@ public class splashscreen extends AppCompatActivity {
                     splashscreen.this.startActivity(i);
                     lastUserChatted.edit().clear().commit();
                 }
+                //bring user to sign in page
                 else {
                     Intent i = new Intent(splashscreen.this, Signin.class);
                     splashscreen.this.startActivity(i);

@@ -27,6 +27,8 @@ public class Settings extends AppCompatActivity {
         TextView bugReport = findViewById(R.id.BugIssue);
         TextView signOut = findViewById(R.id.SignOut);
         mAuth = FirebaseAuth.getInstance();
+
+        //directs user to change password activity
         changePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,6 +37,7 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+        //directs user to browser to the privacy policy page
         privacyPolicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +46,7 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+        //directs user to bug report page
         bugReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +55,7 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+        //directs user to sign out and clear shared pref
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

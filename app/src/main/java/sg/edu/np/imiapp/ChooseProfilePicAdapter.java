@@ -44,12 +44,15 @@ public class ChooseProfilePicAdapter extends RecyclerView.Adapter<ChooseProfileP
     @Override
     public void onBindViewHolder(@NonNull ChooseProfilePicViewHolder holder, int position) {
         String pic = pfpOptions.get(position);
+        //get image from database and use Glide to put the image into the ImageView
         storageReference = FirebaseStorage.getInstance().getReference();
         pathReference = storageReference.child("Default Images/" + pic);
         GlideApp.with(this.context)
                 .load(pathReference)
                 .into(holder.optionProfilePic);
 
+        // set radio button to check on its respective position and uncheck if it is uncheccked.
+        // on click, notify the itself(adapter) that the mCheckedPosition is changed.
         holder.radioButton.setOnCheckedChangeListener(null);
         holder.radioButton.setChecked(position == mCheckedPosition);
         holder.radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

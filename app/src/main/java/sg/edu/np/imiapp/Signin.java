@@ -170,6 +170,8 @@ public class Signin extends AppCompatActivity {
 //        String email = loginInfo.getString("email", "def");
 //        String password = loginInfo.getString("password", "def");
 //        signIn(email,password);
+
+        //if mAuth does have a user, skip this activity completely
         if (mAuth.getCurrentUser() != null)
         {
             Intent intent = new Intent(this, Profilepage.class);

@@ -40,15 +40,20 @@ public class Chats_Page extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_chatpage);
+        // using firebase to get the user uid
         mAuth = FirebaseAuth.getInstance();
         mAuth.getCurrentUser();
         currentuserID = mAuth.getUid();
         Log.d("Added user to list", mAuth.getUid());
+
+        //get intent from profile page
         Intent receive = getIntent();
         ArrayList<String> userInterests = receive.getStringArrayListExtra("userInterests");
         RecyclerView rv = findViewById(R.id.userRV);
+        // set noUsers visibility to 0
         noUsers = findViewById(R.id.noUSERS);
         noUsers.setVisibility(View.GONE);
+
         //if no users match display message
         if (getUsers().size() == 0){
             //add textview "try adding enw interests!!!"

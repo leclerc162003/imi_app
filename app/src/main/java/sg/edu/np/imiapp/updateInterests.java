@@ -42,6 +42,7 @@ public class updateInterests extends AppCompatActivity {
                     updateButton.setError("please choose an interest");
                 }
                 else{
+                    //update to database to child users, userUID and interests to update the list of interests
                     mDatabase.child("Users").child(userUID).child("interests").setValue(selectedInterests(getInterestsNAemoji(), adapter.getSelectedList()));
                     Intent i = new Intent(updateInterests.this, Profilepage.class);
                     updateInterests.this.startActivity(i);
@@ -68,6 +69,7 @@ public class updateInterests extends AppCompatActivity {
         interests.add(new Interests("Movies & TV shows"));
         return interests;
     }
+    //convert selected interests to string
     public ArrayList<String> selectedInterests(ArrayList<Interests> interests, ArrayList<Integer> selectedList){
         ArrayList<String> selectedInterests = new ArrayList<>();
         for (int i = 0; i < selectedList.size() ; i++){

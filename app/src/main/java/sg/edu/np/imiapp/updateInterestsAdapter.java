@@ -36,6 +36,7 @@ public class updateInterestsAdapter extends RecyclerView.Adapter<updateInterests
     public void onBindViewHolder(@NonNull updateInterestsViewHolder holder, int position) {
         Interests interest = interestsList.get(position);
         holder.updateIntCheck.setText(interest.getText());
+        //set those interests that are already selected to check true.
         for (int i = 0; i < userInterests.size();i++){
             if (userInterests.get(i).contentEquals(interest.getText())){
                 selectedList.add(position);
@@ -46,6 +47,7 @@ public class updateInterestsAdapter extends RecyclerView.Adapter<updateInterests
         holder.updateIntCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //check if interest is selected, if selected at it to selected list
                 interest.setSelected(!interest.isSelected());
                 if (isChecked){
                     selectedList.add(position);
@@ -54,10 +56,9 @@ public class updateInterestsAdapter extends RecyclerView.Adapter<updateInterests
 //                    if(interest.getText() == interestsList.get(selectedList.size()-1).getText()){
 //                        selectedList.remove(selectedList.size()-1);
 //                    }
+                    //check if current interest match with the interest it is removing in the list
                     for (int i = 0; i < selectedList.size();i++){
                         if(interest.getText() == interestsList.get(selectedList.get(i)).getText()){
-                            Log.d("cinterest", interest.getText());
-                            Log.d("interest", interestsList.get(selectedList.get(i)).getText());
                             selectedList.remove(i);
                         }
                     }

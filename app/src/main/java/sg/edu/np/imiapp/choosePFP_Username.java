@@ -79,7 +79,7 @@ public class choosePFP_Username extends AppCompatActivity {
         });
 
     }
-
+//populate list for the profile pictures
     public ArrayList<String> populateList(){
         ArrayList<String> pfpOptions = new ArrayList<>();
         pfpOptions.add("dpfp1.png");

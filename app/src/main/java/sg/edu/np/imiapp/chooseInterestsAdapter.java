@@ -38,12 +38,19 @@ public class chooseInterestsAdapter extends RecyclerView.Adapter<chooseInterests
         holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //set selected according to whether the interest is selected.
                 interest.setSelected(!interest.isSelected());
+                //if checked, add position to the list.
                 if (isChecked){
                     selectedList.add(position);
                 }
                 else {
-                    selectedList.remove(selectedList.size()-1);
+                    //check if interest removed match the current interest to remove
+                    for (int i = 0; i < selectedList.size();i++){
+                        if(interest.getText() == interestsList.get(selectedList.get(i)).getText()){
+                            selectedList.remove(i);
+                        }
+                    }
 
                 }
 

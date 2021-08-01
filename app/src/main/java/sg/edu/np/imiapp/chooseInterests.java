@@ -70,7 +70,7 @@ public class chooseInterests extends AppCompatActivity {
                 else{
                     createAccount(email, password, username, pfp,  adapter.getSelectedList());
                     Log.d("pfp", pfp);
-                    Log.d("interests", String.valueOf(selectedInterests(getInterestsNAemoji(), adapter.getSelectedList())));
+                    Log.d("interests", String.valueOf(selectedInterests(getInterests(), adapter.getSelectedList())));
                 }
             }
         });
@@ -93,39 +93,9 @@ public class chooseInterests extends AppCompatActivity {
         interests.add(new Interests("Music"));
         interests.add(new Interests("Studying"));
         interests.add(new Interests("Movies & TV shows"));
+        return interests;
+    }
 
-//        interests.add(new Interests("Gaming " + getEmoji(0x1F3AE)));
-//        interests.add(new Interests("Singing " + getEmoji(0x1F3A4)));
-//        interests.add(new Interests("Dancing " + getEmoji(0x1F483)));
-//        interests.add(new Interests("Cooking " + getEmoji(0x1F373)));
-//        interests.add(new Interests("K-Pop " + getEmoji(0x1F929)));
-//        interests.add(new Interests("K-Drama " + getEmoji(0x1F60F)));
-//        interests.add(new Interests("Netflix " + getEmoji(0x1F4FA)));
-//        interests.add(new Interests("Sleeping " + getEmoji(0x1F62A)));
-//        interests.add(new Interests("Sports " + getEmoji(0x1F93E)));
-//        interests.add(new Interests("Anime " + getEmoji(0x1F9DD)));
-//        interests.add(new Interests("Music " + getEmoji(0x1F3BC)));
-//        interests.add(new Interests("Studying " + getEmoji(0x1F4D6)));
-//        interests.add(new Interests("Movies & TV shows " + getEmoji(0x1F4FA)));
-        return interests;
-    }
-    public ArrayList<Interests> getInterestsNAemoji(){
-        ArrayList<Interests> interests = new ArrayList<>();
-        interests.add(new Interests("Gaming"));
-        interests.add(new Interests("Singing"));
-        interests.add(new Interests("Dancing"));
-        interests.add(new Interests("Cooking"));
-        interests.add(new Interests("K-Pop"));
-        interests.add(new Interests("K-Drama"));
-        interests.add(new Interests("Netflix"));
-        interests.add(new Interests("Sleeping"));
-        interests.add(new Interests("Sports"));
-        interests.add(new Interests("Anime"));
-        interests.add(new Interests("Music"));
-        interests.add(new Interests("Studying"));
-        interests.add(new Interests("Movies & TV shows"));
-        return interests;
-    }
 
     public String getEmoji(int uni){
         return new String(Character.toChars(uni));
@@ -155,7 +125,7 @@ public class chooseInterests extends AppCompatActivity {
                             user = mAuth.getCurrentUser();
                             //loadingBar.setVisibility(View.GONE);
                             //set username and save it to firebase
-                            saveUsername(user.getUid(), username, pfp ,selectedInterests(getInterestsNAemoji(), selected));
+                            saveUsername(user.getUid(), username, pfp ,selectedInterests(getInterests(), selected));
                             //directs user to sign in page
                             Intent i = new Intent(chooseInterests.this, Signin.class);
                             chooseInterests.this.startActivity(i);
