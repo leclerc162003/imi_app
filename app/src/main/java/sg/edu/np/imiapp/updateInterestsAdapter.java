@@ -51,7 +51,16 @@ public class updateInterestsAdapter extends RecyclerView.Adapter<updateInterests
                     selectedList.add(position);
                 }
                 else {
-                    selectedList.remove(selectedList.size()-1);
+//                    if(interest.getText() == interestsList.get(selectedList.size()-1).getText()){
+//                        selectedList.remove(selectedList.size()-1);
+//                    }
+                    for (int i = 0; i < selectedList.size();i++){
+                        if(interest.getText() == interestsList.get(selectedList.get(i)).getText()){
+                            Log.d("cinterest", interest.getText());
+                            Log.d("interest", interestsList.get(selectedList.get(i)).getText());
+                            selectedList.remove(i);
+                        }
+                    }
                 }
 
             }

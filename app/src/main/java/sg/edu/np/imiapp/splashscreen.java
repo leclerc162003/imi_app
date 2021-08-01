@@ -79,7 +79,7 @@ public class splashscreen extends AppCompatActivity {
                 String pfp = lastUserChatted.getString("toPFP", "nouser");
                 Log.d("ID of last user chatted", UID);
 
-                if (isOnline() == true){
+                if (isOnline() == false){
                     displayMobileDataSettingsDialog( splashscreen.this);
                 }
                 else if (!UID.contentEquals("nouser")){
@@ -117,10 +117,20 @@ public class splashscreen extends AppCompatActivity {
 
     public boolean isOnline() {
         //check if internet is available, return true if user not connected to internet
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
     }
 
     public AlertDialog displayMobileDataSettingsDialog(final Context context){
